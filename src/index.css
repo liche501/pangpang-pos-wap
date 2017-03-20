@@ -1,5 +1,19 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  /*font-family: sans-serif;*/
+}
+
+
+.my-drawer {
+  position: relative;
+  overflow: auto;
+}
+.my-drawer .am-drawer-sidebar {
+  background-color: #fff;
+  overflow: auto;
+}
+.my-drawer .am-drawer-sidebar .am-list {
+  width: 6rem;
+  padding: 0;
 }
