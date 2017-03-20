@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 
-class SpotSet extends Component {
+export default class ProductListContainer extends Component {
     render() {
         return (
             <div>
-                SpotSet
+                ProductList
             </div>
         );
     }
 }
-
-export default SpotSet;

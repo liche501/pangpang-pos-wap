@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
-import { SearchBar, WhiteSpace, WingBlank } from 'antd-mobile';
-import { Drawer, List, NavBar } from 'antd-mobile';
-import SpotSet from './SpotSet.js';
-import ProductList from './ProductList.js';
+// import { SearchBar, WhiteSpace, WingBlank } from 'antd-mobile';
+import { Drawer, List, NavBar, Icon } from 'antd-mobile';
+import SpotSet from './SpotSetContainer';
+import ProductList from './ProductListContainer';
 
 
 let tempMenuData = [
+    {},
     { menuName: "销售", menuCode: "productList" },
     { menuName: "卖场", menuCode: "spotSet" },
 ];
 
-class Home extends Component {
+export default class Home extends Component {
     state = {
         open: false,
         position: 'left',
-        selectMenuKey: "productList",
+        selectMenuCode: "productList",
     }
 
     onOpenChange = (...args) => {
         // console.log(args);
         this.setState({ open: !this.state.open });
     }
+    selectMenuClick = (menuCode) => {
+        // console.log(menuCode);
+        this.setState({ selectMenuCode: menuCode })
+        this.onOpenChange()
+    }
     render() {
         let content;
-        switch (this.state.selectMenuKey) {
+        switch (this.state.selectMenuCode) {
             case "productList":
                 content = <ProductList />
                 break;
@@ -37,15 +43,14 @@ class Home extends Component {
                 break;
         }
         const sidebar = (<List>
-            {[...Array(5).keys()].map((i, index) => {
+            {tempMenuData.map((i, index) => {
                 if (index === 0) {
-                    return (<List.Item key={index} style={{backgroundColor:"#22242f",color:"white",height:300}}
+                    return (<List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
                         multipleLine
-                    >标题111</List.Item>);
+                    >userInfo</List.Item>);
                 }
-                return (<List.Item key={index} onClick={_ => { console.log(index); this.onOpenChange() }}
-                    thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
-                >Category{index}</List.Item>);
+                return (<List.Item key={i.menuCode} onClick={(menuCode) => { this.selectMenuClick(i.menuCode) }}
+                >{i.menuName}</List.Item>);
             })}
         </List>);
 
@@ -57,7 +62,12 @@ class Home extends Component {
         };
         return (
             <div>
-                <NavBar iconName="ellipsis" onLeftClick={this.onOpenChange}>Basic</NavBar>
+                <NavBar iconName="koubei-o" mode="light" onLeftClick={this.onOpenChange} style={{ backgroundColor: "#3e9ce9", color: "white", }}
+                    rightContent={[
+                        <Icon key="0" type="search" style={{ marginRight: '0.32rem' }} onClick={_ => { alert("right") }} size="md" />,
+                    ]}
+                ><span style={{ color: "white", }}>NavBar</span></NavBar>
+
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
@@ -72,5 +82,3 @@ class Home extends Component {
         )
     }
 }
-
-export default Home;

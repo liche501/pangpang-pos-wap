@@ -8,8 +8,13 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var pxtorem = require('postcss-pxtorem');
 
 
+const svgDirs = [
+  require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+  // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 2. 自己私人的 svg 存放目录
+];
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -81,7 +86,7 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  
+
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
@@ -128,7 +133,7 @@ module.exports = {
         loader: 'babel',
         query: {
           "plugins": [["import", { "style": "css", "libraryName": "antd-mobile" }]],
-          
+
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
@@ -142,7 +147,13 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
+        loader: 'style!css?importLoaders=1!postcss',
+        postcss: [
+            pxtorem({
+              rootValue: 100,
+              propWhiteList: [],
+            })
+          ]
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
@@ -151,20 +162,25 @@ module.exports = {
         loader: 'json'
       },
       // "file" loader for svg
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'file',
+      //   query: {
+      //     name: 'static/media/[name].[hash:8].[ext]'
+      //   }
+      // },
       {
-        test: /\.svg$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
+        test: /\.(svg)$/i,
+        loader: 'svg-sprite',
+        include: svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
+      },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
   },
-  
+
   // We use PostCSS for autoprefixing only.
-  postcss: function() {
+  postcss: function () {
     return [
       autoprefixer({
         browsers: [

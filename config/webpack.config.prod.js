@@ -8,7 +8,13 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
+var pxtorem = require('postcss-pxtorem');
 
+
+const svgDirs = [
+  require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+  // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 2. 自己私人的 svg 存放目录
+];
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -147,7 +153,13 @@ module.exports = {
           'style',
           'css?importLoaders=1!postcss',
           extractTextPluginOptions
-        )
+        ),
+        postcss: [
+            pxtorem({
+              rootValue: 100,
+              propWhiteList: [],
+            })
+          ]
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
@@ -157,13 +169,18 @@ module.exports = {
         loader: 'json'
       },
       // "file" loader for svg
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'file',
+      //   query: {
+      //     name: 'static/media/[name].[hash:8].[ext]'
+      //   }
+      // }
       {
-        test: /\.svg$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
+        test: /\.(svg)$/i,
+        loader: 'svg-sprite',
+        include: svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
+      },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
