@@ -7,9 +7,9 @@ import LoginContainer from './LoginContainer';
 
 function validateAccount(nextState, replaceState) {
   if (nextState.location.pathname !== "/login" && !sessionStorage.getItem("account")) {
-    // replaceState('/login');
+    replaceState('/login');
   } else if (nextState.location.pathname === "/login" && sessionStorage.getItem("account")) {
-    // replaceState('/');
+    replaceState('/');
   }
 }
 

@@ -64,7 +64,7 @@ export default class Home extends Component {
             <div>
                 <NavBar iconName="koubei-o" mode="light" onLeftClick={this.onOpenChange} style={{ backgroundColor: "#3e9ce9", color: "white", }}
                     rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '0.32rem' }} onClick={_ => { alert("right") }} size="md" />,
+                        <Icon key="0" type="search" style={{ marginRight: '0rem' }} onClick={_ => { alert("right") }} size="md" />,
                     ]}
                 ><span style={{ color: "white", }}>NavBar</span></NavBar>
 
