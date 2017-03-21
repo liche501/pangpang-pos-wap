@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 import SpotSet from './SpotSetContainer';
 import ProductList from './ProductListContainer';
-
+import Navi from '../component/Navi.js';
 
 let tempMenuData = [
     {},
@@ -62,12 +62,7 @@ export default class Home extends Component {
         };
         return (
             <div>
-                <NavBar iconName="koubei-o" mode="light" onLeftClick={this.onOpenChange} style={{ backgroundColor: "#3e9ce9", color: "white", }}
-                    rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '0rem' }} onClick={_ => { alert("right") }} size="md" />,
-                    ]}
-                ><span style={{ color: "white", }}>NavBar</span></NavBar>
-
+                <Navi leftIcon="koubei-o"  onLeftClick={this.onOpenChange}  title="销售" />
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
