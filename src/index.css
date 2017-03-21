@@ -3,8 +3,41 @@ body {
   padding: 0;
   /*font-family: sans-serif;*/
 }
+body{
+  height:100%;
+  width:100%;
+  background: #fff;
+  font-family: sans-serif;
+}
+/** App **/
+#login-top{
+  height:200px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #42A2EA;
+  text-align: center;
+  margin-top:300px;
+  margin-bottom: 100px;
+}
+.login-txt{
+  padding-top: 400px;
+}
+#login-box{
+  width: 85%;
+  margin: 10px auto 30px;
+}
+.agree{
+  margin: 20px;
+}
+#login-bottom{
+  text-align: center;
+  color: #B6BABE;
+  padding-top: 200px;
+}
 
 
+
+/** Home **/
 .my-drawer {
   position: relative;
   overflow: auto;
@@ -16,4 +49,73 @@ body {
 .my-drawer .am-drawer-sidebar .am-list {
   width: 6rem;
   padding: 0;
+}
+/*#home-box{
+  background: #22242E;
+  color: #fff;
+}*/
+.home-img{
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 50%;
+  margin-left:10px;
+}
+.home-box{
+  width: 30%;
+  margin: 10px auto;
+}
+.home-top{
+  width: 200px;
+  margin: 0 auto;
+}
+#home-bottom{
+  margin-top: 361px;
+}
+.home-bottom{
+  width: 50px !important;
+  height: 50px !important;
+  margin-right: 30px;
+}
+.home-txt{
+  font-size: 35px;
+}
+
+
+/** Spot **/
+#spot > p{
+  width: 95%;
+  margin: 10px auto;
+  border-bottom: 1px solid #F5F5F5;
+  font-size: 40px;
+  color: #000;
+  font-weight: bold;
+  line-height: 2;
+}
+a:hover{
+  color:#42A2EA !important;
+}
+
+
+/** ProductList **/
+.row {
+  padding: 0 0.3rem;
+  background-color: white;
+}
+.row-title {
+  height: 1rem;
+  line-height: 1rem;
+  color: #888;
+  font-size: 0.36rem;
+  border-bottom: 1px solid #F6F6F6;
+}
+.row-text {
+  display: inline-block;
+  font-size: 0.32rem;
+  line-height: 1;
+}
+.list-view-section-body{
+  border-bottom: 12px solid #f6f6f6;
+}
+.am-drawer-content{
+  padding-top: 0 !important;
 }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 import SpotSet from './SpotSetContainer';
 import ProductList from './ProductListContainer';
+import imgMD from '../../public/MD.jpg';
 
 
 let tempMenuData = [
@@ -47,9 +48,14 @@ export default class Home extends Component {
                 if (index === 0) {
                     return (<List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
                         multipleLine
-                    >userInfo</List.Item>);
+                    >
+                        <div className="home-box">
+                            <img className="home-img" src={imgMD}/>
+                            <p style={{color:"#fff",margin:"10px 16px"}}>userInfo</p>
+                        </div>
+                    </List.Item>);
                 }
-                return (<List.Item key={i.menuCode} onClick={(menuCode) => { this.selectMenuClick(i.menuCode) }}
+                return (<List.Item style={{backgroundColor:"22242E",color:"#fff"}} key={i.menuCode} onClick={(menuCode) => { this.selectMenuClick(i.menuCode) }}
                 >{i.menuName}</List.Item>);
             })}
         </List>);
