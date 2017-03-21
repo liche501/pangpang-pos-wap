@@ -99,7 +99,7 @@ export default class ProductListContainer extends Component {
         if (this.state.isLoading && !this.state.hasMore) {
             return;
         }
-        console.log('reach end', event);
+        // console.log('reach end', event);
         this.setState({ isLoading: true });
         setTimeout(() => {
             this.genData(++pageIndex);
@@ -128,6 +128,7 @@ export default class ProductListContainer extends Component {
                 <div key={rowID} className="row">
                     <div style={{ display: 'flex', padding: '0.3rem 0' }}>
                         <table className="row-text">
+                            <tbody>
                             <tr>
                                 <td>
                                     <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={obj.img} />
@@ -144,6 +145,7 @@ export default class ProductListContainer extends Component {
                                     <p style={{ color: "#f00" }}>￥284.05</p>
                                 </td>
                             </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -175,7 +177,7 @@ export default class ProductListContainer extends Component {
                         pageSize={4}
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
-                        onScroll={() => { console.log('scroll'); } }
+                        onScroll={() => {  } }
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
                         />
