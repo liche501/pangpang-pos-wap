@@ -4,7 +4,7 @@ import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 import SpotSet from './SpotSetContainer';
 import ProductList from './ProductListContainer';
 import imgMD from '../../public/MD.jpg';
-
+import Navi from '../component/Navi.js';
 
 let tempMenuData = [
     {},
@@ -17,16 +17,17 @@ export default class Home extends Component {
         open: false,
         position: 'left',
         selectMenuCode: "productList",
+        menuName: "销售",
     }
 
     onOpenChange = (...args) => {
         // console.log(args);
         this.setState({ open: !this.state.open });
     }
-    selectMenuClick = (menuCode) => {
-        // console.log(menuCode);
-        this.setState({ selectMenuCode: menuCode })
-        this.onOpenChange()
+    selectMenuClick = (menuCode, menuName) => {
+        console.log(menuCode, menuName);
+        this.setState({ selectMenuCode: menuCode, menuName: menuName });
+        this.onOpenChange();
     }
     render() {
         let content;
@@ -43,22 +44,29 @@ export default class Home extends Component {
             default:
                 break;
         }
-        const sidebar = (<List>
-            {tempMenuData.map((i, index) => {
-                if (index === 0) {
-                    return (<List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
-                        multipleLine
-                    >
-                        <div className="home-box">
-                            <img className="home-img" src={imgMD}/>
-                            <p style={{color:"#fff",margin:"10px 16px"}}>userInfo</p>
-                        </div>
-                    </List.Item>);
-                }
-                return (<List.Item style={{backgroundColor:"22242E",color:"#fff"}} key={i.menuCode} onClick={(menuCode) => { this.selectMenuClick(i.menuCode) }}
-                >{i.menuName}</List.Item>);
-            })}
-        </List>);
+
+        const sidebar = (
+            <List>
+                {tempMenuData.map((menu, index) => {
+                    if (index === 0) {
+                        return (
+                            <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
+                                multipleLine
+                            >
+                            <div className="home-box">
+                                <img className="home-img" src={imgMD}/>
+                                <p style={{color:"#fff",margin:"10px 16px"}}>userInfo</p>
+                            </div>
+                            </List.Item>
+                        );
+                    }
+                    return (
+                        <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) }}
+                        >{menu.menuName}</List.Item>
+                    );
+                })}
+            </List>
+        );
 
         const drawerProps = {
             open: this.state.open,
@@ -68,12 +76,7 @@ export default class Home extends Component {
         };
         return (
             <div>
-                <NavBar iconName="koubei-o" mode="light" onLeftClick={this.onOpenChange} style={{ backgroundColor: "#3e9ce9", color: "white", }}
-                    rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '0rem' }} onClick={_ => { alert("right") }} size="md" />,
-                    ]}
-                ><span style={{ color: "white", }}>NavBar</span></NavBar>
-
+                <Navi leftIcon="koubei-o" onLeftClick={this.onOpenChange} title={this.state.menuName} />
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
@@ -81,7 +84,7 @@ export default class Home extends Component {
                     dragHandleStyle={{ display: 'none' }}
                     contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                     {...drawerProps}
-                >
+                    >
                     {content}
                 </Drawer>
             </div>
