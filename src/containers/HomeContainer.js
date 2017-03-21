@@ -16,16 +16,17 @@ export default class Home extends Component {
         open: false,
         position: 'left',
         selectMenuCode: "productList",
+        menuName: "销售",
     }
 
     onOpenChange = (...args) => {
         // console.log(args);
         this.setState({ open: !this.state.open });
     }
-    selectMenuClick = (menuCode) => {
-        // console.log(menuCode);
-        this.setState({ selectMenuCode: menuCode })
-        this.onOpenChange()
+    selectMenuClick = (menuCode, menuName) => {
+        console.log(menuCode, menuName);
+        this.setState({ selectMenuCode: menuCode, menuName: menuName });
+        this.onOpenChange();
     }
     render() {
         let content;
@@ -42,17 +43,23 @@ export default class Home extends Component {
             default:
                 break;
         }
-        const sidebar = (<List>
-            {tempMenuData.map((i, index) => {
-                if (index === 0) {
-                    return (<List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
-                        multipleLine
-                    >userInfo</List.Item>);
-                }
-                return (<List.Item key={i.menuCode} onClick={(menuCode) => { this.selectMenuClick(i.menuCode) }}
-                >{i.menuName}</List.Item>);
-            })}
-        </List>);
+        const sidebar = (
+            <List>
+                {tempMenuData.map((menu, index) => {
+                    if (index === 0) {
+                        return (
+                            <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
+                                multipleLine
+                            >userInfo</List.Item>
+                        );
+                    }
+                    return (
+                        <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) }}
+                        >{menu.menuName}</List.Item>
+                    );
+                })}
+            </List>
+        );
 
         const drawerProps = {
             open: this.state.open,
@@ -62,7 +69,7 @@ export default class Home extends Component {
         };
         return (
             <div>
-                <Navi leftIcon="koubei-o"  onLeftClick={this.onOpenChange}  title="销售" />
+                <Navi leftIcon="koubei-o" onLeftClick={this.onOpenChange} title={this.state.menuName} />
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
