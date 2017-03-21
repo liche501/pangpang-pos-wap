@@ -62,7 +62,9 @@ export default class Home extends Component {
                     }
                     return (
                         <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) }}
-                        >{menu.menuName}</List.Item>
+                        >
+                            <div style={{backgroundColor:'#22242E',color:"#fff"}}>{menu.menuName}</div>
+                        </List.Item>
                     );
                 })}
             </List>

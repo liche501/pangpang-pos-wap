@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import HomeContainer from './HomeContainer';
 import LoginContainer from './LoginContainer';
+import BasketListContainer from './BasketListContainer';
 
 
 
@@ -20,7 +21,7 @@ export default class App extends Component {
       <Router history={hashHistory} >
         <Route path='/' component={HomeContainer} onEnter={validateAccount}>
         </Route>
-
+        <Route path='/basketlist' component={BasketListContainer}/>
         <Route path='/login' component={LoginContainer} onEnter={validateAccount}>
         </Route>
       </Router>

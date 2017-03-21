@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchBar, Button, WhiteSpace, List, ListView } from 'antd-mobile';
+// import BasketList from './BasketListContainer.js';
 import imgMD from '../../public/MD.jpg';
 
 function MyBody(props) {
@@ -83,6 +84,11 @@ export default class ProductListContainer extends Component {
             dataSource: dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
             isLoading: true,
         };
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        window.location = '/#/basketlist';
     }
     componentDidMount() {
         setTimeout(() => {
@@ -153,7 +159,7 @@ export default class ProductListContainer extends Component {
         return (
             <div>
                 <SearchBar placeholder="搜索" autoFocus />
-                <Item extra="内容内容" arrow="horizontal" onClick={() => { } }>
+                <Item style={{backgroundColor:"#fff"}} extra="内容内容" arrow="horizontal" onClick={ this.handleClick }>
                     <img className="product-img" src={imgMD} />
                 </Item>
                 <div style={{ margin: '0 auto', width: '96%' }}>
@@ -178,7 +184,7 @@ export default class ProductListContainer extends Component {
                         onScroll={() => { console.log('scroll'); } }
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
-                        />
+                    />
                 </div>
             </div>
         );
