@@ -85,10 +85,14 @@ export default class ProductListContainer extends Component {
             isLoading: true,
         };
         this.handleClick = this.handleClick.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
     handleClick() {
         window.location = '/#/basketlist';
+    }
+    handleOnClick() {
+        window.location = '/#/paylist';
     }
     componentDidMount() {
         setTimeout(() => {
@@ -133,7 +137,7 @@ export default class ProductListContainer extends Component {
             return (
                 <div key={rowID} className="row">
                     <div style={{ display: 'flex', padding: '0.3rem 0' }}>
-                        <table className="row-text">
+                        <table className="row-text" onClick={this.handleOnClick}>
                             <tr>
                                 <td>
                                     <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={obj.img} />
