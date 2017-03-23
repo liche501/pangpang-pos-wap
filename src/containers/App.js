@@ -21,12 +21,12 @@ export default class App extends Component {
   render() {
     return (
       <Router history={hashHistory} >
-        <Route path='/' component={HomeContainer} onEnter={validateAccount}>
+        <Route path='/' component={HomeContainer} onEnter={validateAccount} >
         </Route>
-        <Route path='/basketlist' component={BasketListContainer}/>
-        <Route path='/product-detail' component={ProductDetailContainer}/>
-        <Route path='/paylist' component={PayContainer}/>
-        <Route path='/login' component={LoginContainer} onEnter={validateAccount}>
+        <Route path='/basketlist' component={BasketListContainer} onEnter={validateAccount} />
+        <Route path='/product-detail' component={ProductDetailContainer} onEnter={validateAccount} />
+        <Route path='/paylist' component={PayContainer} onEnter={validateAccount} />
+        <Route path='/login' component={LoginContainer} onEnter={validateAccount} >
         </Route>
       </Router>
     );

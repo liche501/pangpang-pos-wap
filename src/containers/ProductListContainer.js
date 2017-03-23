@@ -3,6 +3,7 @@ import { SearchBar, List, ListView } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 // import cartAPI from '../api/cart.js';
 import productAPI from '../api/product.js';
+import cartAPI from '../api/cart.js';
 import { Router, Route, hashHistory } from 'react-router';
 
 
@@ -26,14 +27,36 @@ export default class ProductListContainer extends Component {
         super(props);
         const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         this.state = {
+            cartId:0,
             dataSource: dataSource.cloneWithRows([]),
             isLoading: true,
             hasMore:true,
             searchKey:"EEAB7",
         };
     }
+    
+    componentWillMount() {
+        this.initCard();
+    }
+    
     componentDidMount() {
         this.searchProducts();
+    }
+    initCard = async () => {
+        let cartId = sessionStorage.getItem("cartId");
+        console.log(cartId)
+        if (cartId) {
+            this.setState({ cartId: Number(cartId) });
+        } else {
+            await cartAPI.createCart().then((res) => {
+                sessionStorage.setItem("cartId", Number(res.result.id));
+            })
+        }
+
+    }
+    // 查询购物车，重新计算价格，数量
+    refreshCartData = (cartId) => {
+        this.props.getCartById(cartId);
     }
     searchProducts= ()=>{        
         productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
@@ -150,14 +173,14 @@ export default class ProductListContainer extends Component {
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={{ paddingTop: 10, textAlign: 'center' }}>
-                            {this.state.isLoading ? '加载中...' : '加载完毕'}
+                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : '加载完毕'):"没有数据"}
                         </div>}
                         renderBodyComponent={() => <MyBody />}
                         renderRow={this._renderRow}
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',
