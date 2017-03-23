@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { SearchBar, Button, WhiteSpace, List, ListView } from 'antd-mobile';
+import { SearchBar, List, ListView } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
-import cartAPI from '../api/cart.js';
+// import cartAPI from '../api/cart.js';
 import productAPI from '../api/product.js';
 
 
@@ -29,13 +29,14 @@ export default class ProductListContainer extends Component {
             dataSource: dataSource.cloneWithRows([]),
             isLoading: true,
             hasMore:true,
+            searchKey:"EEAB7",
         };
     }
     componentDidMount() {
         this.searchProducts();
     }
-    searchProducts= ()=>{
-        productAPI.searchSkus("EEAB7",pageSize * pageNum,pageSize).then((res)=>{
+    searchProducts= ()=>{        
+        productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
             console.log(res.result)
             if(res.success && res.result.items !== null){
                 this.setState({
@@ -52,8 +53,7 @@ export default class ProductListContainer extends Component {
     }
     searchMoreProducts =  () => {
         pageNum++;
-        productAPI.searchSkus("EEAB7",pageSize * pageNum,pageSize).then((res)=>{
-            console.log(res.result.totalCount)
+        productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows([...this.state.dataSource._dataBlob.s1, ...res.result.items]),
@@ -68,12 +68,11 @@ export default class ProductListContainer extends Component {
         })
     }
     onEndReached = (event) => {
-        // load new data
         // hasMore: from backend data, indicates whether it is the last page, here is false
         if (this.state.isLoading && !this.state.hasMore) {
             return;
         }
-        console.log('reach end', event);
+        // console.log('reach end', event);
         this.setState({ isLoading: true });
         setTimeout(() => {
             this.searchMoreProducts();
@@ -96,12 +95,12 @@ export default class ProductListContainer extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" />
+                                    <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
                                 </td>
                                 <td>
                                     <div style={{ marginBottom: '0.16rem', width: '80%', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
-                                        <img style={{ width: "50px", height: "50px" }} src={imgMD} />
+                                        <img style={{ width: "50px", height: "50px" }} src={imgMD} alt="" />
                                         <span style={{ position: "relative", marginLeft: "20px", bottom: "12px" }}>9.5折</span>
                                     </div>
                                 </td>
@@ -116,13 +115,32 @@ export default class ProductListContainer extends Component {
             </div>
         );
     }
+    _searchKeyChange = (e) => {
+        this.setState({searchKey:e});
+    }
+    _searchKeySubmit = async() => {
+        pageNum = 0;
+        await this.setState({
+            dataSource: this.state.dataSource.cloneWithRows([]),
+            isLoading: false,
+        });    
+        this.searchProducts()
+    }
+    _searchKeyClear = () => {
+        console.log(11)
+        this.setState({searchKey:""});
+    }
     render() {
 
         return (
             <div>
-                <SearchBar placeholder="搜索" autoFocus />
+                <SearchBar placeholder="搜索" value={this.state.searchKey}  
+                    onSubmit={this._searchKeySubmit}
+                    onChange={this._searchKeyChange} 
+                    onClear={this._searchKeyClear}
+                />
                 <Item style={{backgroundColor:'#fff', borderBottom:'1px solid #eee'}} extra="内容内容" arrow="horizontal" onClick={() => { }}>
-                    <img className="product-img" src={imgMD} />
+                    <img className="product-img" src={imgMD} alt="" />
                 </Item>
                 <div style={{ margin: '0 auto', width: '96%' }}>
                      <ListView ref="lv"
@@ -143,7 +161,6 @@ export default class ProductListContainer extends Component {
                         pageSize={10}
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
-                        onScroll={() => { }}
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
                     />
