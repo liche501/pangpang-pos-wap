@@ -4,7 +4,6 @@ import HomeContainer from './HomeContainer';
 import LoginContainer from './LoginContainer';
 import BasketListContainer from './BasketListContainer';
 import PayContainer from './PayContainer';
-import SettingContainer from './SettingContainer';
 
 
 
@@ -25,7 +24,6 @@ export default class App extends Component {
         </Route>
         <Route path='/basketlist' component={BasketListContainer}/>
         <Route path='/paylist' component={PayContainer}/>
-        <Route path='/setting' component={SettingContainer}/>
         <Route path='/login' component={LoginContainer} onEnter={validateAccount}>
         </Route>
       </Router>

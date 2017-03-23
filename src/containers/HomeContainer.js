@@ -29,9 +29,6 @@ export default class Home extends Component {
         this.setState({ selectMenuCode: menuCode, menuName: menuName });
         this.onOpenChange();
     }
-    handleClick() {
-        window.location = '/#/setting';
-    }
     render() {
         let content;
         switch (this.state.selectMenuCode) {
@@ -56,7 +53,7 @@ export default class Home extends Component {
                             <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
                                 multipleLine
                             >
-                            <div className="home-box" onClick={()=>this.handleClick()}>
+                            <div className="home-box">
                                 <img className="home-img" src={imgMD}/>
                                 <p style={{color:"#fff",margin:"10px 16px"}}>userInfo</p>
                             </div>
