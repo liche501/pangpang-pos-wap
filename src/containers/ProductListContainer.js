@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { SearchBar, Button, WhiteSpace, List, ListView } from 'antd-mobile';
-// import BasketList from './BasketListContainer.js';
 import imgMD from '../../public/MD.jpg';
+import cartAPI from '../api/cart.js';
+import productAPI from '../api/product.js';
+
+
 
 function MyBody(props) {
     return (
@@ -12,96 +15,57 @@ function MyBody(props) {
     );
 }
 
-const data = [
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-        des: '刺绣圆点连衣裙 PCVIPALESDKSNEKF',
-    },
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-        des: '刺绣圆点连衣裙 PCVIPALESDKSNEKF',
-    },
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-        des: '刺绣圆点连衣裙 PCVIPALESDKSNEKF',
-    },
-];
-let index = data.length - 1;
-
-const NUM_SECTIONS = 5;
-const NUM_ROWS_PER_SECTION = 5;
-let pageIndex = 0;
+var pageNum = 0;
+//每页显示数据的条数  
+const pageSize = 10;
 
 const Item = List.Item;
 
 export default class ProductListContainer extends Component {
-    state = {
-        value: '服装',
-        focused: false,
-    };
-    onChange = (value) => {
-        this.setState({ value });
-    };
-    clear = () => {
-        this.setState({ value: '' });
-    };
-
     constructor(props) {
         super(props);
-        const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
-        const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
-
-        const dataSource = new ListView.DataSource({
-            getRowData,
-            getSectionHeaderData: getSectionData,
-            rowHasChanged: (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-        });
-
-        this.dataBlob = {};
-        this.sectionIDs = [];
-        this.rowIDs = [];
-        this.genData = (pIndex = 0) => {
-            for (let i = 0; i < NUM_SECTIONS; i++) {
-                const ii = (pIndex * NUM_SECTIONS) + i;
-                const sectionName = `Section ${ii}`;
-                this.sectionIDs.push(sectionName);
-                this.dataBlob[sectionName] = sectionName;
-                this.rowIDs[ii] = [];
-
-                for (let jj = 0; jj < NUM_ROWS_PER_SECTION; jj++) {
-                    const rowName = `S${ii}, R${jj}`;
-                    this.rowIDs[ii].push(rowName);
-                    this.dataBlob[rowName] = rowName;
-                }
-            }
-            // new object ref
-            this.sectionIDs = [].concat(this.sectionIDs);
-            this.rowIDs = [].concat(this.rowIDs);
-        };
-
+        const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         this.state = {
-            dataSource: dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
+            dataSource: dataSource.cloneWithRows([]),
             isLoading: true,
+            hasMore:true,
         };
-        this.handleClick = this.handleClick.bind(this);
-        this.handleOnClick = this.handleOnClick.bind(this);
-    }
-
-    handleClick() {
-        window.location = '/#/basketlist';
-    }
-    handleOnClick() {
-        window.location = '/#/paylist';
     }
     componentDidMount() {
-        setTimeout(() => {
-            this.genData();
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
-                isLoading: false,
-            });
-        }, 600);
+        this.searchProducts();
+    }
+    searchProducts= ()=>{
+        productAPI.searchSkus("EEAB7",pageSize * pageNum,pageSize).then((res)=>{
+            console.log(res.result)
+            if(res.success && res.result.items !== null){
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(res.result.items),
+                    isLoading: false,
+                });
+                if (res.result.items.length<pageSize){
+                    this.setState({hasMore:false,isLoading:false})
+                }
+            }else{
+                    this.setState({hasMore:false,isLoading:false})
+            }
+        })
+    }
+    searchMoreProducts =  () => {
+        pageNum++;
+        productAPI.searchSkus("EEAB7",pageSize * pageNum,pageSize).then((res)=>{
+            console.log(res.result.totalCount)
+            if(res.success && res.result.items !== null){
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows([...this.state.dataSource._dataBlob.s1, ...res.result.items]),
+                    isLoading: false,
+                });
+                if (res.result.items.length<pageSize){
+                    this.setState({hasMore:false,isLoading:false})
+                }
+            }else{
+                    this.setState({hasMore:false,isLoading:false})
+            }            
+        })
     }
     onEndReached = (event) => {
         // load new data
@@ -112,83 +76,77 @@ export default class ProductListContainer extends Component {
         console.log('reach end', event);
         this.setState({ isLoading: true });
         setTimeout(() => {
-            this.genData(++pageIndex);
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
-                isLoading: false,
-            });
-        }, 1000);
+            this.searchMoreProducts();
+        }, 500);
     }
-    render() {
-        const separator = (sectionID, rowID) => (
-            <div key={`${sectionID}-${rowID}`} style={{
-                backgroundColor: '#F5F5F9',
-                height: 8,
-                borderTop: '1px solid #ECECED',
-                borderBottom: '1px solid #ECECED',
-            }}
-                />
-        );
-        const row = (rowData, sectionID, rowID) => {
-            if (index < 0) {
-                index = data.length - 1;
-            }
-            const obj = data[index--];
-            return (
-                <div key={rowID} className="row">
-                    <div style={{ display: 'flex', padding: '0.3rem 0' }}>
-                        <table className="row-text" onClick={this.handleOnClick}>
+    separator = (sectionID, rowID) => (
+        <div key={`${sectionID}-${rowID}`} style={{
+            backgroundColor: '#F5F5F9',
+            height: 8,
+            borderTop: '1px solid #ECECED',
+            borderBottom: '1px solid #ECECED',
+        }}
+        />
+    )
+    _renderRow = (rowData, sectionID, rowID) => {
+        return (
+            <div key={rowID} className="row">
+                <div style={{ display: 'flex', padding: '0.3rem 0' }}>
+                    <table className="row-text">
+                        <tbody>
                             <tr>
                                 <td>
-                                    <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={obj.img} />
+                                    <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" />
                                 </td>
                                 <td>
-                                    <div style={{ marginBottom: '0.16rem', width: '80%',textAlign:"left" }}>{obj.des}</div>
-                                    <div style={{textAlign:'left'}}>
+                                    <div style={{ marginBottom: '0.16rem', width: '80%', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
+                                    <div style={{ textAlign: 'left' }}>
                                         <img style={{ width: "50px", height: "50px" }} src={imgMD} />
                                         <span style={{ position: "relative", marginLeft: "20px", bottom: "12px" }}>9.5折</span>
                                     </div>
                                 </td>
                                 <td style={{ width: "150px", textAlign: "left" }}>
-                                    <p style={{ textDecoration: "line-through" }}>￥299.00</p>
-                                    <p style={{ color: "#f00" }}>￥284.05</p>
+                                    <p style={{ textDecoration: "line-through" }}>￥{rowData.listPrice}</p>
+                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-            );
-        };
+            </div>
+        );
+    }
+    render() {
 
         return (
             <div>
                 <SearchBar placeholder="搜索" autoFocus />
-                <Item style={{backgroundColor:"#fff"}} extra="内容内容" arrow="horizontal" onClick={ this.handleClick }>
+                <Item extra="内容内容" arrow="horizontal" onClick={() => { }}>
                     <img className="product-img" src={imgMD} />
                 </Item>
                 <div style={{ margin: '0 auto', width: '96%' }}>
-                    <ListView ref="lv"
-                        dataSource={this.state.dataSource}
-                        renderFooter={() => <div style={{ padding: 30, textAlign: 'center' }}>
-                            {this.state.isLoading ? '加载中...' : '加载完毕'}
-                        </div>}
-                        renderBodyComponent={() => <MyBody />}
-                        renderRow={row}
-                        renderSeparator={separator}
-                        className="fortest"
-                        style={{
-                            height: document.documentElement.clientHeight * 3 / 4,
-                            overflow: 'auto',
-                            border: '1px solid #ddd',
-                            margin: '0.1rem 0',
-                        }}
-                        pageSize={4}
-                        scrollRenderAheadDistance={500}
-                        scrollEventThrottle={20}
-                        onScroll={() => { console.log('scroll'); } }
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                    />
+                     <ListView ref="lv"
+                        dataSource={this.state.dataSource}
+                        renderFooter={() => <div style={{ paddingTop: 10, textAlign: 'center' }}>
+                            {this.state.isLoading ? '加载中...' : '加载完毕'}
+                        </div>}
+                        renderBodyComponent={() => <MyBody />}
+                        renderRow={this._renderRow}
+                        renderSeparator={this.separator}
+                        className="fortest"
+                        style={{
+                            height: document.documentElement.clientHeight - 90 - 88,
+                            overflow: 'auto',
+                            border: '1px solid #ddd',
+                            margin: '0.1rem 0',
+                        }}
+                        pageSize={10}
+                        scrollRenderAheadDistance={500}
+                        scrollEventThrottle={20}
+                        onScroll={() => { }}
+                        onEndReached={this.onEndReached}
+                        onEndReachedThreshold={10}
+                    />
                 </div>
             </div>
         );
