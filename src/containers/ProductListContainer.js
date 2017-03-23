@@ -94,19 +94,21 @@ export default class ProductListContainer extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td>
-                                    <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
+                                <td style={{width:'5%'}}>
+                                    <div style={{ height: '1.28rem', width: "1.28rem", marginRight: '0.3rem' }}>
+                                        <img style={{ height: '1.28rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
+                                    </div>
                                 </td>
-                                <td>
-                                    <div style={{ marginBottom: '0.16rem', width: '80%', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
+                                <td style={{width:'45%', overflow:'hidden'}}>
+                                    <div style={{ marginBottom: '0.16rem', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         <img style={{ width: "50px", height: "50px" }} src={imgMD} alt="" />
                                         <span style={{ position: "relative", marginLeft: "20px", bottom: "12px" }}>9.5折</span>
                                     </div>
                                 </td>
-                                <td style={{ width: "150px", textAlign: "left" }}>
-                                    <p style={{ textDecoration: "line-through" }}>￥{rowData.listPrice}</p>
-                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                                <td style={{ width: "10%", textAlign:'center' }}>
+                                        <p style={{ textDecoration: "line-through" }}>￥{rowData.listPrice}</p>
+                                        <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                                 </td>
                             </tr>
                         </tbody>
