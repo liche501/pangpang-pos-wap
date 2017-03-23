@@ -124,4 +124,12 @@ a:hover{
 }
 
 
-/** BasketCell **/
+/** ProductDetailContainer **/
+.inline {
+  width: 1.6rem!important;
+  margin: 0.12rem 0.12rem 0.12rem 0;
+}
+.inline-box{
+  width: 1.2rem!important;
+  margin: 0.12rem 0.12rem 0.12rem 0;
+}

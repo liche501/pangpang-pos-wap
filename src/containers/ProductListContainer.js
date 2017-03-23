@@ -121,7 +121,7 @@ export default class ProductListContainer extends Component {
         return (
             <div>
                 <SearchBar placeholder="搜索" autoFocus />
-                <Item extra="内容内容" arrow="horizontal" onClick={() => { }}>
+                <Item style={{backgroundColor:'#fff', borderBottom:'1px solid #eee'}} extra="内容内容" arrow="horizontal" onClick={() => { }}>
                     <img className="product-img" src={imgMD} />
                 </Item>
                 <div style={{ margin: '0 auto', width: '96%' }}>

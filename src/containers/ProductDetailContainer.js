@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popup, List, Button, Icon, Stepper } from 'antd-mobile';
+import { Popup, List, Button, Icon, Stepper, Flex, WhiteSpace } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
@@ -10,7 +10,21 @@ if (isIPhone) {
         onTouchStart: e => e.preventDefault(),
     };
 }
-
+const PlaceHolder = props => (
+    <div {...props}>
+        <div style={{marginRight:'0.1rem'}}>
+            <Button size='small'>白色</Button>
+        </div>
+    </div>
+);
+const PlaceHolder1 = props => (
+    <div {...props}>
+        <div style={{marginBottom:'-0.1rem', marginRight:'0.2rem'}}>
+            <Button size='small'>XL</Button>
+            <p class='size' style={{fontSize:'0.3rem' ,textAlign:'center', marginTop:'0.1rem', marginBottom:'0.1rem'}}>150/76</p>
+        </div>
+    </div>
+);
 
 export default class ProductDetailContainer extends Component {
     constructor(props) {
@@ -31,12 +45,12 @@ export default class ProductDetailContainer extends Component {
                         }}
                         onClick={() => this.onClose('cancel')}
                         >
-                        <Icon type="cross" />
+                        <Icon type="cross" onClick={() => this.onClose('cancel')} />
                     </span>
                 </div>)}
                 className="popup-list"
                 >
-                <div style={{ margin: '0.2rem auto' }}>
+                <div style={{ margin: '0 auto' }}>
                     <table style={{ width: '92%', margin: '0 auto' }}>
                         <tbody>
                             <tr>
@@ -58,75 +72,39 @@ export default class ProductDetailContainer extends Component {
                 </div>
                 <List>
                     <div style={{ margin: '0.2rem auto' }}>
-                        <table style={{ width: '92%', margin: '0 auto' }}>
-                            <tbody>
-                                <tr>
-                                    <td colspan='4'>尺码</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Button className='btn' disabled size='small'>XS</Button>
-                                    </td>
-                                    <td>
-                                        <Button className='btn' disabled size='small'>S</Button>
-                                    </td>
-                                    <td>
-                                        <Button className='btn' type='primary' size='small'>M</Button>
-                                    </td>
-                                    <td>
-                                        <Button className='btn' disabled size='small'>L</Button>
-                                    </td>
-                                    <td>
-                                        <Button className='btn' disabled size='small'>XL</Button>
-                                    </td>
-                                </tr>
-                                <tr style={{ textAlign: 'center' }}>
-                                    <td>
-                                        150/76
-                                    </td>
-                                    <td>
-                                        155/80
-                                    </td>
-                                    <td>
-                                        160/84
-                                    </td>
-                                    <td>
-                                        165/88
-                                    </td>
-                                    <td>
-                                        170/92
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p style={{ width: '92%', margin: '0.2rem auto 0.1rem' }}>尺码</p>
+                        <Flex wrap="wrap" id='flex' style={{ width: '92%', margin: '0 auto' }}>
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                            <PlaceHolder1 className="inline-box" />
+                        </Flex>
                     </div>
                 </List>
                 <List>
                     <div style={{ margin: '0.2rem auto' }}>
-                                <ul style={{width:'92%',float:'left', listStyle:'none'}}>
-                                    <li>
-                                        <Button className='btn' inline type='primary' size='small'>白&nbsp;色</Button>
-                                    </li>
-                                    <li>
-                                        <Button className='btn' inline disabled size='small'>黑&nbsp;色</Button>
-                                    </li>
-                                    <li>
-                                        <Button className='btn' inline disabled size='small'>红&nbsp;色</Button>
-                                    </li>
-                                    <li>
-                                        <Button className='btn' inline disabled size='small'>卡其色</Button>
-                                    </li>
-                                </ul>
+                        <p class='productColor' style={{ width: '92%', margin: '0.2rem auto 0.1rem' }}>颜色</p>
+                        <Flex wrap="wrap" id='flex' style={{ width: '92%', margin: '0 auto' }}>
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                            <PlaceHolder className="inline" />
+                        </Flex>
                     </div>
                 </List>
             </List>
-            <ul style={{ padding: '0.18rem 0.3rem', listStyle: 'none' }}>
+            <ul style={{ padding: '0 0.3rem', listStyle: 'none' }}>
                 <li>
                     <List.Item style={{ backgroundColor: '#fff' }} extra={
                         <Stepper
                             style={{ width: '100%', minWidth: '2rem' }}
-                            showNumber max={10} min={1} value={this.state.val} onChange={this.onChange}
-                            useTouch={false}
+                            showNumber min={1} defaultValue={1} onChange={this.onChange}
                             />}
                         wrap
                         >
@@ -134,7 +112,7 @@ export default class ProductDetailContainer extends Component {
                     </List.Item>
                 </li>
                 <li style={{ marginTop: '0.18rem' }}>
-                    <Button type="primary" onClick={() => this.onClose('cancel')}>确定</Button>
+                    <Button type="primary" onClick={this.handleClick}>确定</Button>
                 </li>
             </ul>
         </div>, { animationType: 'slide-up', maskProps, maskClosable: false });
@@ -142,11 +120,14 @@ export default class ProductDetailContainer extends Component {
     onClose = (sel) => {
         this.setState({ sel });
         Popup.hide();
-        // window.location = '/#/paylist';
     };
     onChange = (val) => {
         // console.log(val);
         this.setState({ val });
+    }
+    handleClick = () =>{
+        Popup.hide();
+        window.location = '/#/paylist';
     }
     render() {
         return (
