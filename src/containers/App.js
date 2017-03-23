@@ -3,6 +3,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import HomeContainer from './HomeContainer';
 import LoginContainer from './LoginContainer';
 import BasketListContainer from './BasketListContainer';
+import ProductDetailContainer from './ProductDetailContainer';
 import PayContainer from './PayContainer';
 
 
@@ -23,6 +24,7 @@ export default class App extends Component {
         <Route path='/' component={HomeContainer} onEnter={validateAccount}>
         </Route>
         <Route path='/basketlist' component={BasketListContainer}/>
+        <Route path='/product-detail' component={ProductDetailContainer}/>
         <Route path='/paylist' component={PayContainer}/>
         <Route path='/login' component={LoginContainer} onEnter={validateAccount}>
         </Route>

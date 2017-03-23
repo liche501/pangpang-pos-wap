@@ -15,7 +15,9 @@ export default class PayContainer extends Component {
         userName: '某某某',
         userId: '001293398440'
     }
-
+    handleClick() {
+        window.location = '/#/product-detail'
+    }
     componentWillMount() {
         document.getElementsByTagName("body")[0].style.backgroundColor='#f6f6f6';
     }
@@ -73,7 +75,7 @@ export default class PayContainer extends Component {
                         </div>
                     </Item>
                 </List>
-                <Button style={{ width: '90%', margin: '7% auto 0', fontWeight:'bold' }} className="btn" type="primary">Pay Confirm ￥450</Button>
+                <Button className="btn" type="primary" style={{ width: '90%', margin: '7% auto 0', fontWeight:'bold' }} onClick={()=>this.handleClick()}>Pay Confirm ￥450</Button>
             </div>
         )
     }
