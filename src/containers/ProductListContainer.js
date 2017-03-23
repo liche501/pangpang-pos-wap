@@ -3,7 +3,7 @@ import { SearchBar, List, ListView } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 // import cartAPI from '../api/cart.js';
 import productAPI from '../api/product.js';
-
+import { Router, Route, hashHistory } from 'react-router';
 
 
 function MyBody(props) {
@@ -127,8 +127,10 @@ export default class ProductListContainer extends Component {
         this.searchProducts()
     }
     _searchKeyClear = () => {
-        console.log(11)
         this.setState({searchKey:""});
+    }
+    _topContentClick = () => {
+        window.location = "/#/basketlist"
     }
     render() {
 
@@ -139,7 +141,7 @@ export default class ProductListContainer extends Component {
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}
                 />
-                <Item style={{backgroundColor:'#fff', borderBottom:'1px solid #eee'}} extra="内容内容" arrow="horizontal" onClick={() => { }}>
+                <Item style={{backgroundColor:'#fff', borderBottom:'1px solid #eee'}} extra="内容内容" arrow="horizontal" onClick={this._topContentClick}>
                     <img className="product-img" src={imgMD} alt="" />
                 </Item>
                 <div style={{ margin: '0 auto', width: '96%' }}>
@@ -162,7 +164,7 @@ export default class ProductListContainer extends Component {
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
                         onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
+                        onEndReachedThreshold={40}
                     />
                 </div>
             </div>
