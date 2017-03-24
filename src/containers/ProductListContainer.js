@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 // import cartAPI from '../api/cart.js';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
 import { Router, Route, hashHistory } from 'react-router';
-
+import ProductDetailContainer from './ProductDetailContainer';
 
 function MyBody(props) {
     return (
@@ -22,7 +22,7 @@ const pageSize = 10;
 
 const Item = List.Item;
 const styles = {};
-
+let skusData = [], productStyles = {};
 export default class ProductListContainer extends Component {
     constructor(props) {
         super(props);
@@ -32,10 +32,11 @@ export default class ProductListContainer extends Component {
             dataSource: dataSource.cloneWithRows([]),
             isLoading: true,
             hasMore:true,
-            searchKey:"EEAB7",
+            // searchKey:"EEAB7",
+            searchKey:"",
         };
     }
-    
+
     componentWillMount() {
         this.initCard();
     }
@@ -111,9 +112,20 @@ export default class ProductListContainer extends Component {
         }}
         />
     )
+    _rowClick = (rowData) => {
+        // console.log(rowData)
+        productAPI.getContentById(rowData.id).then(res => {
+            // console.log(res)
+            skusData = res.result.skus;
+            productStyles = res.result.options;
+            return res.result;
+        }).then((data) => {
+            Popup.show(<ProductDetailContainer skusData={skusData} productStyles={productStyles} />, { animationType: 'slide-up', maskClosable: false });
+        });
+    }
     _renderRow = (rowData, sectionID, rowID) => {
         return (
-            <div key={rowID} className="row">
+            <div key={rowID} className="row" onClick={()=>{this._rowClick(rowData)}}>
                 <div style={styles.div}>
                     <table className="row-text">
                         <tbody>
@@ -157,6 +169,9 @@ export default class ProductListContainer extends Component {
     }
     _topContentClick = () => {
         window.location = "/#/basketlist"
+    }
+    _showModal = () =>{
+
     }
     render() {
 
