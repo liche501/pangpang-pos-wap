@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
-import { Button } from 'antd-mobile';
+import { ActivityIndicator,Toast } from 'antd-mobile';
 import accountAPI from '../api/account.js';
 import { getQueryString } from '../common/extend.js';
 
+let styles = {
+    container: {
+        display: "flex",
+        justifyContent: "flex-start",
+    },
+}
+
 class Login extends Component {
+    state={
+        animating:true
+    }
     componentDidMount() {
         let token = getQueryString("token");
         // console.log(token)
-        if(!token) return;
+        if(!token){
+            this.setState({animating:false})
+            Toast.fail('登陆失败!!!', 3);
+            return;
+        } 
+        
         accountAPI.autoLogin(token).then(res => {
+            this.setState({animating:false})
             if(res.success){
                 sessionStorage.setItem("account", JSON.stringify({ token: res.result.token}))
+                window.location = "/"
             }
-            window.location = "/"
         }).catch(error => {
+            this.setState({animating:false})
+            Toast.fail('登陆失败!!!', 3);
             console.log(error)
         })
         
@@ -32,8 +50,12 @@ class Login extends Component {
     // }
     render() {
         return (
-            <div >
-                <Button className="btn" type="primary" style={{ marginTop: "40%" }} >登陆</Button>
+            <div style={styles.container}>
+                <ActivityIndicator
+                toast
+                text="正在加载"
+                animating={this.state.animating}
+              />
             </div>
         );
     }
