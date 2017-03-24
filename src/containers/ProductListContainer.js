@@ -99,8 +99,8 @@ export default class ProductListContainer extends Component {
                                         <img style={{ height: '1.28rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
                                     </div>
                                 </td>
-                                <td style={{width:'45%', overflow:'hidden'}}>
-                                    <div style={{ marginBottom: '0.16rem', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
+                                <td style={{width:'45%'}}>
+                                    <div style={{ marginBottom: '0.16rem', width:'80%',overflow:'hidden', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         <img style={{ width: "50px", height: "50px" }} src={imgMD} alt="" />
                                         <span style={{ position: "relative", marginLeft: "20px", bottom: "12px" }}>9.5折</span>
