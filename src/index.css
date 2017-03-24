@@ -133,3 +133,14 @@ a:hover{
   width: 1.2rem!important;
   margin: 0.12rem 0.12rem 0.12rem 0;
 }
+.am-button-small{
+  font-size: 0.27rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+}
+
+
+/** BasketListContainer **/
+.am-swipe-content{
+  border-bottom: 2px solid #eee;
+}

@@ -3,6 +3,8 @@ import { Popup, List, Button, Icon, Stepper, Flex, WhiteSpace } from 'antd-mobil
 import imgMD from '../../public/MD.jpg';
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+const styles = {};
+
 let maskProps;
 if (isIPhone) {
     // Note: the popup content will not scroll.
@@ -19,9 +21,9 @@ const PlaceHolder = props => (
 );
 const PlaceHolder1 = props => (
     <div {...props}>
-        <div style={{marginBottom:'-0.1rem', marginRight:'0.2rem'}}>
+        <div style={styles.div}>
             <Button size='small'>XL</Button>
-            <p class='size' style={{fontSize:'0.3rem' ,textAlign:'center', marginTop:'0.1rem', marginBottom:'0.1rem'}}>150/76</p>
+            <p class='size' style={styles.p}>150/76</p>
         </div>
     </div>
 );
@@ -39,26 +41,21 @@ export default class ProductDetailContainer extends Component {
             <List renderHeader={() => (
                 <div style={{ position: 'relative' }}>
                     物品选择
-                    <span
-                        style={{
-                            position: 'absolute', right: 3, top: -5,
-                        }}
-                        onClick={() => this.onClose('cancel')}
-                        >
+                    <span style={styles.span} onClick={() => this.onClose('cancel')}>
                         <Icon type="cross" onClick={() => this.onClose('cancel')} />
                     </span>
                 </div>)}
                 className="popup-list"
                 >
                 <div style={{ margin: '0 auto' }}>
-                    <table style={{ width: '92%', margin: '0 auto' }}>
+                    <table style={styles.table}>
                         <tbody>
                             <tr>
                                 <td>
                                     <img src={imgMD} />
                                 </td>
                                 <td>
-                                    <ul style={{ listStyle: 'none', lineHeight: '0.5rem' }}>
+                                    <ul style={styles.ul}>
                                         <li>羽绒服</li>
                                         <li>货号 : PCVIPSALES01BMFRE</li>
                                         <li>价格 : 30000</li>
@@ -72,8 +69,8 @@ export default class ProductDetailContainer extends Component {
                 </div>
                 <List>
                     <div style={{ margin: '0.2rem auto' }}>
-                        <p style={{ width: '92%', margin: '0.2rem auto 0.1rem' }}>尺码</p>
-                        <Flex wrap="wrap" id='flex' style={{ width: '92%', margin: '0 auto' }}>
+                        <p style={styles.txt}>尺码</p>
+                        <Flex wrap="wrap" id='flex' style={styles.table}>
                             <PlaceHolder1 className="inline-box" />
                             <PlaceHolder1 className="inline-box" />
                             <PlaceHolder1 className="inline-box" />
@@ -86,8 +83,8 @@ export default class ProductDetailContainer extends Component {
                 </List>
                 <List>
                     <div style={{ margin: '0.2rem auto' }}>
-                        <p class='productColor' style={{ width: '92%', margin: '0.2rem auto 0.1rem' }}>颜色</p>
-                        <Flex wrap="wrap" id='flex' style={{ width: '92%', margin: '0 auto' }}>
+                        <p class='productColor' style={styles.txt}>颜色</p>
+                        <Flex wrap="wrap" id='flex' style={styles.table}>
                             <PlaceHolder className="inline" />
                             <PlaceHolder className="inline" />
                             <PlaceHolder className="inline" />
@@ -99,11 +96,11 @@ export default class ProductDetailContainer extends Component {
                     </div>
                 </List>
             </List>
-            <ul style={{ padding: '0 0.3rem', listStyle: 'none' }}>
+            <ul style={styles.step}>
                 <li>
                     <List.Item style={{ backgroundColor: '#fff' }} extra={
                         <Stepper
-                            style={{ width: '100%', minWidth: '2rem' }}
+                            style={styles.stepper}
                             showNumber min={1} defaultValue={1} onChange={this.onChange}
                             />}
                         wrap
@@ -135,5 +132,43 @@ export default class ProductDetailContainer extends Component {
                 <Button onClick={this.onClick}>显示</Button>
             </div>
         )
+    }
+}
+
+styles = {
+    div: {
+        marginBottom:'-0.1rem',
+        marginRight:'0.2rem'
+    },
+    p: {
+        fontSize:'0.25rem' ,
+        textAlign:'center',
+        marginTop:'0.1rem',
+        marginBottom:'0.1rem'
+    },
+    span: {
+        position: 'absolute',
+        right: 3,
+        top: -5,
+    },
+    table: {
+        width: '92%',
+        margin: '0 auto' 
+    },
+    ul: {
+        listStyle: 'none',
+        lineHeight: '0.5rem' 
+    },
+    txt: {
+        width: '92%',
+        margin: '0.2rem auto 0.1rem'
+    },
+    step: {
+        padding: '0 0.3rem',
+        listStyle: 'none' 
+    },
+    stepper: {
+        width: '100%',
+        minWidth: '2rem' 
     }
 }

@@ -1,5 +1,7 @@
-import React, { Component,PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import imgMD from '../../public/MD.jpg';
+
+const styles = {};
 
 export default class BasketCell extends Component {
     constructor() {
@@ -21,22 +23,24 @@ export default class BasketCell extends Component {
         return (
             <div className="row">
                 <div style={{ display: 'flex' }}>
-                    <table className="row-text" style={{ width: '7rem' }}>
+                    <table className="row-text">
                         <tbody>
                             <tr>
-                                <td>
-                                    <img style={{ height: '1.28rem', width: "1.28rem", marginRight: '0.3rem', marginLeft: '-0.3rem' }} src={this.state.img} />
-                                </td>
-                                <td style={{ width: '80%' }}>
-                                    <div style={{ marginBottom: '0.16rem', textAlign: "left" }}>{rowData.sku.name}</div>
-                                    <div style={{ textAlign: 'left' }}>
-                                        <img style={{ width: "50px", height: "50px" }} src={imgMD} />
-                                        <span style={{ position: "relative", marginLeft: "20px", top: '5px' }}>9.5折</span>
+                                <td style={{ width: '5%' }}>
+                                    <div style={styles.div}>
+                                        <img style={styles.img1} src={this.state.img} />
                                     </div>
                                 </td>
-                                <td style={{ textAlign: "left" }}>
-                                    <p style={{ textDecoration: "line-through" }}>￥{rowData.listPrice}</p>
-                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                                <td style={{ width: '45%' }}>
+                                    <div style={styles.rowData}>{rowData.sku.name}</div>
+                                    <div style={styles.div1}>
+                                        <img style={styles.img} src={imgMD} />
+                                        <span style={styles.discount}>9.5折</span>
+                                    </div>
+                                </td>
+                                <td style={{ width: '10%', textAlign: "left" }}>
+                                    <p style={styles.listPrice}>￥{rowData.listPrice}</p>
+                                    <p style={styles.salePrice}>￥{rowData.salePrice}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -45,5 +49,40 @@ export default class BasketCell extends Component {
             </div>
 
         )
+    }
+}
+
+styles = {
+    div: {
+        height: '1.28rem',
+        width: "1.28rem",
+        marginRight: '0.3rem'
+    },
+    div1: {
+        textAlign: 'left' 
+    },
+    img: {
+        width: "50px",
+        height: "50px"
+    },
+    img1: {
+        height: '1.28rem' 
+    },
+    discount: {
+        position: "relative",
+        marginLeft: "20px",
+        top: '-10px'
+    },
+    rowData: {
+        width: '80%',
+        marginBottom: '0.16rem',
+        textAlign: "left",
+        overflow: 'hidden'
+    },
+    listPrice: {
+        textDecoration: "line-through"
+    },
+    salePrice: {
+        color: "#f00"
     }
 }

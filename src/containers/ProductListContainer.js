@@ -21,6 +21,7 @@ var pageNum = 0;
 const pageSize = 10;
 
 const Item = List.Item;
+const styles = {};
 
 export default class ProductListContainer extends Component {
     constructor(props) {
@@ -113,25 +114,25 @@ export default class ProductListContainer extends Component {
     _renderRow = (rowData, sectionID, rowID) => {
         return (
             <div key={rowID} className="row">
-                <div style={{ display: 'flex', padding: '0.3rem 0' }}>
+                <div style={styles.div}>
                     <table className="row-text">
                         <tbody>
                             <tr>
                                 <td style={{width:'5%'}}>
-                                    <div style={{ height: '1.28rem', width: "1.28rem", marginRight: '0.3rem' }}>
+                                    <div style={styles.img}>
                                         <img style={{ height: '1.28rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
                                     </div>
                                 </td>
                                 <td style={{width:'45%'}}>
-                                    <div style={{ marginBottom: '0.16rem', width:'80%',overflow:'hidden', textAlign: "left" }}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
+                                    <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
-                                        <img style={{ width: "50px", height: "50px" }} src={imgMD} alt="" />
-                                        <span style={{ position: "relative", marginLeft: "20px", bottom: "12px" }}>9.5折</span>
+                                        <img style={styles.img1} src={imgMD} alt="" />
+                                        <span style={styles.discount}>9.5折</span>
                                     </div>
                                 </td>
-                                <td style={{ width: "10%", textAlign:'center' }}>
-                                        <p style={{ textDecoration: "line-through" }}>￥{rowData.listPrice}</p>
-                                        <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                                <td style={styles.td}>
+                                    <p style={styles.listPrice}>￥{rowData.listPrice}</p>
+                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -166,13 +167,13 @@ export default class ProductListContainer extends Component {
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}
                 />
-                <Item style={{backgroundColor:'#fff', borderBottom:'1px solid #eee'}} extra="内容内容" arrow="horizontal" onClick={this._topContentClick}>
+                <Item style={styles.item} extra="内容内容" arrow="horizontal" onClick={this._topContentClick}>
                     <img className="product-img" src={imgMD} alt="" />
                 </Item>
-                <div style={{ margin: '0 auto', width: '96%' }}>
+                <div style={styles.div1}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
-                        renderFooter={() => <div style={{ paddingTop: 10, textAlign: 'center' }}>
+                        renderFooter={() => <div style={styles.foot}>
                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : '加载完毕'):"没有数据"}
                         </div>}
                         renderBodyComponent={() => <MyBody />}
@@ -194,5 +195,51 @@ export default class ProductListContainer extends Component {
                 </div>
             </div>
         );
+    }
+}
+
+styles = {
+    div: {
+        display: 'flex',
+        padding: '0.3rem 0' 
+    },
+    div1: {
+        margin: '0 auto',
+        width: '96%' 
+    },
+    img: {
+        height: '1.28rem',
+        width: "1.28rem",
+        marginRight: '0.3rem' 
+    },
+    img1: {
+        width: "50px",
+        height: "50px"
+    },
+    rowData: {
+        marginBottom: '0.16rem',
+        width:'80%',
+        overflow:'hidden',
+        textAlign: "left"
+    },
+    discount: {
+        position: "relative",
+        marginLeft: "20px",
+        bottom: "12px" 
+    },
+    td: {
+        width: "10%",
+        textAlign:'center' 
+    },
+    listPrice: {
+        textDecoration: "line-through"
+    },
+    item: {
+        backgroundColor:'#fff',
+        borderBottom:'1px solid #eee'
+    },
+    foot: {
+        paddingTop: 10,
+        textAlign: 'center' 
     }
 }

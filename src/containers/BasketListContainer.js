@@ -9,6 +9,7 @@ import cartAPI from '../api/cart.js';
 const Item = List.Item;
 const price = 200;
 const menuName = "购物车";
+const styles = {};
 
 var pageNum = 0;
 //每页显示数据的条数  
@@ -91,11 +92,11 @@ export default class BasketList extends Component {
         return (
             <div>
                 <Navi  leftIcon="left" rightIcon="right" onRightClick={()=>{window.location="/#/paylist"}} title={menuName} onLeftClick={()=>{history.back()}} />
-                <Item style={{ backgroundColor: "#fff", borderBottom: '10px solid #f6f6f6' }} extra={'￥'+price}>Total</Item>
-                <div style={{ margin: '0 auto', width: '96%'  }}>
+                <Item style={styles.item} extra={'￥'+price}>Total</Item>
+                <div style={styles.div}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
-                        renderFooter={() => <div style={{ paddingTop: 10, textAlign: 'center' }}>
+                        renderFooter={() => <div style={styles.foot}>
                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : '加载完毕'):"没有数据"}
                         </div>}
                         renderRow={this._renderRow}
@@ -111,5 +112,20 @@ export default class BasketList extends Component {
                 </div>
             </div>
         )
+    }
+}
+
+styles = {
+    item: {
+        backgroundColor: "#fff",
+        borderBottom: '10px solid #f6f6f6' 
+    },
+    div: {
+        margin: '0 auto',
+        width: '96%'  
+    },
+    foot: {
+        paddingTop: 10,
+        textAlign: 'center' 
     }
 }
