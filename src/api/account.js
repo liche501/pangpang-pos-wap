@@ -18,5 +18,21 @@ export default {
                     reject(error);
                 });
         })
-    }
+    },
+    autoLogin:(tokenFromWX) => {
+        return new Promise((resolve, reject) => {
+            let header = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${tokenFromWX}`
+            };
+            axios.get(api_serverRoot() + `/account`, { "headers": header })
+                .then(function (response) {
+                    resolve(response.data)
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        })
+    },
 }

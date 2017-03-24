@@ -31,3 +31,15 @@ export function stringTrim(str,is_global)
              }
             return result;
 }
+
+// 获取URL参数
+export function getQueryString(name) {
+    var url = window.location.hash;
+    url = "?" + url.split("?", 2)[1];
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = url.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
