@@ -177,7 +177,7 @@ export default class ProductListContainer extends Component {
 
         return (
             <div>
-                <SearchBar placeholder="搜索" value={this.state.searchKey}  
+                <SearchBar placeholder="搜索" style={{height:'1.1rem'}} value={this.state.searchKey}  
                     onSubmit={this._searchKeySubmit}
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}

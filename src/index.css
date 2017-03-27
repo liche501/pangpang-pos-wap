@@ -149,3 +149,14 @@ svg{
   width: 0.8rem!important;
   height: 0.5rem!important;
 }
+
+
+.am-search {
+  height:1.1rem!important;
+}
+.am-search-input{
+  height: 0.8rem;
+}
+.am-search-synthetic-ph, .am-search-value, .am-search-clear{
+  margin-top: 0.1rem;
+}
