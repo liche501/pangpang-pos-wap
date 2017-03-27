@@ -122,7 +122,7 @@ a:hover{
 .am-drawer-content{
   padding-top: 0 !important;
 }
-.am-search {
+/*.am-search {
   height:0.9rem!important;
 }
 .am-search-input{
@@ -130,7 +130,7 @@ a:hover{
 }
 .am-search-synthetic-ph, .am-search-value, .am-search-clear{
   margin-top: 0.08rem;
-}
+}*/
 
 /** ProductDetailContainer **/
 /*.inline {
@@ -153,9 +153,9 @@ a:hover{
   border-bottom: 2px solid #eee;
 }
 
-svg{
+/*svg{
   width: 0.8rem!important;
   height: 0.5rem!important;
-}
+}*/
 
 

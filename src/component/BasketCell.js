@@ -75,6 +75,7 @@ styles = {
     },
     rowData: {
         width: '80%',
+        height:'0.65rem',
         marginBottom: '0.16rem',
         textAlign: "left",
         overflow: 'hidden'
