@@ -144,3 +144,8 @@ a:hover{
 .am-swipe-content{
   border-bottom: 2px solid #eee;
 }
+
+svg{
+  width: 0.8rem!important;
+  height: 0.5rem!important;
+}

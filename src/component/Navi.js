@@ -19,12 +19,12 @@ export default class Navi extends Component {
     }
     render() {
         return (
-            <NavBar iconName={this.props.leftIcon} mode={this.props.mode} onLeftClick={this.props.onLeftClick} style={{ backgroundColor: "#3e9ce9", color: "white", }}
+            <NavBar iconName={this.props.leftIcon} mode={this.props.mode} onLeftClick={this.props.onLeftClick} style={{ backgroundColor: "#3e9ce9", color: "white", height:'1.2rem' }}
                 rightContent={[
                     <Icon key="0" type={this.props.rightIcon} style={{ marginRight: '0rem' }} onClick={this.props.onRightClick} size="md" />,
                 ]}
             >
-                <span style={{ color: "white", }}>{this.props.title}</span>
+                <span style={{ color: "white", fontSize:'0.5rem' }}>{this.props.title}</span>
             </NavBar>
         );
     }
