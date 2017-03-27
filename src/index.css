@@ -122,7 +122,15 @@ a:hover{
 .am-drawer-content{
   padding-top: 0 !important;
 }
-
+.am-search {
+  height:0.9rem!important;
+}
+.am-search-input{
+  height: 0.6rem;
+}
+.am-search-synthetic-ph, .am-search-value, .am-search-clear{
+  margin-top: 0.08rem;
+}
 
 /** ProductDetailContainer **/
 /*.inline {
@@ -151,12 +159,3 @@ svg{
 }
 
 
-.am-search {
-  height:1.1rem!important;
-}
-.am-search-input{
-  height: 0.8rem;
-}
-.am-search-synthetic-ph, .am-search-value, .am-search-clear{
-  margin-top: 0.1rem;
-}
