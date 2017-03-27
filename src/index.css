@@ -125,12 +125,12 @@ a:hover{
 
 
 /** ProductDetailContainer **/
-.inline {
-  width: 1.6rem!important;
+/*.inline {
+  min-width: 1.6rem;
   margin: 0.12rem 0.12rem 0.12rem 0;
-}
+}*/
 .inline-box{
-  width: 1.2rem!important;
+  min-width: 1.2rem;
   margin: 0.12rem 0.12rem 0.12rem 0;
 }
 .am-button-small{
