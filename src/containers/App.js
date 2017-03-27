@@ -6,16 +6,15 @@ import BasketListContainer from './BasketListContainer';
 import ProductDetailContainer from './ProductDetailContainer';
 import PayContainer from './PayContainer';
 
-
+import { getQueryString } from '../common/extend.js';
 
 function validateAccount(nextState, replaceState) {
   if (nextState.location.pathname !== "/login" && !sessionStorage.getItem("account")) {
-    replaceState('/login');
+    replaceState('/login?token=' + getQueryString("token"));
   } else if (nextState.location.pathname === "/login" && sessionStorage.getItem("account")) {
     replaceState('/');
   }
 }
-
 
 export default class App extends Component {
   render() {
