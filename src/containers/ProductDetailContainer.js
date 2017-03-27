@@ -151,7 +151,7 @@ export default class ProductDetailContainer extends Component {
             
             return (
                 <div className="inline-box" onClick={()=>{this._sizeItemPress(val)}} key={i} >
-                    <div style={styles.div}  style={this.state.selectSizeKey == val?{ backgroundColor: "#3e9ce9",color: "white" } : {} }>
+                    <div style={this.state.selectSizeKey == val?{ backgroundColor: "#3e9ce9",color: "white" } : {} }>
                         <Button size='small' >{val}</Button>
                     </div>
                 </div>
@@ -160,16 +160,16 @@ export default class ProductDetailContainer extends Component {
         let colorContent = this.props.productStyles["Color"].map((color, i) => {
             if (this._existColor(color)) {
                 return (
-                    <div key={i} onClick={() => this._colorItemPress(color)} >
-                        <div style={{marginRight:'0.1rem'}} style={this.state.selectColorKey == color ? { backgroundColor: "#3e9ce9", color: "white", } : {}}>
+                    <div className="inline-box" key={i} onClick={() => this._colorItemPress(color)} >
+                        <div style={this.state.selectColorKey == color ? { backgroundColor: "#3e9ce9", color: "white", } : {}}>
                             <Button size='small'>{color}</Button>
                         </div>
                     </div>
                 )
             } else {
                 return (
-                    <div key={i} onClick={() => this._colorItemPress(color)} >
-                        <div style={{marginRight:'0.1rem'}} style={this.state.selectColorKey == color ? { color: "#cccccc", } : {}}>
+                    <div className="inline-box" key={i} onClick={() => this._colorItemPress(color)} >
+                        <div style={this.state.selectColorKey == color ? { color: "#cccccc", } : {}}>
                             <Button size='small'>{color}</Button>
                         </div>
                     </div>
