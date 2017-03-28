@@ -9,7 +9,7 @@ import cartAPI from '../api/cart.js';
 const Item = List.Item;
 const price = 200;
 const menuName = "购物车";
-const styles = {};
+let styles = {};
 
 var pageNum = 0;
 //每页显示数据的条数  
@@ -24,6 +24,7 @@ export default class BasketList extends Component {
             dataSource: dataSource.cloneWithRows([]),
             isLoading: false,
             hasMore:true,
+            totalPrice: 0,
         };
     }
     componentDidMount() {
@@ -56,9 +57,13 @@ export default class BasketList extends Component {
                     this.setState({
                         dataSource: this.state.dataSource.cloneWithRows(res.result.items),
                         isLoading: false,
+                        totalPrice: res.result.salePrice
                     });
                 }else{
-                    this.setState({isLoading:false,hasMore:false})
+                    this.setState({isLoading:false,
+                                    hasMore:false,
+                                    totalPrice: 0
+                    })
                 }
             })
         }
@@ -72,7 +77,9 @@ export default class BasketList extends Component {
     _renderRow = (rowData, sectionID, rowID) => {
         return (
                 <SwipeAction
-                            style={{ backgroundColor: 'gray' }}
+                            style={{ backgroundColor: 'gray',
+                                    display: 'flex',
+                                    }}
                             autoClose
                             right={[
                                 {
@@ -81,8 +88,8 @@ export default class BasketList extends Component {
                                     style: { backgroundColor: '#F4333C', color: 'white' },
                                 },
                             ]}
-                            onOpen={() => {console.log("removeRow open")}}
-                            onClose={() => console.log('removeRow close')}
+//                             onOpen={() => {console.log("removeRow open")}}
+//                             onClose={() => console.log('removeRow close')}
                 >
                     <BasketCell rowData={rowData} />
                 </SwipeAction>
@@ -90,24 +97,42 @@ export default class BasketList extends Component {
     }
     render() {
         return (
-            <div>
-                <Navi  leftIcon="left" rightIcon="right" onRightClick={()=>{window.location="/#/paylist"}} title={menuName} onLeftClick={()=>{history.back()}} />
-                <Item style={styles.item} extra={'￥'+price}>Total</Item>
+            <div style={{background:'#fff'}}>
+                <Navi  leftIcon="left" rightIcon="pay" onRightClick={()=>{window.location="/#/paylist"}} title={menuName} onLeftClick={()=>{history.back()}} />
+                <Item style={styles.item}>
+                    <div style={{display:'inline-block',
+                                        width:'100%',
+                                        position: 'absolute',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color:'#108ee9',
+                                        fontWeight:'bold',
+                                        fontSize:'0.6rem'
+                                }}>
+                        <div style={{float:'left'}}>Total</div>
+                        <div style={{float:'right'}}>￥{this.state.totalPrice}</div>
+                    </div>
+                </Item>
                 <div style={styles.div}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={styles.foot}>
-                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : '加载完毕'):"没有数据"}
-                        </div>}
+                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
+                            </div>}
                         renderRow={this._renderRow}
+                        renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight -90 -100-40,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',
                         }}
-
+                        pageSize={10}
+                        scrollRenderAheadDistance={500}
+                        scrollEventThrottle={20}
+                        onEndReached={this.onEndReached}
+                        onEndReachedThreshold={40}
                     />
                 </div>
             </div>
@@ -118,7 +143,9 @@ export default class BasketList extends Component {
 styles = {
     item: {
         backgroundColor: "#fff",
-        borderBottom: '10px solid #f6f6f6' 
+        borderBottom: '10px solid #f6f6f6',
+        height:150,
+        padding: '0 0.5rem'
     },
     div: {
         margin: '0 auto',

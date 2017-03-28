@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Navi from '../component/Navi.js';
-import { Button, ListView, WingBlank, WhiteSpace, List } from 'antd-mobile';
+import { Button, ListView, WingBlank, WhiteSpace, List, Radio } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import pay1 from '../../public/zfb.gif';
 import pay2 from '../../public/wxzf.gif';
 import ticket from '../../public/ticket.gif';
+import cartAPI from '../api/cart.js';
+
 
 const Item = List.Item;
+const RadioItem = Radio.RadioItem;
 const styles = {};
 
 export default class PayContainer extends Component {
@@ -14,18 +17,44 @@ export default class PayContainer extends Component {
         menuName: "订单",
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
         userName: '某某某',
-        userId: '001293398440'
+        userId: '001293398440',
+        payType:'Ali',
+        salePrice:0,
+        discount:0
     }
     handleClick() {
         window.location = '/#/product-detail'
     }
     componentWillMount() {
-        document.getElementsByTagName("body")[0].style.backgroundColor='#f6f6f6';
+        this.refreshCartData();
+    }
+
+    // 查询购物车，重新计算价格，数量
+    refreshCartData = () => {
+        let cartId = sessionStorage.getItem("cartId");
+
+        if(cartId){
+            cartAPI.getCartById(cartId).then(res=>{
+                    console.log('====>',res.result)
+                    if(res.success && res.result.items !== null ){
+                        this.setState({ salePrice: res.result.salePrice});
+                        this.setState({ discount: res.result.discount});
+                    }else{
+                        this.setState({ salePrice: 0});
+                        this.setState({ discount: 0});
+                    }
+            })
+         }
+    }
+    onPayTypeChange = (payType) =>{
+        this.setState({
+            payType
+        });
     }
     render() {
         return (
-            <div>
-                <Navi style={styles.background} leftIcon="left" title={this.state.menuName} />
+            <div style={{background:'#f6f6f6'}}>
+                <Navi style={styles.background} leftIcon="left" title={this.state.menuName} onLeftClick={()=>{history.back()}}/>
                 <div className="row">
                     <div style={styles.div}>
                         <div style={styles.div1} >
@@ -54,27 +83,25 @@ export default class PayContainer extends Component {
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div4}>
                             <img src={ticket} style={styles.img}/>
-                            <span style={styles.price}> ￥450 </span>
-                            <span style={styles.offer}>(已优惠 46 元)</span>
+                            <span style={styles.price}> ￥{this.state.salePrice} </span>
+                            <span style={styles.discount}>(已优惠 {this.state.discount} 元)</span>
                         </div>
                     </Item>
                 </List>
                 <WhiteSpace />
                 <List>
-                    <Item style={styles.background} onClick={() => { } } >
+                    <RadioItem className='pay-am-list-item-middle' key='Alipay' checked={this.state.payType === 'Ali'} onChange={() => this.onPayTypeChange('Ali')}>
                         <div style={{textAlign:'center'}}>
-                            <img src={pay1} style={{marginRight:'5px'}}/>
-                            <span>支付宝</span>
-                        </div>
-                    </Item>
-                </List>
-                <List>
-                    <Item style={styles.background}>
+                                <img src={pay1} style={{marginRight:'5px'}} alt=""/> &nbsp;
+                                <span>支付宝</span>
+                            </div>
+                    </RadioItem>
+                    <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={this.state.payType === 'Wx'} onChange={() => this.onPayTypeChange('Wx')}>
                         <div style={{textAlign:'center'}}>
-                            <img src={pay2} style={styles.img1}/>
-                            <span>微&nbsp;信</span>
+                                <img src={pay2} style={styles.img1} alt=""/> &nbsp;
+                                <span>微&nbsp;信</span>
                         </div>
-                    </Item>
+                    </RadioItem>
                 </List>
                 <Button className="btn" type="primary" style={styles.btn} onClick={()=>this.handleClick()}>Pay Confirm ￥450</Button>
             </div>
@@ -116,12 +143,18 @@ styles = {
     span: {
         color:'#42A2EA',
         fontSize:'0.4rem',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
     },
     img: {
         width:'1rem',
         height:'0.7rem',
-        marginBottom:'15px'
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        left:'20%'
     },
     img1: {
         width:'50px',
@@ -129,9 +162,10 @@ styles = {
     },
     price: {
         fontSize:'0.5rem',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        marginLeft:'20%'
     },
-    offer: {
+    discount: {
         color:'orange',
         fontWeight:'bold'
     },

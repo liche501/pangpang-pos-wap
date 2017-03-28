@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
-// import cartAPI from '../api/cart.js';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
-import { Router, Route, hashHistory } from 'react-router';
 import ProductDetailContainer from './ProductDetailContainer';
+import { IoBag } from 'react-icons/lib/io'
 
 function MyBody(props) {
     return (
@@ -21,7 +20,7 @@ var pageNum = 0;
 const pageSize = 10;
 
 const Item = List.Item;
-const styles = {};
+let styles = {};
 let skusData = [], productStyles = {};
 export default class ProductListContainer extends Component {
     constructor(props) {
@@ -34,16 +33,42 @@ export default class ProductListContainer extends Component {
             hasMore:true,
             // searchKey:"EEAB7",
             searchKey:"",
+            totalPrice: 0,
+            totalCount: 0,
         };
     }
 
     componentWillMount() {
-        this.initCard();
+        //this.initCard();
     }
     
-    componentDidMount() {
-        this.searchProducts();
+    async componentDidMount() {
+        await setTimeout(() => {
+            this.initCard();
+        }, 300);
+        await setTimeout(() => {
+            this.searchProducts();
+        }, 300);
     }
+
+    // 查询购物车，重新计算价格，数量
+    refreshCartData = () => {
+        let cartId = sessionStorage.getItem("cartId");
+
+        if(cartId){
+            cartAPI.getCartById(cartId).then(res=>{
+                    //console.log('====>',res.result)
+                    if(res.success && res.result.items !== null ){
+                        this.setState({ totalPrice: res.result.salePrice });
+                        this.setState({ totalCount: res.result.quantity});
+                    }else{
+                        this.setState({ totalPrice: 0 });
+                        this.setState({ totalCount: 0 });
+                    }
+            })
+         }
+    }
+
     initCard = async () => {
         let cartId = sessionStorage.getItem("cartId");
         console.log(cartId)
@@ -55,14 +80,12 @@ export default class ProductListContainer extends Component {
             })
         }
 
+        this.refreshCartData();
     }
-    // 查询购物车，重新计算价格，数量
-    refreshCartData = (cartId) => {
-        this.props.getCartById(cartId);
-    }
+    
     searchProducts= ()=>{        
         productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
-            console.log(res.result)
+            //console.log(res.result)
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(res.result.items),
@@ -115,12 +138,12 @@ export default class ProductListContainer extends Component {
     _rowClick = (rowData) => {
         // console.log(rowData)
         productAPI.getContentById(rowData.id).then(res => {
-            // console.log(res)
+            //console.log(res)
             skusData = res.result.skus;
             productStyles = res.result.options;
             return res.result;
         }).then((data) => {
-            Popup.show(<ProductDetailContainer skusData={skusData} productStyles={productStyles} />, { animationType: 'slide-up', maskClosable: false });
+            Popup.show(<ProductDetailContainer skusData={skusData} productStyles={productStyles} refreshCartData={this.refreshCartData}/>, { animationType: 'slide-up', maskClosable: false });
         });
     }
     _renderRow = (rowData, sectionID, rowID) => {
@@ -132,7 +155,7 @@ export default class ProductListContainer extends Component {
                             <tr>
                                 <td style={{width:'5%'}}>
                                     <div style={styles.img}>
-                                        <img style={{ height: '1.28rem' }} src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt="" />
+                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem' }} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{width:'45%'}}>
@@ -176,20 +199,42 @@ export default class ProductListContainer extends Component {
     render() {
 
         return (
-            <div>
+            <div style={{background:'#fff'}}>
                 <SearchBar placeholder="搜索" value={this.state.searchKey}  
                     onSubmit={this._searchKeySubmit}
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}
                 />
-                <Item style={styles.item} extra="内容内容" arrow="horizontal" onClick={this._topContentClick}>
-                    <img className="product-img" src={imgMD} alt="" />
+                <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
+                    <div style={{display:'inline-block',
+                                        width:'85%',
+                                        marginLeft:'0.5rem',
+                                        position: 'absolute',
+                                        top: '60%',
+                                        transform: 'translateY(-50%)',
+                                        color:'#108ee9',
+                                        fontWeight:'bold'
+                                }}>
+                        <div style={{float:'left'}}>
+                            <IoBag size={120} />
+                            <div style={{fontSize:'0.25rem',       
+                                        position: 'absolute',
+                                        top: '0.38rem',
+                                        left: '0.12rem',
+                                        width: '0.5rem',
+                                        textAlign: 'center'
+                            }}>
+                               {this.state.totalCount}
+                            </div>
+                        </div>
+                        <div style={{float:'right',fontSize:'0.6rem'}}>￥{this.state.totalPrice}</div>
+                    </div>
                 </Item>
                 <div style={styles.div1}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={styles.foot}>
-                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : '加载完毕'):"没有数据"}
+                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
                         </div>}
                         renderBodyComponent={() => <MyBody />}
                         renderRow={this._renderRow}
@@ -225,7 +270,8 @@ styles = {
     img: {
         height: '1.28rem',
         width: "1.28rem",
-        marginRight: '0.3rem' 
+        marginRight: '0.3rem',
+        border: '0.5px solid gray'        
     },
     img1: {
         width: "50px",
@@ -252,7 +298,8 @@ styles = {
     },
     item: {
         backgroundColor:'#fff',
-        borderBottom:'1px solid #eee'
+        borderBottom:'1px solid #eee',
+        height:150
     },
     foot: {
         paddingTop: 10,

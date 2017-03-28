@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import imgMD from '../../public/MD.jpg';
 
-const styles = {};
+let styles = {};
 
 export default class BasketCell extends Component {
     constructor() {
@@ -17,30 +17,30 @@ export default class BasketCell extends Component {
     // static defaultProps = {
     //     rowData: {}
     // }
-    render() {
+    render() {  
         let {rowData} = this.props;
-        // console.log(rowData)
+        //console.log(rowData)
         return (
             <div className="row">
-                <div style={{ display: 'flex' }}>
+                <div style={styles.div}>
                     <table className="row-text">
                         <tbody>
                             <tr>
                                 <td style={{ width: '5%' }}>
-                                    <div style={styles.div}>
-                                        <img style={styles.img1} src={this.state.img} />
+                                    <div style={styles.img}>
+                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem' }} src={rowData.sku.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{ width: '45%' }}>
                                     <div style={styles.rowData}>{rowData.sku.name}</div>
-                                    <div style={styles.div1}>
-                                        <img style={styles.img} src={imgMD} />
+                                    <div style={{ textAlign: 'left' }}>
+                                        <img style={styles.img1} src={imgMD} alt="" />
                                         <span style={styles.discount}>9.5折</span>
                                     </div>
                                 </td>
-                                <td style={{ width: '10%', textAlign: "left" }}>
+                                <td style={styles.td}>
                                     <p style={styles.listPrice}>￥{rowData.listPrice}</p>
-                                    <p style={styles.salePrice}>￥{rowData.salePrice}</p>
+                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -54,36 +54,49 @@ export default class BasketCell extends Component {
 
 styles = {
     div: {
-        height: '1.28rem',
-        width: "1.28rem",
-        marginRight: '0.3rem'
+        display: 'flex',
+        padding: '0.3rem 0' 
     },
     div1: {
-        textAlign: 'left' 
+        margin: '0 auto',
+        width: '96%' 
     },
     img: {
+        height: '1.28rem',
+        width: "1.28rem",
+        marginRight: '0.3rem',
+        border: '0.5px solid gray'        
+    },
+    img1: {
         width: "50px",
         height: "50px"
     },
-    img1: {
-        height: '1.28rem' 
+    rowData: {
+        marginBottom: '0.16rem',
+        width:'80%',
+        height:'0.65rem',
+        overflow:'hidden',
+        textAlign: "left"
     },
     discount: {
         position: "relative",
         marginLeft: "20px",
-        top: '-10px'
+        bottom: "12px" 
     },
-    rowData: {
-        width: '80%',
-        height:'0.65rem',
-        marginBottom: '0.16rem',
-        textAlign: "left",
-        overflow: 'hidden'
+    td: {
+        width: "10%",
+        textAlign:'center' 
     },
     listPrice: {
         textDecoration: "line-through"
     },
-    salePrice: {
-        color: "#f00"
+    item: {
+        backgroundColor:'#fff',
+        borderBottom:'1px solid #eee',
+        height:150
+    },
+    foot: {
+        paddingTop: 10,
+        textAlign: 'center' 
     }
 }

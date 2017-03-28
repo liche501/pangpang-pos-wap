@@ -20,9 +20,16 @@ export default class Navi extends Component {
     render() {
         return (
             <NavBar iconName={this.props.leftIcon} mode={this.props.mode} onLeftClick={this.props.onLeftClick} style={{ backgroundColor: "#3e9ce9", color: "white", }}
-                rightContent={[
-                    <Icon key="0" type={this.props.rightIcon} style={{ marginRight: '0rem' }} onClick={this.props.onRightClick} size="md" />,
-                ]}
+                rightContent={
+                    this.props.rightIcon === 'pay'?
+                    [
+                        <div key="0" style={{ marginRight: 0 }} onClick={this.props.onRightClick}>PAY</div>
+                    ]    
+                    :
+                    [
+                        <Icon key="0" type={this.props.rightIcon} style={{ marginRight: '0rem' }} onClick={this.props.onRightClick} size="md" />,
+                    ]
+                }
             >
                 <span style={{ color: "white", }}>{this.props.title}</span>
             </NavBar>

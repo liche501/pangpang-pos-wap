@@ -37,6 +37,8 @@ export default class ProductDetailContainer extends Component {
             qtyCount: 1,
             selectSizeKey: "",
             selectColorKey: "",
+            
+            selectedSku: null,
         };
         this.meetFirstConditionData = [];
         this.meetSecondConditionData = [];
@@ -94,11 +96,13 @@ export default class ProductDetailContainer extends Component {
             sku.options.map((obj) => {
                 if (obj.k  == "Color") {
                     if (obj.v == color) {
-                        this.meetSecondConditionData.push(sku)
+                        this.meetSecondConditionData.push(sku);
+                        this.setState({selectedSku:sku});
                     }
                 }
             })
         })
+
     }
 
     _pressConfirmButton = () => {
@@ -109,7 +113,7 @@ export default class ProductDetailContainer extends Component {
             // 给购物车添加商品
             cartAPI.addItemsFromCart(cartId, { skuId: skuId, quantity: this.state.qtyCount }).then(res => {
                 console.log(res);
-                // this.refreshCartData(cartId);
+                this.props.refreshCartData();
                 Popup.hide();
             })
         }
@@ -151,7 +155,7 @@ export default class ProductDetailContainer extends Component {
             
             return (
                 <div className="inline-box" onClick={()=>{this._sizeItemPress(val)}} key={i} >
-                    <div style={this.state.selectSizeKey == val?{ backgroundColor: "#3e9ce9",color: "white" } : {} }>
+                    <div style={this.state.selectSizeKey === val?{ backgroundColor: "#3e9ce9",color: "white" } : {} }>
                         <Button size='small' >{val}</Button>
                     </div>
                 </div>
@@ -161,7 +165,7 @@ export default class ProductDetailContainer extends Component {
             if (this._existColor(color)) {
                 return (
                     <div className="inline-box" key={i} onClick={() => this._colorItemPress(color)} >
-                        <div style={this.state.selectColorKey == color ? { backgroundColor: "#3e9ce9", color: "white", } : {}}>
+                        <div style={this.state.selectColorKey === color ? { backgroundColor: "#3e9ce9", color: "white", } : {}}>
                             <Button size='small'>{color}</Button>
                         </div>
                     </div>
@@ -169,8 +173,8 @@ export default class ProductDetailContainer extends Component {
             } else {
                 return (
                     <div className="inline-box" key={i} onClick={() => this._colorItemPress(color)} >
-                        <div style={this.state.selectColorKey == color ? { color: "#cccccc", } : {}}>
-                            <Button size='small'>{color}</Button>
+                        <div style={this.state.selectColorKey === color ? { color: "#cccccc", } : {}}>
+                            <Button size='small' disabled>{color}</Button>
                         </div>
                     </div>
                 )
@@ -192,17 +196,33 @@ export default class ProductDetailContainer extends Component {
                         <table style={styles.table}>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <img src={imgMD} />
+                                    <td style={{textAlign:'center',width:'30%'}}>
+                                        {
+                                            this.state.selectedSku !== null && this.state.selectedSku.images !== null && this.state.selectedSku.images.medium !== null ?
+                                            <img src={this.state.selectedSku.images.medium.url} style={{height:'350px'}}/>
+                                            :
+                                            ''
+                                        }
                                     </td>
-                                    <td>
-                                        <ul style={styles.ul}>
-                                            <li>羽绒服</li>
-                                            <li>货号 : PCVIPSALES01BMFRE</li>
-                                            <li>价格 : 30000</li>
-                                            <li>已选尺码M</li>
-                                            <li>颜色 : 白色</li>
-                                        </ul>
+                                    <td style={{textAlign:'left'}}>
+                                    {
+                                        this.state.selectedSku !== null ?
+                                            <ul style={styles.ul}>
+                                                <li>{this.state.selectedSku.name.length>40?this.state.selectedSku.name.substring(0,40)+'...':this.state.selectedSku.name}</li>
+                                                <li>货号 : {this.state.selectedSku.code}</li>
+                                                <li>价格 : {this.state.selectedSku.salePrice}</li>
+                                                <li>已选尺码 : {this.state.selectedSku.options[0].v}</li>
+                                                <li>颜色 : {this.state.selectedSku.options[1].v}</li>
+                                            </ul>
+                                            :
+                                            <ul style={styles.ul}>
+                                                <li>羽绒服</li>
+                                                <li>货号 : PCVIPSALES01BMFRE</li>
+                                                <li>价格 : 30000</li>
+                                                <li>已选尺码 : M</li>
+                                                <li>颜色 : 白色</li>
+                                            </ul>
+                                    }
                                     </td>
                                 </tr>
                             </tbody>
