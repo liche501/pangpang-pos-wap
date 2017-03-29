@@ -59,12 +59,20 @@ export default class BasketList extends Component {
                         isLoading: false,
                         totalPrice: res.result.salePrice
                     });
-                }else{
-                    this.setState({isLoading:false,
+                }else if(res.success && res.result.items === null ){
+                    this.setState({
+                                    dataSource: this.state.dataSource.cloneWithRows([]),
+                                    isLoading:false,
                                     hasMore:false,
                                     totalPrice: 0
                     })
                 }
+                else{
+                    this.setState({
+                                    isLoading:false,
+                                    hasMore:false,
+                                    totalPrice: 0
+                })}
             })
         }
     }
