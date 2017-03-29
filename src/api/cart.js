@@ -121,6 +121,21 @@ export default {
                 });
         })
     },
+    setPayment: (id, paymentInfo) => {
+        // couponInfo => {"no":"1111111"}
+        return new Promise((resolve, reject) => {
+
+            const headers = getRequestHeader();
+            axios.post(api_serverRoot() + `/carts/` + id + `/payment`, paymentInfo, { "headers": headers })
+                .then(function (response) {
+                    // console.log(response.data);
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        })
+    },
     setInfo: (id, info) => {
         // customerInfo => {} 任意json
         return new Promise((resolve, reject) => {

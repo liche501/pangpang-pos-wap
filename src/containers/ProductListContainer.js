@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup  } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup,  RefreshControl  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
@@ -35,6 +35,7 @@ export default class ProductListContainer extends Component {
             searchKey:"",
             totalPrice: 0,
             totalCount: 0,
+            refreshing:false,
         };
     }
 
@@ -99,6 +100,7 @@ export default class ProductListContainer extends Component {
             }
         })
     }
+
     searchMoreProducts =  () => {
         pageNum++;
         productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
@@ -115,6 +117,13 @@ export default class ProductListContainer extends Component {
             }            
         })
     }
+
+    onRefresh = async () => {
+        this.setState({ refreshing: true });
+        await this._searchKeySubmit();
+        this.setState({ refreshing: false });
+    };
+
     onEndReached = (event) => {
         // hasMore: from backend data, indicates whether it is the last page, here is false
         if (this.state.isLoading && !this.state.hasMore) {
@@ -251,6 +260,10 @@ export default class ProductListContainer extends Component {
                         scrollEventThrottle={20}
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={40}
+                        refreshControl={<RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.onRefresh}
+                                />}
                     />
                 </div>
             </div>
