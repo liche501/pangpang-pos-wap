@@ -47,7 +47,7 @@ export default class ProductDetailContainer extends Component {
         skusData: React.PropTypes.arrayOf(React.PropTypes.shape({
             code: React.PropTypes.string.isRequired,
             id: React.PropTypes.number.isRequired,
-            images: React.PropTypes.object.isRequired,
+            //images: React.PropTypes.object.isRequired,
             options: React.PropTypes.array.isRequired,
             salePrice: React.PropTypes.any.isRequired,
         })),
