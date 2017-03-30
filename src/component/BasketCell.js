@@ -34,8 +34,7 @@ export default class BasketCell extends Component {
                                 <td style={{ width: '45%' }}>
                                     <div style={styles.rowData}>{rowData.sku.name}</div>
                                     <div style={{ textAlign: 'left' }}>
-                                        <img style={styles.img1} src={imgMD} alt="" />
-                                        <span style={styles.discount}>9.5折</span>
+                                        <span style={styles.discount}>X {rowData.quantity}</span>
                                     </div>
                                 </td>
                                 <td style={styles.td}>

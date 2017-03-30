@@ -170,8 +170,7 @@ export default class ProductListContainer extends Component {
                                 <td style={{width:'45%'}}>
                                     <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
-                                        <img style={styles.img1} src={imgMD} alt="" />
-                                        <span style={styles.discount}>9.5折</span>
+
                                     </div>
                                 </td>
                                 <td style={styles.td}>

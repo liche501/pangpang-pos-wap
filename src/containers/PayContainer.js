@@ -188,7 +188,7 @@ export default class PayContainer extends Component {
                         </div>
                     </RadioItem>
                 </List>
-                <Button className="btn" type="primary" style={styles.btn} onClick={()=>this.handleClick()}>Pay Confirm ￥450</Button>
+                <Button className="btn" type="primary" style={styles.btn} onClick={()=>this.handleClick()}>Pay Confirm ￥{this.state.salePrice}</Button>
             </div>
         )
     }
