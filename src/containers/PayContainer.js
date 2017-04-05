@@ -151,18 +151,24 @@ export default class PayContainer extends Component {
                     </div>
                 </div>
                 <WhiteSpace />
-                <WingBlank>
                 <List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
                             <FaQrcode style={styles.span}></FaQrcode>
-                            <Button onClick={()=>this.handleScanButtonClick('customer')} size='small' style={{marginRight: '0.3rem',display: 'inline-block',border:0}}>Customer</Button>
                             <span>|</span> 
-                            <Button onClick={()=>this.handleScanButtonClick('coupon')} size='small' style={{marginLeft: '0.3rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
+                            <Button onClick={()=>this.handleScanButtonClick('customer')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Customer</Button>
                         </div>
                     </Item>
                 </List>
-                </WingBlank>
+                <List>
+                    <Item data-seed="logId" style={styles.background}>
+                        <div style={styles.div3}>
+                            <FaQrcode style={styles.span}></FaQrcode>
+                            <span>|</span> 
+                            <Button onClick={()=>this.handleScanButtonClick('coupon')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
+                        </div>
+                    </Item>
+                </List>
                 <WhiteSpace />
                 <List>
                     <Item data-seed="logId" style={styles.background}>
@@ -228,8 +234,8 @@ styles = {
     span: {
         color:'#42A2EA',
         fontSize:'1rem',
-        marginLeft: '0.4rem',
-        marginRight: '0.3rem'
+        marginLeft: '1rem',
+        marginRight: '0.8rem'
     },
     img: {
         width:'1rem',
@@ -237,7 +243,7 @@ styles = {
         position: 'absolute',
         top: '50%',
         transform: 'translateY(-50%)',
-        left:'10%'
+        // left:'10%'
     },
     img1: {
         width:'50px',

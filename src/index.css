@@ -160,7 +160,7 @@ a:hover{
 
 /** PayContainer **/
 .am-list .am-list-item.am-radio-item .am-list-line .am-list-extra .am-radio-inner {
-    right: 2.5rem;
+    /*right: 2.5rem;*/
     top: 30px;
 }
 
