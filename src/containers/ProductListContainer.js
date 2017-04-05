@@ -27,7 +27,6 @@ export default class ProductListContainer extends Component {
         super(props);
         const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         this.state = {
-            cartId:0,
             dataSource: dataSource.cloneWithRows([]),
             isLoading: true,
             hasMore:true,
@@ -39,17 +38,26 @@ export default class ProductListContainer extends Component {
         };
     }
 
-    componentWillMount() {
-        //this.initCard();
+    async componentWillMount() {
+        await this.initCard();
+        await this.searchProducts();
     }
     
     async componentDidMount() {
-        await setTimeout(() => {
-            this.initCard();
-        }, 300);
-        await setTimeout(() => {
-            this.searchProducts();
-        }, 300);
+       
+    }
+
+    initCard = async () => {
+        let cartId = sessionStorage.getItem("cartId");
+        console.log(cartId)
+        if (cartId) {
+        } else {
+            await cartAPI.createCart().then((res) => {
+                sessionStorage.setItem("cartId", Number(res.result.id));
+            })
+        }
+
+        this.refreshCartData();
     }
 
     // 查询购物车，重新计算价格，数量
@@ -60,33 +68,17 @@ export default class ProductListContainer extends Component {
             cartAPI.getCartById(cartId).then(res=>{
                     //console.log('====>',res.result)
                     if(res.success && res.result.items !== null ){
-                        this.setState({ totalPrice: res.result.salePrice });
-                        this.setState({ totalCount: res.result.quantity});
+                        this.setState({ totalPrice: res.result.salePrice, totalCount: res.result.quantity });
                     }else{
-                        this.setState({ totalPrice: 0 });
-                        this.setState({ totalCount: 0 });
+                        this.setState({ totalPrice: 0, totalCount: 0  });
                     }
             })
          }
     }
-
-    initCard = async () => {
-        let cartId = sessionStorage.getItem("cartId");
-        console.log(cartId)
-        if (cartId) {
-            this.setState({ cartId: Number(cartId) });
-        } else {
-            await cartAPI.createCart().then((res) => {
-                sessionStorage.setItem("cartId", Number(res.result.id));
-            })
-        }
-
-        this.refreshCartData();
-    }
     
-    searchProducts= ()=>{        
-        productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
-            //console.log(res.result)
+    searchProducts= ()=>{   
+        productAPI.searchSkus(this.state.searchKey,0,pageSize).then((res)=>{
+            // console.log(res.result)
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(res.result.items),
@@ -187,12 +179,7 @@ export default class ProductListContainer extends Component {
     _searchKeyChange = (e) => {
         this.setState({searchKey:e});
     }
-    _searchKeySubmit = async() => {
-        pageNum = 0;
-        await this.setState({
-            dataSource: this.state.dataSource.cloneWithRows([]),
-            isLoading: false,
-        });    
+    _searchKeySubmit = () => {  
         this.searchProducts()
     }
     _searchKeyClear = () => {
@@ -201,9 +188,7 @@ export default class ProductListContainer extends Component {
     _topContentClick = () => {
         window.location = "/#/basketlist"
     }
-    _showModal = () =>{
 
-    }
     render() {
 
         return (
@@ -291,7 +276,6 @@ styles = {
     },
     rowData: {
         marginBottom: '0.16rem',
-        width:'80%',
         height:'0.65rem',
         overflow:'hidden',
         textAlign: "left"
