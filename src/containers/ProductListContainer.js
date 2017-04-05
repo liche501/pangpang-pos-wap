@@ -6,15 +6,6 @@ import cartAPI from '../api/cart.js';
 import ProductDetailContainer from './ProductDetailContainer';
 import { IoBag } from 'react-icons/lib/io'
 
-function MyBody(props) {
-    return (
-        <div className="am-list-body my-body">
-            <span style={{ display: 'none' }}>you can custom body wrap element</span>
-            {props.children}
-        </div>
-    );
-}
-
 var pageNum = 0;
 //每页显示数据的条数  
 const pageSize = 10;
@@ -97,6 +88,7 @@ export default class ProductListContainer extends Component {
         pageNum++;
         productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
             if(res.success && res.result.items !== null){
+                // console.log(res.result)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows([...this.state.dataSource._dataBlob.s1, ...res.result.items]),
                     isLoading: false,
@@ -130,7 +122,7 @@ export default class ProductListContainer extends Component {
     separator = (sectionID, rowID) => (
         <div key={`${sectionID}-${rowID}`} style={{
             backgroundColor: '#F5F5F9',
-            height: 8,
+            height: 1,
             borderTop: '1px solid #ECECED',
             borderBottom: '1px solid #ECECED',
         }}
@@ -229,17 +221,16 @@ export default class ProductListContainer extends Component {
                         renderFooter={() => <div style={styles.foot}>
                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
                         </div>}
-                        renderBodyComponent={() => <MyBody />}
                         renderRow={this._renderRow}
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40 + 36,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',
                         }}
-                        pageSize={10}
+                        pageSize={pageSize}
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
                         onEndReached={this.onEndReached}
@@ -258,11 +249,11 @@ export default class ProductListContainer extends Component {
 styles = {
     div: {
         display: 'flex',
-        padding: '0.3rem 0' 
+        padding: 0,
     },
     div1: {
         margin: '0 auto',
-        width: '96%' 
+        marginTop: "-36px",
     },
     img: {
         height: '1.28rem',
