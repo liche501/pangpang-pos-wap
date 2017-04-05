@@ -237,7 +237,7 @@ styles = {
         position: 'absolute',
         top: '50%',
         transform: 'translateY(-50%)',
-        left:'20%'
+        left:'10%'
     },
     img1: {
         width:'50px',
@@ -246,7 +246,7 @@ styles = {
     price: {
         fontSize:'0.5rem',
         fontWeight:'bold',
-        marginLeft:'20%'
+        marginLeft:'25%'
     },
     discount: {
         color:'orange',

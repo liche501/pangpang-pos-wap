@@ -54,7 +54,7 @@ export default class BasketCell extends Component {
 styles = {
     div: {
         display: 'flex',
-        padding: '0.3rem 0' 
+        // padding: '0.3rem 0' 
     },
     div1: {
         margin: '0 auto',

@@ -28,8 +28,8 @@ export default class BasketList extends Component {
         };
     }
     componentDidMount() {
-        // this.addItemsFromCart(226,95373,1)
-        this.refreshCartData();
+        this.addItemsFromCart(450,95374,2)
+        // this.refreshCartData();
     }
     // 给购物车添加商品
     addItemsFromCart = (cartId, skuId, qty) => {
