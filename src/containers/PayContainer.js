@@ -156,9 +156,9 @@ export default class PayContainer extends Component {
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
                             <FaQrcode style={styles.span}></FaQrcode>
-                            <Button onClick={()=>this.handleScanButtonClick('customer')} size='small' style={{marginRight: '0.6rem',display: 'inline-block',border:0}}>Customer</Button>
+                            <Button onClick={()=>this.handleScanButtonClick('customer')} size='small' style={{marginRight: '0.3rem',display: 'inline-block',border:0}}>Customer</Button>
                             <span>|</span> 
-                            <Button onClick={()=>this.handleScanButtonClick('coupon')} size='small' style={{marginLeft: '0.6rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
+                            <Button onClick={()=>this.handleScanButtonClick('coupon')} size='small' style={{marginLeft: '0.3rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
                         </div>
                     </Item>
                 </List>
@@ -223,13 +223,13 @@ styles = {
     },
     p: {
         width:'1rem',
-        margin:'50px auto'
+        margin:'33px auto'
     },
     span: {
         color:'#42A2EA',
         fontSize:'1rem',
-        marginLeft: '0.5rem',
-        marginRight: '0.5rem'
+        marginLeft: '0.4rem',
+        marginRight: '0.3rem'
     },
     img: {
         width:'1rem',
