@@ -115,7 +115,7 @@ export default class BasketList extends Component {
                                         transform: 'translateY(-50%)',
                                         color:'#108ee9',
                                         fontWeight:'bold',
-                                        fontSize:'0.6rem'
+                                        fontSize:'0.5rem'
                                 }}>
                         <div style={{float:'left'}}>Total</div>
                         <div style={{float:'right'}}>￥{this.state.totalPrice}</div>
@@ -152,7 +152,7 @@ styles = {
     item: {
         backgroundColor: "#fff",
         borderBottom: '10px solid #f6f6f6',
-        height:150,
+        height:100,
         padding: '0 0.5rem'
     },
     div: {

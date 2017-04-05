@@ -218,13 +218,13 @@ export default class ProductListContainer extends Component {
                                         width:'85%',
                                         marginLeft:'0.5rem',
                                         position: 'absolute',
-                                        top: '60%',
+                                        top: '50%',
                                         transform: 'translateY(-50%)',
                                         color:'#108ee9',
                                         fontWeight:'bold'
                                 }}>
                         <div style={{float:'left'}}>
-                            <IoBag size={120} />
+                            <IoBag size={70} />
                             <div style={{fontSize:'0.25rem',       
                                         position: 'absolute',
                                         top: '0.38rem',
@@ -235,7 +235,7 @@ export default class ProductListContainer extends Component {
                                {this.state.totalCount}
                             </div>
                         </div>
-                        <div style={{float:'right',fontSize:'0.6rem'}}>￥{this.state.totalPrice}</div>
+                        <div style={{float:'right',fontSize:'0.5rem'}}>￥{this.state.totalPrice}</div>
                     </div>
                 </Item>
                 <div style={styles.div1}>
@@ -311,7 +311,7 @@ styles = {
     item: {
         backgroundColor:'#fff',
         borderBottom:'1px solid #eee',
-        height:150
+        height:100
     },
     foot: {
         paddingTop: 10,
