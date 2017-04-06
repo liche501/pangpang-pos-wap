@@ -52,9 +52,9 @@ export default class PayContainer extends Component {
     }
 
     componentWillMount() {
-        // wx.ready(() => {
-        //     console.log("wx.ready")
-        // })
+        wx.ready(() => {
+            Toast.info('可以扫一扫啦');
+        })
         wx.error(err => {
             console.error(err);
         })
