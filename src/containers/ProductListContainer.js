@@ -34,8 +34,11 @@ export default class ProductListContainer extends Component {
         await this.searchProducts();
     }
     
-    async componentDidMount() {
-       
+    componentDidMount() {
+        // 处理顶部有空白的bug
+       let ele = document.getElementById("productList")
+       let eleChild = document.getElementById("productList").childNodes
+       ele.removeChild(eleChild[1])
     }
 
     initCard = async () => {
@@ -215,7 +218,7 @@ export default class ProductListContainer extends Component {
                         <div style={{float:'right',fontSize:'0.5rem',marginRight:'0.3rem'}}>￥{this.state.totalPrice}</div>
                     </div>
                 </Item>
-                <div style={{margin: '0 auto',}}>
+                <div id="productList" style={{margin: '0 auto',}}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={styles.foot}>
@@ -225,16 +228,14 @@ export default class ProductListContainer extends Component {
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40 + 36,
                             overflow: 'auto',
-                            border: '1px solid #ddd',
-                            margin: '0.1rem 0',
                         }}
                         pageSize={pageSize}
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
                         onEndReached={this.onEndReached}
-                        onEndReachedThreshold={40}
+                        onEndReachedThreshold={10}
                         refreshControl={<RefreshControl
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
