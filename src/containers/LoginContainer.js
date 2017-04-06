@@ -16,10 +16,9 @@ class Login extends Component {
     }
     componentDidMount() {
         let token = getQueryString("token");
-        // console.log(token)
         if(!token){
             this.setState({animating:false})
-            Toast.fail('登陆失败!!!', 3);
+            Toast.fail('登陆失败', 3);
             return;
         } 
         

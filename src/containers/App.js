@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory,browserHistory } from 'react-router';
 import HomeContainer from './HomeContainer';
 import LoginContainer from './LoginContainer';
 import BasketListContainer from './BasketListContainer';

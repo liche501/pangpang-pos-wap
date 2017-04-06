@@ -7,8 +7,9 @@ import pay2 from '../../public/wxzf.gif';
 import ticket from '../../public/ticket.gif';
 import cartAPI from '../api/cart.js';
 import orderAPI from '../api/order.js';
-import { FaQrcode } from 'react-icons/lib/fa'
-
+import wxAPI from '../api/wx.js';
+import { FaQrcode } from 'react-icons/lib/fa';
+import wx from 'weixin-js-sdk';
 
 const Item = List.Item;
 const RadioItem = Radio.RadioItem;
@@ -48,26 +49,40 @@ export default class PayContainer extends Component {
                             })
                         })
         }
-
     }
+
     componentWillMount() {
+        // wx.ready(() => {
+        //     console.log("wx.ready")
+        // })
+        wx.error(err => {
+            console.error(err);
+        })
+
+        const apiList = ['checkJsApi', 'scanQRCode', 'getNetworkType'] 
+        wxAPI.setWexinConfig(false,apiList,window.location.href).then(wxconfig => {
+            // console.log(wxconfig)
+        })
+
         this.refreshCartData();
     }
-
+    componentDidMount() {
+   
+    }
+    
     // 查询购物车，重新计算价格，数量
     refreshCartData = () => {
         let cartId = sessionStorage.getItem("cartId");
 
         if(cartId){
             cartAPI.getCartById(cartId).then(res=>{
-                console.log('====>',res.result)
+                // console.log('====>',res.result)
                 if(res.success) {
                     if(res.result.items !== null ){
                         this.setState({ salePrice: res.result.salePrice,
                                         discount: res.result.discount});
                     }else{
-                        this.setState({ salePrice: 0});
-                        this.setState({ discount: 0});
+                        this.setState({ salePrice: 0, discount: 0});
                     }
 
                     if(res.result.customerInfo !== null ){
@@ -91,7 +106,7 @@ export default class PayContainer extends Component {
             payType
         });
     }
-    handleScanButtonClick = (type) => {
+    _inputButtonClick = (type) => {
         if(type === 'customer'){
             prompt(
             '会员','请输入会员号',
@@ -135,6 +150,33 @@ export default class PayContainer extends Component {
             )
         }
     }
+    _scanButtonClick = (type) =>{
+        // wx.getNetworkType({
+        //     success: function (res) {
+        //         var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+        //         console.log(networkType)
+        //     }
+        // });
+        // wx.checkJsApi({
+        //     jsApiList: ['scanQRCode'], 
+        //     success: function(res) {
+        //         console.log(res)
+        //         // 以键值对的形式返回，可用的api值true，不可用为false
+        //         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+        //     },
+        //     fail:function(err){
+        //         console.error(err)
+        //     }
+        // });
+        wx.scanQRCode({
+            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                alert(result);
+            }
+        });
+    }
     render() {
         return (
             <div style={{background:'#f6f6f6'}}>
@@ -154,9 +196,9 @@ export default class PayContainer extends Component {
                 <List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
-                            <FaQrcode style={styles.span}></FaQrcode>
+                            <FaQrcode style={styles.span} onClick={()=>{this._scanButtonClick("customer")}}></FaQrcode>
                             <span>|</span> 
-                            <Button onClick={()=>this.handleScanButtonClick('customer')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Customer</Button>
+                            <Button onClick={()=>this._inputButtonClick('customer')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Customer</Button>
                         </div>
                     </Item>
                 </List>
@@ -165,7 +207,7 @@ export default class PayContainer extends Component {
                         <div style={styles.div3}>
                             <FaQrcode style={styles.span}></FaQrcode>
                             <span>|</span> 
-                            <Button onClick={()=>this.handleScanButtonClick('coupon')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
+                            <Button onClick={()=>this._inputButtonClick('coupon')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
                         </div>
                     </Item>
                 </List>

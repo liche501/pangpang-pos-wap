@@ -34,7 +34,7 @@ export function stringTrim(str,is_global)
 
 // 获取URL参数
 export function getQueryString(name) {
-    var url = window.location.hash;
+    var url = window.location.hash || window.location.search;
     url = "?" + url.split("?", 2)[1];
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = url.substr(1).match(reg);
