@@ -52,9 +52,9 @@ export default class PayContainer extends Component {
     }
 
     componentWillMount() {
-        wx.ready(() => {
-            Toast.success('可以扫一扫啦');
-        })
+        // wx.ready(() => {
+        //     Toast.success('可以扫一扫啦');
+        // })
         wx.error(err => {
             Toast.fail('微信JSSKD错误')
             console.error(err);
@@ -152,31 +152,19 @@ export default class PayContainer extends Component {
         }
     }
     _scanButtonClick = (type) =>{
-        // wx.getNetworkType({
-        //     success: function (res) {
-        //         var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
-        //         console.log(networkType)
-        //     }
-        // });
-        // wx.checkJsApi({
-        //     jsApiList: ['scanQRCode'], 
-        //     success: function(res) {
-        //         console.log(res)
-        //         // 以键值对的形式返回，可用的api值true，不可用为false
-        //         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-        //     },
-        //     fail:function(err){
-        //         console.error(err)
-        //     }
-        // });
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
                 var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
                 alert(result);
+                if(type === 'customer'){
+                    
+                }else if(type === 'coupon'){
+
+                }
             }
-        });
+        })
     }
     render() {
         return (
@@ -206,7 +194,7 @@ export default class PayContainer extends Component {
                 <List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
-                            <FaQrcode style={styles.span}></FaQrcode>
+                            <FaQrcode style={styles.span} onClick={()=>{this._scanButtonClick("coupon")}}></FaQrcode>
                             <span>|</span> 
                             <Button onClick={()=>this._inputButtonClick('coupon')} size='small' style={{marginLeft: '0.5rem',display: 'inline-block',border:0}}>Coupon/SALE</Button>
                         </div>
