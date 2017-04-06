@@ -53,9 +53,10 @@ export default class PayContainer extends Component {
 
     componentWillMount() {
         wx.ready(() => {
-            Toast.info('可以扫一扫啦');
+            Toast.success('可以扫一扫啦');
         })
         wx.error(err => {
+            Toast.fail('微信JSSKD错误')
             console.error(err);
         })
 
