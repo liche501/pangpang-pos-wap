@@ -225,7 +225,7 @@ export default class ProductListContainer extends Component {
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40 + 36,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',
@@ -253,7 +253,7 @@ styles = {
     },
     div1: {
         margin: '0 auto',
-        marginTop: "-36px",
+        // marginTop: "-36px",
     },
     img: {
         height: '1.28rem',
