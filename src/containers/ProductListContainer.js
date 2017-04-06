@@ -142,7 +142,7 @@ export default class ProductListContainer extends Component {
     _renderRow = (rowData, sectionID, rowID) => {
         return (
             <div key={rowID} className="row" onClick={()=>{this._rowClick(rowData)}}>
-                <div style={styles.div}>
+                <div style={{display: 'flex',padding: 0,}}>
                     <table className="row-text">
                         <tbody>
                             <tr>
@@ -215,7 +215,7 @@ export default class ProductListContainer extends Component {
                         <div style={{float:'right',fontSize:'0.5rem',marginRight:'0.3rem'}}>￥{this.state.totalPrice}</div>
                     </div>
                 </Item>
-                <div style={styles.div1}>
+                <div style={{margin: '0 auto',}}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={styles.foot}>
@@ -247,14 +247,6 @@ export default class ProductListContainer extends Component {
 }
 
 styles = {
-    div: {
-        display: 'flex',
-        padding: 0,
-    },
-    div1: {
-        margin: '0 auto',
-        // marginTop: "-36px",
-    },
     img: {
         height: '1.28rem',
         width: "1.28rem",
