@@ -203,14 +203,15 @@ export default class ProductListContainer extends Component {
                                         color:'#108ee9',
                                         fontWeight:'bold'
                                 }}>
-                        <div style={{float:'left'}}>
-                            <IoBag size={70} />
-                            <div style={{fontSize:'0.25rem',       
+                        <div style={{float:'left',marginTop:'0.09rem'}}>
+                            <IoBag style={{width:'1rem',height:'0.6rem',marginLeft:'-0.15rem'}}/>
+                            <div style={{
+                                        fontSize:'0.25rem',       
                                         position: 'absolute',
                                         top: '0.3rem',
-                                        left: '0.05rem',
-                                        width: '0.5rem',
-                                        textAlign: 'center'
+                                        left: '0.23rem',
+                                        // width: '0.5rem',
+                                        // textAlign: 'center'
                             }}>
                                {this.state.totalCount}
                             </div>
