@@ -10,6 +10,10 @@ var paths = require('./paths');
 var getClientEnvironment = require('./env');
 var pxtorem = require('postcss-pxtorem');
 
+const px2remOpts = {
+  rootValue: 100,
+  propWhiteList: [],
+};
 
 const svgDirs = [
   require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
@@ -191,6 +195,7 @@ module.exports = {
           'not ie < 9', // React doesn't support IE8 anyway
         ]
       }),
+      pxtorem(px2remOpts),
     ];
   },
   plugins: [

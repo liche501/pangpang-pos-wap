@@ -4197,12 +4197,12 @@ postcss-ordered-values@^2.1.0:
     postcss "^5.0.4"
     postcss-value-parser "^3.0.1"
 
-postcss-pxtorem@^4.0.0:
-  version "4.0.0"
-  resolved "http://registry.npm.taobao.org/postcss-pxtorem/download/postcss-pxtorem-4.0.0.tgz#530e529793ddb0e6a3e1f064d96173b747f789f2"
+postcss-pxtorem@3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/postcss-pxtorem/download/postcss-pxtorem-3.3.1.tgz#0da39bf983b3c849ae0e3c74eca7269b13ad2044"
   dependencies:
-    object-assign "^4.1.0"
-    postcss "^5.2.10"
+    object-assign "^4.0.1"
+    postcss "^5.0.2"
 
 postcss-reduce-idents@^2.2.2:
   version "2.4.0"

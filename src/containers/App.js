@@ -7,6 +7,8 @@ import ProductDetailContainer from './ProductDetailContainer';
 import PayContainer from './PayContainer';
 
 import { getQueryString } from '../common/extend.js';
+var FastClick = require('fastclick');
+FastClick.attach(document.body);
 
 function validateAccount(nextState, replaceState) {
   if (nextState.location.pathname !== "/login" && !sessionStorage.getItem("account")) {

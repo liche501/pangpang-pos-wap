@@ -10,6 +10,10 @@ var getClientEnvironment = require('./env');
 var paths = require('./paths');
 var pxtorem = require('postcss-pxtorem');
 
+const px2remOpts = {
+  rootValue: 100,
+  propWhiteList: [],
+};
 
 const svgDirs = [
   require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
@@ -148,12 +152,6 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css?importLoaders=1!postcss'
-        // postcss: [
-        //     pxtorem({
-        //       rootValue: 100,
-        //       propWhiteList: [],
-        //     })
-        //   ]
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
@@ -190,6 +188,7 @@ module.exports = {
           'not ie < 9', // React doesn't support IE8 anyway
         ]
       }),
+      pxtorem(px2remOpts)
     ];
   },
   plugins: [
