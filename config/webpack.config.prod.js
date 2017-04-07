@@ -154,12 +154,6 @@ module.exports = {
           'css?importLoaders=1!postcss',
           extractTextPluginOptions
         ),
-        postcss: [
-            pxtorem({
-              rootValue: 100,
-              propWhiteList: [],
-            })
-          ]
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify

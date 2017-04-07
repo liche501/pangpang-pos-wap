@@ -147,13 +147,13 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss',
-        postcss: [
-            pxtorem({
-              rootValue: 100,
-              propWhiteList: [],
-            })
-          ]
+        loader: 'style!css?importLoaders=1!postcss'
+        // postcss: [
+        //     pxtorem({
+        //       rootValue: 100,
+        //       propWhiteList: [],
+        //     })
+        //   ]
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
