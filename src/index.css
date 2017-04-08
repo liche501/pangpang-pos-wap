@@ -114,7 +114,8 @@ a:hover{
 .row-text {
   display: inline-block;
   font-size: 0.32rem;
-  line-height: 1;
+  line-height: 1.6;
+  margin-left: -15px;
 }
 .list-view-section-body{
   border-bottom: 12px solid #f6f6f6;
@@ -157,6 +158,7 @@ a:hover{
   width: 0.8rem!important;
   height: 0.5rem!important;
 }*/
+
 
 /** PayContainer **/
 .am-list .am-list-item.am-radio-item .am-list-line .am-list-extra .am-radio-inner {
