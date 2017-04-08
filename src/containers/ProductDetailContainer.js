@@ -39,6 +39,7 @@ export default class ProductDetailContainer extends Component {
             selectColorKey: "",
             
             selectedSku: null,
+            pdStyle:{},
         };
         this.meetFirstConditionData = [];
         this.meetSecondConditionData = [];
@@ -60,8 +61,18 @@ export default class ProductDetailContainer extends Component {
 
     }
     componentDidMount() {
-        console.log(this.props.skusData)
-        console.log(this.props.productStyles)
+        // console.log(this.props.skusData)
+        // console.log(this.props.productStyles)
+        let totalHeight = document.documentElement.clientHeight;
+        let pd = document.getElementById("productDetailContainer");
+        let pdStyle = pd.getBoundingClientRect();
+        let pdHeight = pdStyle.height;
+        
+        if(pdHeight/totalHeight > 0.9)
+        {
+            let pdStyle = {height:pdHeight/2.5,overflow:'scroll'}
+            this.setState({pdStyle:pdStyle});
+        }
         
     }
 
@@ -182,7 +193,7 @@ export default class ProductDetailContainer extends Component {
 
         })
         return (
-            <div>
+            <div id="productDetailContainer">
                 <List renderHeader={() => (
                     <div style={{ position: 'relative' }} >
                         物品选择
@@ -228,25 +239,23 @@ export default class ProductDetailContainer extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <List>
-                        <div style={{ margin: '0.2rem auto' }}>
-                            <p style={styles.txt}>尺码</p>
-                            <Flex wrap="wrap" id='flex' style={styles.table}>
-                                {sizeContent}
-                            </Flex>
-                        </div>
-                    </List>
-                    <List>
-                        <div style={{ margin: '0.2rem auto' }}>
-                            <p className='productColor' style={styles.txt}>颜色</p>
-                            <Flex wrap="wrap" id='flex' style={styles.table}>
-                                {colorContent}
-                            </Flex>
-                        </div>
-                    </List>
-                </List>
-                <ul style={styles.step}>
-                    <li>
+                    <List style={this.state.pdStyle}>
+                        <List >
+                            <div style={{ margin: '0.2rem auto' }}>
+                                <p style={styles.txt}>尺码</p>
+                                <Flex wrap="wrap" id='flex' style={styles.table}>
+                                    {sizeContent}
+                                </Flex>
+                            </div>
+                        </List>
+                        <List>
+                            <div style={{ margin: '0.2rem auto' }}>
+                                <p className='productColor' style={styles.txt}>颜色</p>
+                                <Flex wrap="wrap" id='flex' style={styles.table}>
+                                    {colorContent}
+                                </Flex>
+                            </div>
+                        </List>
                         <List.Item style={{ backgroundColor: '#fff' }} extra={
                             <Stepper
                                 style={styles.stepper}
@@ -256,11 +265,11 @@ export default class ProductDetailContainer extends Component {
                             >
                             数量
                         </List.Item>
-                    </li>
-                    <li style={{ marginTop: '0.18rem' }}>
-                        <Button type="primary" onClick={this._pressConfirmButton}>确定</Button>
-                    </li>
-                </ul>
+                    </List>
+                </List>
+                <List style={{ padding: '0.15rem' }}>
+                    <Button type="primary" onClick={this._pressConfirmButton}>确定</Button>
+                </List>
             </div>
         )
     }
@@ -271,12 +280,6 @@ styles = {
         marginBottom:'-0.1rem',
         marginRight:'0.2rem',
     },
-    p: {
-        fontSize:'0.25rem' ,
-        textAlign:'center',
-        marginTop:'0.1rem',
-        marginBottom:'0.1rem'
-    },
     span: {
         position: 'absolute',
         right: 3,
@@ -284,11 +287,13 @@ styles = {
     },
     table: {
         width: '92%',
-        margin: '0 auto' 
+        margin: '0 auto',
+        fontSize:'0.25rem' , 
     },
     ul: {
         listStyle: 'none',
-        lineHeight: '0.5rem' 
+        lineHeight: '0.5rem',
+        paddingLeft:0, 
     },
     txt: {
         width: '92%',
