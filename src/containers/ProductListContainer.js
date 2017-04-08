@@ -82,7 +82,11 @@ export default class ProductListContainer extends Component {
                     this.setState({hasMore:false,isLoading:false})
                 }
             }else{
-                    this.setState({hasMore:false,isLoading:false})
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows([]),
+                        hasMore:false,
+                        isLoading:false
+                    })
             }
         })
     }
@@ -185,7 +189,7 @@ export default class ProductListContainer extends Component {
     }
 
     render() {
-
+        
         return (
             <div style={{background:'#fff'}}>
                 <SearchBar placeholder="搜索" value={this.state.searchKey}  

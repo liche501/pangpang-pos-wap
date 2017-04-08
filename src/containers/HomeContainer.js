@@ -18,6 +18,7 @@ export default class Home extends Component {
         position: 'left',
         selectMenuCode: "productList",
         menuName: "销售",
+        scanData:"",
     }
 
     onOpenChange = (...args) => {
@@ -25,15 +26,19 @@ export default class Home extends Component {
         this.setState({ open: !this.state.open });
     }
     selectMenuClick = (menuCode, menuName) => {
-        console.log(menuCode, menuName);
+        // console.log(menuCode, menuName);
         this.setState({ selectMenuCode: menuCode, menuName: menuName });
         this.onOpenChange();
+    }
+    _scan = () => {
+
+        this.setState({scanData:parseInt(Math.random()*10000000)});
     }
     render() {
         let content;
         switch (this.state.selectMenuCode) {
             case "productList":
-                content = <ProductList />
+                content = <ProductList scanData={this.state.scanData} />
                 break;
             case "validate":
 
@@ -78,7 +83,12 @@ export default class Home extends Component {
         };
         return (
             <div>
-                <Navi leftIcon="menu" onLeftClick={this.onOpenChange} title={this.state.menuName} />
+                <Navi leftIcon="menu" 
+                      title={this.state.menuName} 
+                      onLeftClick={this.onOpenChange}
+                      rightIcon="scan"
+                      onRightClick={this._scan} 
+                />
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
