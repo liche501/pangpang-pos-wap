@@ -78,7 +78,7 @@ export default class Home extends Component {
         };
         return (
             <div>
-                <Navi leftIcon="koubei-o" onLeftClick={this.onOpenChange} title={this.state.menuName} />
+                <Navi leftIcon="menu" onLeftClick={this.onOpenChange} title={this.state.menuName} />
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}

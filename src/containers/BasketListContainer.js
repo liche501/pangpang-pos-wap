@@ -7,8 +7,6 @@ import cartAPI from '../api/cart.js';
 
 
 const Item = List.Item;
-const price = 200;
-const menuName = "购物车";
 let styles = {};
 
 var pageNum = 0;
@@ -23,13 +21,14 @@ export default class BasketList extends Component {
         this.state = {
             dataSource: dataSource.cloneWithRows([]),
             isLoading: false,
-            hasMore:true,
+            hasMore: true,
             totalPrice: 0,
+            qty: 0,
         };
     }
     componentDidMount() {
-        this.addItemsFromCart(450,95374,2)
-        // this.refreshCartData();
+        // this.addItemsFromCart(450,95374,2)
+        this.refreshCartData();
     }
     // 给购物车添加商品
     addItemsFromCart = (cartId, skuId, qty) => {
@@ -57,7 +56,8 @@ export default class BasketList extends Component {
                     this.setState({
                         dataSource: this.state.dataSource.cloneWithRows(res.result.items),
                         isLoading: false,
-                        totalPrice: res.result.salePrice
+                        totalPrice: res.result.salePrice,
+                        qty: res.result.quantity,
                     });
                 }else if(res.success && res.result.items === null ){
                     this.setState({
@@ -106,7 +106,11 @@ export default class BasketList extends Component {
     render() {
         return (
             <div style={{background:'#fff'}}>
-                <Navi  leftIcon="left" rightIcon="pay" onRightClick={()=>{window.location="/#/paylist"}} title={menuName} onLeftClick={()=>{history.back()}} />
+                <Navi  leftIcon="left" 
+                       rightIcon="pay" 
+                       title={`购物车(${this.state.qty})`} 
+                       onLeftClick={()=>{history.back()}} />
+                       onRightClick={()=>{window.location="/#/paylist"}} 
                 <Item style={styles.item}>
                     <div style={{display:'inline-block',
                                         width:'100%',
