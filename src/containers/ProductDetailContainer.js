@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popup, List, Button, Icon, Stepper, Flex, WhiteSpace } from 'antd-mobile';
+import { Popup, List, Button, Tag, Icon, Stepper, Flex, WhiteSpace } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import cartAPI from '../api/cart.js';
 
@@ -166,8 +166,8 @@ export default class ProductDetailContainer extends Component {
             
             return (
                 <div className="inline-box" onClick={()=>{this._sizeItemPress(val)}} key={i} >
-                    <div style={this.state.selectSizeKey === val?{ backgroundColor: "#3e9ce9",color: "white" } : {} }>
-                        <Button size='small' >{val}</Button>
+                    <div>
+                        <Button style={this.state.selectSizeKey === val?{ backgroundColor: "#3e9ce9",color: "white" } : {} } size='small' >{val}</Button>
                     </div>
                 </div>
             )
@@ -176,8 +176,8 @@ export default class ProductDetailContainer extends Component {
             if (this._existColor(color)) {
                 return (
                     <div className="inline-box" key={i} onClick={() => this._colorItemPress(color)} >
-                        <div style={this.state.selectColorKey === color ? { backgroundColor: "#3e9ce9", color: "white", } : {}}>
-                            <Button size='small'>{color}</Button>
+                        <div>
+                            <Button style={this.state.selectColorKey === color ? { backgroundColor: "#3e9ce9", color: "white", } : {}} size='small'>{color}</Button>
                         </div>
                     </div>
                 )

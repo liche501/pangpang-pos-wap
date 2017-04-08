@@ -184,7 +184,7 @@ export default class PayContainer extends Component {
                             <div>会员号 : {this.state.customerId}</div>
                             <div>
                                 积&nbsp;&nbsp;&nbsp;分 : {this.state.customerNo}
-                                <input placeholder='点击输入' style={{ fontSize: '0.25rem',textAlign:'center', borderRadius: '10px', width: '1.85rem', height: '0.6rem' }}/> &nbsp;
+                                <input placeholder='点击输入' style={styles.input}/> &nbsp;
                                 <span style={{ color: 'orange' }}>(470P)</span>
                             </div>
                         </div>
@@ -195,12 +195,12 @@ export default class PayContainer extends Component {
                     <List>
                         <Item data-seed="logId" style={styles.background}>
                             <div style={styles.div3}>
-                                <div style={{ width: '2.1rem', fontSize: '0.4rem', color: '#42A2EA', fontWeight: 'bold', marginLeft: '0.2rem', borderRight: '1px solid #e8e8e8' }}>
+                                <div style={styles.div2}>
                                     汉光百货
                                 </div>
-                                <div style={{ position: 'absolute', top: '0.05rem', left: '3rem' }}>
+                                <div style={styles.coupon}>
                                     <span>Coupon/ Sale</span>
-                                    <div style={{ fontSize: '0.2rem', marginTop: '-0.15rem' }}>2017.05.01~2017.06.01</div>
+                                    <div style={styles.date}>2017.05.01~2017.06.01</div>
                                 </div>
                             </div>
                         </Item>
@@ -208,7 +208,7 @@ export default class PayContainer extends Component {
                 </WingBlank>
                 <WhiteSpace />
                 <List>
-                    <div style={{ width: '75%', fontSize: '0.35rem', margin: '0 auto', paddingBottom: '1px' }}>
+                    <div style={styles.info}>
                         <p>
                             金额：
                             <span style={{ float: 'right' }}>2400元</span>
@@ -224,14 +224,14 @@ export default class PayContainer extends Component {
                     </div>
                 </List>
                 <List>
-                    <div style={{ width: '75%', fontSize: '0.35rem', margin: '35px auto', paddingBottom: '35px' }}>
+                    <div style={styles.total}>
                         合计：
                             <span style={{ float: 'right' }}>2360元</span>
                     </div>
-
                 </List>
+                <WhiteSpace />
                 <List>
-                    <div style={{ width: '50%', borderRight: '5px solid #ddd' }}>
+                    <div style={styles.pay}>
                         <RadioItem className='pay-am-list-item-middle' key='Alipay' checked={this.state.payType === 'Ali'} onChange={() => this.onPayTypeChange('Ali')}>
                             <div style={{ textAlign: 'center' }}>
                                 <img src={pay1} style={{ marginRight: '5px' }} alt="" /> &nbsp;
@@ -239,7 +239,7 @@ export default class PayContainer extends Component {
                             </div>
                         </RadioItem>
                     </div>
-                    <div style={{ width: '45%', position:'absolute',top:'0',right:'30px' }}>
+                    <div style={styles.paywx}>
                         <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={this.state.payType === 'Wx'} onChange={() => this.onPayTypeChange('Wx')}>
                             <div style={{ textAlign: 'center' }}>
                                 <img src={pay2} style={styles.img1} alt="" /> &nbsp;
@@ -254,7 +254,7 @@ export default class PayContainer extends Component {
                         <div style={styles.div3}>
                             <FaQrcode style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></FaQrcode>
                             <span>|</span>
-                            <Button onClick={() => this._inputButtonClick('customer')} size='small' style={{ marginLeft: '0.5rem', display: 'inline-block', border: 0 }}>Customer</Button>
+                            <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>Customer</Button>
                         </div>
                     </Item>
                 </List>
@@ -263,7 +263,7 @@ export default class PayContainer extends Component {
                         <div style={styles.div3}>
                             <FaQrcode style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></FaQrcode>
                             <span>|</span>
-                            <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={{ marginLeft: '0.5rem', display: 'inline-block', border: 0 }}>Coupon/SALE</Button>
+                            <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn2}>Coupon/SALE</Button>
                         </div>
                     </Item>
                 </List>
@@ -296,13 +296,28 @@ styles = {
         width: '2rem',
         fontSize: '0.5rem',
         color: 'orange',
-        marginRight: '0.5rem',
+        marginRight: '0.35rem',
         backgroundColor: '#f6f6f6'
+    },
+    input: {
+        fontSize: '0.25rem',
+        textAlign:'center',
+        borderRadius: '10px',
+        width: '1.85rem',
+        height: '0.6rem' 
     },
     // div2: {
     //     marginBottom: '0.16rem',
     //     fontSize: '0.4rem'
     // },
+    div2: {
+        width: '1.8rem',
+        fontSize: '0.35rem',
+        color: '#42A2EA',
+        fontWeight: 'bold',
+        // marginLeft: '0.2rem',
+        borderRight: '1px solid #e8e8e8' 
+    },
     div3: {
         lineHeight: '2',
         textAlign: 'left'
@@ -310,6 +325,38 @@ styles = {
     div4: {
         lineHeight: '2',
         textAlign: 'center'
+    },
+    coupon: {
+        position: 'absolute',
+        // top: '0.05rem',
+        top:0,
+        left: '2.8rem' 
+    },
+    date:{
+        fontSize: '0.2rem',
+        marginTop: '-0.15rem' 
+    },
+    info: {
+        width: '75%',
+        fontSize: '0.35rem',
+        margin: '0 auto',
+        paddingBottom: '1px' 
+    },
+    total: {
+        width: '75%',
+        fontSize: '0.35rem',
+        margin: '35px auto 0',
+        paddingBottom: '35px' 
+    },
+    pay: {
+        width: '50%',
+        borderRight: '5px solid #ddd' 
+    },
+    paywx: {
+        width: '45%',
+        position:'absolute',
+        top:'0',
+        right:'30px' 
     },
     p: {
         width: '1rem',
@@ -346,5 +393,15 @@ styles = {
         width: '90%',
         margin: '7% auto 0',
         fontWeight: 'bold'
+    },
+    btn1:{
+        marginLeft: '0.5rem',
+        display: 'inline-block',
+        border: 0 
+    },
+    btn2: {
+        marginLeft: '0.5rem',
+        display: 'inline-block',
+        border: 0 
     }
 }

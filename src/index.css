@@ -115,7 +115,7 @@ a:hover{
   display: inline-block;
   font-size: 0.32rem;
   line-height: 1.6;
-  margin-left: -15px;
+  /*margin-left: -15px;*/
 }
 .list-view-section-body{
   border-bottom: 12px solid #f6f6f6;
