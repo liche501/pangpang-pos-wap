@@ -8,7 +8,7 @@ import ticket from '../../public/ticket.gif';
 import cartAPI from '../api/cart.js';
 import orderAPI from '../api/order.js';
 import wxAPI from '../api/wx.js';
-import { FaQrcode } from 'react-icons/lib/fa';
+import { MdFullscreen } from 'react-icons/lib/md';
 import wx from 'weixin-js-sdk';
 
 const Item = List.Item;
@@ -173,7 +173,10 @@ export default class PayContainer extends Component {
     render() {
         return (
             <div style={{ background: '#f6f6f6' }}>
-                <Navi style={styles.background} leftIcon="left" title={this.state.menuName} onLeftClick={() => { history.back() } } />
+                <Navi leftIcon="left" 
+                      title={this.state.menuName} 
+                      onLeftClick={() => { history.back() } } 
+                />
                 <div className="row">
                     <div style={styles.div}>
                         <div style={styles.div1} >
@@ -252,7 +255,7 @@ export default class PayContainer extends Component {
                 <List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
-                            <FaQrcode style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></FaQrcode>
+                            <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdFullscreen>
                             <span>|</span>
                             <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>Customer</Button>
                         </div>
@@ -261,7 +264,7 @@ export default class PayContainer extends Component {
                 <List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div3}>
-                            <FaQrcode style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></FaQrcode>
+                            <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdFullscreen>
                             <span>|</span>
                             <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn2}>Coupon/SALE</Button>
                         </div>

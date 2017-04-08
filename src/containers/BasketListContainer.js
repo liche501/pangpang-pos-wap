@@ -109,8 +109,9 @@ export default class BasketList extends Component {
                 <Navi  leftIcon="left" 
                        rightIcon="pay" 
                        title={`购物车(${this.state.qty})`} 
-                       onLeftClick={()=>{history.back()}} />
-                       onRightClick={()=>{window.location="/#/paylist"}} 
+                       onLeftClick={()=>{history.back()}} 
+                       onRightClick={()=>{window.location="/#/paylist"}}
+                />
                 <Item style={styles.item}>
                     <div style={{display:'inline-block',
                                         width:'100%',

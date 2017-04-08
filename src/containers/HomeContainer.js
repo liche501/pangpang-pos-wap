@@ -9,9 +9,9 @@ import Navi from '../component/Navi.js';
 let tempMenuData = [
     {},
     { menuName: "销售", menuCode: "productList" },
-    { menuName: "卖场", menuCode: "spotSet" },
+    // { menuName: "卖场", menuCode: "spotSet" },
 ];
-
+const leftMenuWidth = document.documentElement.clientWidth/3*2;
 export default class Home extends Component {
     state = {
         open: false,
@@ -50,7 +50,7 @@ export default class Home extends Component {
                 {tempMenuData.map((menu, index) => {
                     if (index === 0) {
                         return (
-                            <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 }}
+                            <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 ,width:leftMenuWidth}}
                                 multipleLine
                             >
                             <div className="home-box">
@@ -85,6 +85,7 @@ export default class Home extends Component {
                     sidebar={sidebar}
                     dragHandleStyle={{ display: 'none' }}
                     contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
+                    sidebarStyle={{width:leftMenuWidth}}
                     {...drawerProps}
                     >
                     {content}

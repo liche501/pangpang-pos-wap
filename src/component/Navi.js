@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
-import { FaAlignJustify } from 'react-icons/lib/fa';
+import { FaBars } from 'react-icons/lib/fa';
 
 export default class Navi extends Component {
     static propTypes = {
@@ -21,7 +21,7 @@ export default class Navi extends Component {
     render() {
         return (
             <NavBar iconName={this.props.leftIcon==="menu"?false:this.props.leftIcon} mode={this.props.mode} onLeftClick={this.props.onLeftClick} style={{ backgroundColor: "#3e9ce9", color: "white", }}
-                leftContent={this.props.leftIcon === "menu"? <FaAlignJustify></FaAlignJustify>:null}
+                leftContent={this.props.leftIcon === "menu"? <FaBars style={{fontSize:".5rem"}}></FaBars>:null}
                 rightContent={
                     this.props.rightIcon === 'pay'?
                     [
