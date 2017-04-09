@@ -104,14 +104,23 @@ export default class Home extends Component {
             onOpenChange: this.onOpenChange,
             dragHandleStyle: { backgroundColor: "red" }
         };
-        return (
-            <div>
-                <Navi leftIcon="menu" 
+        let menuContent
+        if(this.state.selectMenuCode === "productList"){
+            menuContent = <Navi leftIcon="menu" 
                       title={this.state.menuName} 
                       onLeftClick={this.onOpenChange}
                       rightIcon="scan"
                       onRightClick={this._scanButtonClick} 
                 />
+        }else{
+            menuContent = <Navi leftIcon="menu" 
+                      title={this.state.menuName} 
+                      onLeftClick={this.onOpenChange}
+                />
+        }
+        return (
+            <div>
+                {menuContent}
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight - 90 }}
