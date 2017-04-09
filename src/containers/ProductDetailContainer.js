@@ -56,11 +56,13 @@ export default class ProductDetailContainer extends Component {
             Size: React.PropTypes.array.isRequired,
             Color: React.PropTypes.array.isRequired,
         }).isRequired,
+        targetSize: React.PropTypes.string,
+        targetColor: React.PropTypes.string,
         // closeModal: React.PropTypes.func.isRequired,
         // openModal: React.PropTypes.func.isRequired,
 
     }
-    componentDidMount() {
+    async componentDidMount() {
         // console.log(this.props.skusData)
         // console.log(this.props.productStyles)
         let totalHeight = document.documentElement.clientHeight;
@@ -73,7 +75,10 @@ export default class ProductDetailContainer extends Component {
             let pdStyle = {height:pdHeight/2.5,overflow:'scroll'}
             this.setState({pdStyle:pdStyle});
         }
-        
+        if(this.props.targetSize && this.props.targetColor){
+            await this._sizeItemPress(this.props.targetSize)
+            await this._colorItemPress(this.props.targetColor)
+        }
     }
 
     onClose = () => {

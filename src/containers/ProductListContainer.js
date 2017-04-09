@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup,  RefreshControl  } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup, RefreshControl, Toast  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
+
 import ProductDetailContainer from './ProductDetailContainer';
 import { IoBag } from 'react-icons/lib/io'
 
@@ -40,7 +41,12 @@ export default class ProductListContainer extends Component {
        let eleChild = document.getElementById("productList").childNodes
        ele.removeChild(eleChild[1])
     }
-
+    componentWillReceiveProps(props){
+        // console.log(props.scanData)
+        // if(props.scanData){
+        //     this._rowClick({id:2})
+        // }
+    }
     initCard = async () => {
         let cartId = sessionStorage.getItem("cartId");
         console.log(cartId)
@@ -71,8 +77,8 @@ export default class ProductListContainer extends Component {
     }
     
     searchProducts= ()=>{   
-        productAPI.searchSkus(this.state.searchKey,0,pageSize).then((res)=>{
-            // console.log(res.result)
+        productAPI.searchContents(this.state.searchKey,0,pageSize).then((res)=>{
+            console.log(res.result)
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(res.result.items),
@@ -93,7 +99,7 @@ export default class ProductListContainer extends Component {
 
     searchMoreProducts =  () => {
         pageNum++;
-        productAPI.searchSkus(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
+        productAPI.searchContents(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
             if(res.success && res.result.items !== null){
                 // console.log(res.result)
                 this.setState({
@@ -135,6 +141,41 @@ export default class ProductListContainer extends Component {
         }}
         />
     )
+    getSku = (scanData) =>{
+        console.log(scanData)
+        productAPI.searchSkus(scanData,0,pageSize).then(res => {
+            // console.log(res.result)
+            if(res.success ){
+                if(res.result.items && res.result.items.length === 1){
+                    let targetSize = res.result.items[0].options[0].v
+                    let targetColor = res.result.items[0].options[1].v
+                    let contentId = res.result.items[0].contentId
+                    return {contentId:contentId,targetSize:targetSize,targetColor:targetColor};
+                }else{
+                    throw new Error("查询结果有误")
+                }
+            }else{
+                throw new Error("查询失败")
+            }
+        }).then((resSku) => {
+            productAPI.getContentById(resSku.contentId).then(res => {
+                return res.result
+            }).then(resContent => {
+                skusData = resContent.skus;
+                productStyles = resContent.options;
+                Popup.show(<ProductDetailContainer skusData={skusData} 
+                                                productStyles={productStyles} 
+                                                refreshCartData={this.refreshCartData}
+                                                targetSize={resSku.targetSize}
+                                                targetColor={resSku.targetColor}
+                            />, 
+                { animationType: 'slide-up', maskClosable: false });
+            })
+        }).catch(err => {
+            console.error(err.message)
+            Toast.fail(err.message, 2);
+        });
+    }
     _rowClick = (rowData) => {
         // console.log(rowData)
         productAPI.getContentById(rowData.id).then(res => {
@@ -143,7 +184,11 @@ export default class ProductListContainer extends Component {
             productStyles = res.result.options;
             return res.result;
         }).then((data) => {
-            Popup.show(<ProductDetailContainer skusData={skusData} productStyles={productStyles} refreshCartData={this.refreshCartData}/>, { animationType: 'slide-up', maskClosable: false });
+            Popup.show(<ProductDetailContainer skusData={skusData} 
+                                               productStyles={productStyles} 
+                                               refreshCartData={this.refreshCartData}
+                        />, 
+            { animationType: 'slide-up', maskClosable: false });
         });
     }
     _renderRow = (rowData, sectionID, rowID) => {
@@ -189,7 +234,6 @@ export default class ProductListContainer extends Component {
     }
 
     render() {
-        
         return (
             <div style={{background:'#fff'}}>
                 <SearchBar placeholder="搜索" value={this.state.searchKey}  
