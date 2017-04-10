@@ -85,8 +85,8 @@ body{
 
 /** Spot **/
 #spot > p{
-  /*width: 95%;*/
-  width: 7rem;
+  width: 95%;
+  /*width: 7rem;*/
   margin: 10px auto;
   border-bottom: 1px solid #F5F5F5;
   font-size: 40px;
