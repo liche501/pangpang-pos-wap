@@ -136,9 +136,9 @@ export default class BasketList extends Component {
                 <div id="productList" style={styles.div}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
-                        renderFooter={() => <div style={styles.foot}>
-                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
-                            </div>}
+//                         renderFooter={() => <div style={styles.foot}>
+//                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
+//                             </div>}
                         renderRow={this._renderRow}
                         renderSeparator={this.separator}
                         className="fortest"
