@@ -118,11 +118,11 @@ export default class BasketList extends Component {
                 />
                 <Item style={styles.item}>
                     <div style={{display:'inline-block',
-                                        // width:'100%',
-                                        width:'6.2rem',
+                                        width:'100%',
+                                        // width:'6.2rem',
                                         position: 'absolute',
-                                        // top: '50%',
-                                        top: '0.45rem',
+                                        top: '50%',
+                                        // top: '0.45rem',
                                         transform: 'translateY(-50%)',
                                         // transform: 'translateY(-0.35rem)',
                                         color:'#108ee9',
@@ -169,8 +169,8 @@ styles = {
     },
     div: {
         margin: '0 auto',
-        // width: '96%'  
-        width: '6.9rem'  
+        width: '96%'  
+        // width: '6.9rem'  
     },
     foot: {
         paddingTop: 10,

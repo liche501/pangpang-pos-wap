@@ -229,12 +229,12 @@ export default class ProductListContainer extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td style={{width:'2rem'}}>
+                                <td style={{width:200}}>
                                     <div style={styles.img}>
                                         {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem' }} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
-                                <td style={{width:'10rem'}}>
+                                <td style={{width:900}}>
                                     <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         {rowData.code}
@@ -274,14 +274,13 @@ export default class ProductListContainer extends Component {
                 />
                 <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
-                                        // width:'85%',
-                                        width:'6rem',
+                                        width:'85%',
+                                        // width:'6rem',
                                         marginLeft:'0.5rem',
                                         position: 'absolute',
-                                        // top: '47%',
-                                        top: '0.45rem',
+                                        top: '47%',
+                                        // top: '0.45rem',
                                         transform: 'translateY(-50%)',
-                                        // transform: 'translateY(-0.4rem)',
                                         color:'#108ee9',
                                         fontWeight:'bold'
                                 }}>
@@ -354,7 +353,8 @@ styles = {
         bottom: "12px" 
     },
     td: {
-        width: "2.2rem",
+        // width: "2.2rem",
+        width: 200,
         textAlign:'center' 
     },
     listPrice: {

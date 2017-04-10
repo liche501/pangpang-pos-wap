@@ -74,8 +74,8 @@ styles = {
     },
     rowData: {
         marginBottom: '0.16rem',
-        // width:'80%',
-        width:'3rem',
+        width:'80%',
+        // width:'3rem',
         // height:'0.65rem',
         height:'0.6rem',
         overflow:'hidden',
