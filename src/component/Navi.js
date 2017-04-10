@@ -30,7 +30,7 @@ export default class Navi extends Component {
                 rightContent = <div key="0" style={{ marginRight: 0 }} onClick={this.props.onRightClick} >支付</div>
             break;
             case "scan":
-                rightContent = <div style={{backgroundColor:"red",width:"150px",textAlign:"right"}} ><MdFullscreen style={{fontSize:'0.8rem'}} /></div>
+                rightContent = <div style={{width:"150px",textAlign:"right"}} ><MdFullscreen style={{fontSize:'0.8rem'}} /></div>
             break;
             default:
                 rightContent = <Icon key="0" type={this.props.rightIcon} style={{ marginRight: '0rem' }} onClick={this.props.onRightClick} size="md" />
