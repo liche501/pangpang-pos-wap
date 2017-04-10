@@ -27,7 +27,7 @@ class Login extends Component {
             this.setState({animating:false})
             if(res.success){
                 sessionStorage.setItem("account", JSON.stringify({ token: res.result.token}))
-                window.location = "/"
+                // window.location = "/"
             }
         }).catch(error => {
             this.setState({animating:false})
