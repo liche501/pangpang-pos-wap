@@ -17,6 +17,7 @@ class Login extends Component {
     componentDidMount() {
         let token = getQueryString("token");
         if(!token){
+            console.lon("account token ===>",token)
             this.setState({animating:false})
             Toast.fail('登陆失败', 3);
             return;
