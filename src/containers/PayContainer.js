@@ -350,23 +350,27 @@ styles = {
         marginTop: '-0.15rem' 
     },
     info: {
-        width: '75%',
+        // width: '75%',
+        width: '5.5rem',
         fontSize: '0.35rem',
         margin: '0 auto',
         paddingBottom: '1px' 
     },
     total: {
-        width: '75%',
+        // width: '75%',
+        width: '5.5rem',
         fontSize: '0.35rem',
         margin: '35px auto 0',
         paddingBottom: '35px' 
     },
     pay: {
-        width: '50%',
+        // width: '50%',
+        width: '3.5rem',
         borderRight: '5px solid #ddd' 
     },
     paywx: {
-        width: '45%',
+        // width: '45%',
+        width: '3.3rem',
         position:'absolute',
         top:'0',
         right:'30px' 
@@ -385,7 +389,8 @@ styles = {
         width: '1rem',
         height: '0.7rem',
         position: 'absolute',
-        top: '50%',
+        // top: '50%',
+        top: '0.65rem',
         transform: 'translateY(-50%)',
         // left:'10%'
     },
@@ -396,15 +401,18 @@ styles = {
     price: {
         fontSize: '0.5rem',
         fontWeight: 'bold',
-        marginLeft: '25%'
+        // marginLeft: '25%'
+        marginLeft: '1.5rem'
     },
     discount: {
         color: 'orange',
         fontWeight: 'bold'
     },
     btn: {
-        width: '90%',
-        margin: '7% auto 0',
+        // width: '90%',
+        // margin: '7% auto 0',
+        width: '6.5rem',
+        margin: '0.5rem auto 0',
         fontWeight: 'bold'
     },
     btn1:{

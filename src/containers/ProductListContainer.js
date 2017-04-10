@@ -198,12 +198,12 @@ export default class ProductListContainer extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td style={{width:'5%'}}>
+                                <td style={{width:'2rem'}}>
                                     <div style={styles.img}>
                                         {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem' }} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
-                                <td style={{width:'45%'}}>
+                                <td style={{width:'10rem'}}>
                                     <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         {rowData.code}
@@ -243,23 +243,26 @@ export default class ProductListContainer extends Component {
                 />
                 <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
-                                        width:'85%',
+                                        // width:'85%',
+                                        width:'6rem',
                                         marginLeft:'0.5rem',
                                         position: 'absolute',
-                                        top: '47%',
+                                        // top: '47%',
+                                        top: '0.45rem',
                                         transform: 'translateY(-50%)',
+                                        // transform: 'translateY(-0.4rem)',
                                         color:'#108ee9',
                                         fontWeight:'bold'
                                 }}>
                         <div style={{float:'left',marginTop:'0.09rem'}}>
-                            <IoBag style={{width:'1rem',height:'0.6rem',marginLeft:'-0.15rem'}}/>
+                            <IoBag style={{width:'1.1rem',height:'0.6rem',marginLeft:'-0.15rem'}}/>
                             <div style={{
                                         fontSize:'0.25rem',       
                                         position: 'absolute',
                                         top: '0.3rem',
-                                        left: '0.23rem',
-                                        // width: '0.5rem',
-                                        // textAlign: 'center'
+                                        left: '0.1rem',
+                                        width: '0.5rem',
+                                        textAlign: 'center'
                             }}>
                                {this.state.totalCount}
                             </div>
@@ -309,7 +312,8 @@ styles = {
     },
     rowData: {
         marginBottom: '0.16rem',
-        height:'0.65rem',
+        // height:'0.65rem',
+        height:'0.6rem',
         overflow:'hidden',
         textAlign: "left"
     },
@@ -319,7 +323,7 @@ styles = {
         bottom: "12px" 
     },
     td: {
-        width: "10%",
+        width: "2.2rem",
         textAlign:'center' 
     },
     listPrice: {

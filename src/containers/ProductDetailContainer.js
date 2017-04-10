@@ -212,10 +212,10 @@ export default class ProductDetailContainer extends Component {
                         <table style={styles.table}>
                             <tbody>
                                 <tr>
-                                    <td style={{textAlign:'center',width:'30%'}}>
+                                    <td style={{textAlign:'center',width:'2rem'}}>
                                         {
                                             this.state.selectedSku !== null && this.state.selectedSku.images !== null && this.state.selectedSku.images.medium !== null ?
-                                            <img src={this.state.selectedSku.images.medium.url} style={{height:'350px'}}/>
+                                            <img src={this.state.selectedSku.images.medium.url} style={{height:'2.5rem'}}/>
                                             :
                                             ''
                                         }
@@ -224,7 +224,7 @@ export default class ProductDetailContainer extends Component {
                                     {
                                         this.state.selectedSku !== null ?
                                             <ul style={styles.ul}>
-                                                <li>{this.state.selectedSku.name.length>40?this.state.selectedSku.name.substring(0,40)+'...':this.state.selectedSku.name}</li>
+                                                <li style={{height:'0.5rem',overflow:'hidden'}}>{this.state.selectedSku.name.length>40?this.state.selectedSku.name.substring(0,40)+'...':this.state.selectedSku.name}</li>
                                                 <li>货号 : {this.state.selectedSku.code}</li>
                                                 <li>价格 : {this.state.selectedSku.salePrice}</li>
                                                 <li>已选尺码 : {this.state.selectedSku.options[0].v}</li>
@@ -291,7 +291,8 @@ styles = {
         top: -5,
     },
     table: {
-        width: '92%',
+        // width: '92%',
+        width: '6.6rem',
         margin: '0 auto',
         fontSize:'0.25rem' , 
     },
@@ -301,7 +302,8 @@ styles = {
         paddingLeft:0, 
     },
     txt: {
-        width: '92%',
+        // width: '92%',
+        width: '6.6rem',
         margin: '0.2rem auto 0.1rem'
     },
     step: {
@@ -309,7 +311,8 @@ styles = {
         listStyle: 'none' 
     },
     stepper: {
-        width: '100%',
+        // width: '100%',
+        width: '2.37rem',
         minWidth: '2rem' 
     }
 }
