@@ -3,6 +3,8 @@ import { SearchBar, List, ListView, Popup, RefreshControl, Toast  } from 'antd-m
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
+import wxAPI from '../api/wx.js';
+import wx from 'weixin-js-sdk';
 
 import ProductDetailContainer from './ProductDetailContainer';
 import { IoBag } from 'react-icons/lib/io'
@@ -31,6 +33,7 @@ export default class ProductListContainer extends Component {
     }
 
     async componentWillMount() {
+        this.initWXConfig();
         await this.initCard();
         await this.searchProducts();
     }
@@ -46,6 +49,19 @@ export default class ProductListContainer extends Component {
         // if(props.scanData){
         //     this._rowClick({id:2})
         // }
+    }
+    initWXConfig = () => {
+        // wx.ready(() => {
+        //     Toast.success('可以扫一扫啦');
+        // })
+        wx.error(err => {
+            Toast.fail('微信JSSKD错误')
+            console.error(err);
+        })
+        const apiList = ['checkJsApi', 'scanQRCode', 'getNetworkType']
+        wxAPI.setWexinConfig(false, apiList, window.location.href).then(wxconfig => {
+            // console.log(wxconfig)
+        })
     }
     initCard = async () => {
         let cartId = sessionStorage.getItem("cartId");
@@ -141,16 +157,29 @@ export default class ProductListContainer extends Component {
         }}
         />
     )
+    scanQRCode = () => {
+        let self = this;
+        wx.scanQRCode({
+            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                self.getSku("42AB616-6")
+                // alert(result);
+            }
+        })
+    }
     getSku = (scanData) =>{
         console.log(scanData)
         productAPI.searchSkus(scanData,0,pageSize).then(res => {
             // console.log(res.result)
             if(res.success ){
                 if(res.result.items && res.result.items.length === 1){
-                    let targetSize = res.result.items[0].options[0].v
-                    let targetColor = res.result.items[0].options[1].v
-                    let contentId = res.result.items[0].contentId
-                    return {contentId:contentId,targetSize:targetSize,targetColor:targetColor};
+                    let item = res.result.items[0];
+                    let targetSize = item.options[0].v
+                    let targetColor = item.options[1].v
+                    let contentId = item.contentId
+                    return {contentId,targetSize,targetColor};
                 }else{
                     throw new Error("查询结果有误")
                 }

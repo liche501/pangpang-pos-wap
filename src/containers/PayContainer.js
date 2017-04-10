@@ -7,7 +7,6 @@ import pay2 from '../../public/wxzf.gif';
 import ticket from '../../public/ticket.gif';
 import cartAPI from '../api/cart.js';
 import orderAPI from '../api/order.js';
-import wxAPI from '../api/wx.js';
 import { MdFullscreen } from 'react-icons/lib/md';
 import wx from 'weixin-js-sdk';
 
@@ -53,19 +52,6 @@ export default class PayContainer extends Component {
     }
 
     componentWillMount() {
-        // wx.ready(() => {
-        //     Toast.success('可以扫一扫啦');
-        // })
-        wx.error(err => {
-            Toast.fail('微信JSSKD错误')
-            console.error(err);
-        })
-
-        const apiList = ['checkJsApi', 'scanQRCode', 'getNetworkType']
-        wxAPI.setWexinConfig(false, apiList, window.location.href).then(wxconfig => {
-            // console.log(wxconfig)
-        })
-
         this.refreshCartData();
     }
     componentDidMount() {

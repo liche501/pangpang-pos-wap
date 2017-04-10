@@ -16,7 +16,6 @@ class Login extends Component {
     }
     componentDidMount() {
         let token = getQueryString("token");
-        console.log("account token ===>",token)
         if(!token){
             this.setState({animating:false})
             Toast.fail('登陆失败', 3);
@@ -27,7 +26,7 @@ class Login extends Component {
             this.setState({animating:false})
             if(res.success){
                 sessionStorage.setItem("account", JSON.stringify({ token: res.result.token}))
-                // window.location = "/"
+                window.location = "/"
             }
         }).catch(error => {
             this.setState({animating:false})

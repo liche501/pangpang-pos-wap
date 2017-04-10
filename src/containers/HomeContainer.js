@@ -6,9 +6,6 @@ import ProductList from './ProductListContainer';
 import imgMD from '../../public/MD.jpg';
 import Navi from '../component/Navi.js';
 
-import wxAPI from '../api/wx.js';
-import wx from 'weixin-js-sdk';
-
 let tempMenuData = [
     {},
     { menuName: "销售", menuCode: "productList" },
@@ -22,20 +19,6 @@ export default class Home extends Component {
         selectMenuCode: "productList",
         menuName: "销售",
     }
-    componentWillMount() {
-        // wx.ready(() => {
-        //     Toast.success('可以扫一扫啦');
-        // })
-        wx.error(err => {
-            Toast.fail('微信JSSKD错误')
-            console.error(err);
-        })
-
-        const apiList = ['checkJsApi', 'scanQRCode', 'getNetworkType']
-        wxAPI.setWexinConfig(false, apiList, window.location.href).then(wxconfig => {
-            // console.log(wxconfig)
-        })
-    }
     onOpenChange = (...args) => {
         // console.log(args);
         this.setState({ open: !this.state.open });
@@ -46,16 +29,7 @@ export default class Home extends Component {
         this.onOpenChange();
     }
     _scanButtonClick = () => {
-        let self = this;
-        wx.scanQRCode({
-            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-            scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-            success: function (res) {
-                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                self.refs.productListComponent.getSku("42AB616-6")
-                // alert(result);
-            }
-        })
+        this.refs.productListComponent.scanQRCode();
     }
     render() {
         let content;
