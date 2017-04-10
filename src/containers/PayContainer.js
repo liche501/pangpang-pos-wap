@@ -23,6 +23,7 @@ export default class PayContainer extends Component {
         userName: '某某某',
         userId: '001293398440',
         payType: 'Ali',
+        listPrice: 0,
         salePrice: 0,
         discount: 0,
         customerId: 0,
@@ -77,10 +78,11 @@ export default class PayContainer extends Component {
 
         if (cartId) {
             cartAPI.getCartById(cartId).then(res => {
-                // console.log('====>',res.result)
+                console.log('====>',res.result)
                 if (res.success) {
                     if (res.result.items !== null) {
                         this.setState({
+                            listPrice: res.result.listPrice,
                             salePrice: res.result.salePrice,
                             discount: res.result.discount
                         });
@@ -120,6 +122,10 @@ export default class PayContainer extends Component {
                     {
                         text: '保存',
                         onPress: (value) => {
+                            if(!value){
+                                Toast.info('顾客号为空', 1);
+                                return
+                            }
                             cartAPI.setCustomer(sessionStorage.getItem('cartId'), { "no": value })
                                 .then(res => {
                                     Toast.info('会员保存成功', 1);
@@ -141,6 +147,10 @@ export default class PayContainer extends Component {
                     {
                         text: '保存',
                         onPress: (value) => {
+                            if(!value){
+                                Toast.info('优惠卷为空', 1);
+                                return
+                            }
                             cartAPI.setCoupon(sessionStorage.getItem('cartId'), { "no": value })
                                 .then(res => {
                                     Toast.info('优惠券保存成功', 1);
@@ -186,7 +196,7 @@ export default class PayContainer extends Component {
                             <div>姓&nbsp;&nbsp;&nbsp;名 : {this.state.customerId}</div>
                             <div>会员号 : {this.state.customerId}</div>
                             <div>
-                                积&nbsp;&nbsp;&nbsp;分 : {this.state.customerNo}
+                                积&nbsp;&nbsp;&nbsp;分 : 
                                 <input placeholder='点击输入' style={styles.input}/> &nbsp;
                                 <span style={{ color: 'orange' }}>(470P)</span>
                             </div>
@@ -214,22 +224,22 @@ export default class PayContainer extends Component {
                     <div style={styles.info}>
                         <p>
                             金额：
-                            <span style={{ float: 'right' }}>2400元</span>
+                            <span style={{ float: 'right' }}>￥{this.state.listPrice}元</span>
                         </p>
                         <p>
                             优惠：
-                            <span style={{ float: 'right' }}>-35元</span>
+                            <span style={{ float: 'right' }}>￥- {this.state.discount}元</span>
                         </p>
                         <p>
                             积分：
-                            <span style={{ float: 'right' }}>-5元</span>
+                            <span style={{ float: 'right' }}>- 5元</span>
                         </p>
                     </div>
                 </List>
                 <List>
                     <div style={styles.total}>
                         合计：
-                            <span style={{ float: 'right' }}>2360元</span>
+                            <span style={{ float: 'right' }}>￥{this.state.salePrice}元</span>
                     </div>
                 </List>
                 <WhiteSpace />
@@ -271,7 +281,7 @@ export default class PayContainer extends Component {
                     </Item>
                 </List>
                 <WhiteSpace />
-                <List>
+                {/*<List>
                     <Item data-seed="logId" style={styles.background}>
                         <div style={styles.div4}>
                             <img src={ticket} style={styles.img} />
@@ -279,7 +289,7 @@ export default class PayContainer extends Component {
                             <span style={styles.discount}>(已优惠 {this.state.discount}元)</span>
                         </div>
                     </Item>
-                </List>
+                </List>*/}
                 <Button className="btn" type="primary" style={styles.btn} onClick={() => this.handleClick()}>Pay Confirm ￥{this.state.salePrice}</Button>
             </div>
         )

@@ -206,7 +206,7 @@ export default class ProductListContainer extends Component {
                                 <td style={{width:'10rem'}}>
                                     <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
-
+                                        {rowData.code}
                                     </div>
                                 </td>
                                 <td style={styles.td}>
