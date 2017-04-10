@@ -29,6 +29,10 @@ export default class BasketList extends Component {
     componentDidMount() {
         // this.addItemsFromCart(450,95374,2)
         this.refreshCartData();
+        // 处理顶部有空白的bug
+       let ele = document.getElementById("productList")
+       let eleChild = document.getElementById("productList").childNodes
+       ele.removeChild(eleChild[1])
     }
     // 给购物车添加商品
     addItemsFromCart = (cartId, skuId, qty) => {
@@ -129,7 +133,7 @@ export default class BasketList extends Component {
                         <div style={{float:'right'}}>￥{this.state.totalPrice}</div>
                     </div>
                 </Item>
-                <div style={styles.div}>
+                <div id="productList" style={styles.div}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
                         renderFooter={() => <div style={styles.foot}>
