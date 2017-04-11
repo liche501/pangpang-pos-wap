@@ -29,7 +29,9 @@ export default class Home extends Component {
         this.onOpenChange();
     }
     _scanButtonClick = () => {
-        this.refs.productListComponent.scanQRCode();
+        if(this.refs.productListComponent){
+            this.refs.productListComponent.scanQRCode();
+        }
     }
     render() {
         let content;

@@ -5,6 +5,7 @@ import LoginContainer from './LoginContainer';
 import BasketListContainer from './BasketListContainer';
 import ProductDetailContainer from './ProductDetailContainer';
 import PayContainer from './PayContainer';
+import SettlementContainer from './SettlementContainer';
 
 import { getQueryString } from '../common/extend.js';
 var FastClick = require('fastclick');
@@ -26,6 +27,7 @@ export default class App extends Component {
         </Route>
         <Route path='/basketlist' component={BasketListContainer} onEnter={validateAccount} />
         <Route path='/product-detail' component={ProductDetailContainer} onEnter={validateAccount} />
+        <Route path='/settlement' component={SettlementContainer} onEnter={validateAccount} />        
         <Route path='/paylist' component={PayContainer} onEnter={validateAccount} />
         <Route path='/login' component={LoginContainer} onEnter={validateAccount} >
         </Route>

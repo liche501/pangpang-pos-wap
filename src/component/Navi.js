@@ -7,6 +7,7 @@ export default class Navi extends Component {
     static propTypes = {
         leftIcon: PropTypes.any,
         rightIcon: PropTypes.string,
+        rightText: PropTypes.string,
         title: PropTypes.string,
         mode: PropTypes.string,
         onLeftClick: PropTypes.func,
@@ -20,14 +21,16 @@ export default class Navi extends Component {
         rightIcon: "",
     }
     componentDidMount() {
-        document.getElementsByClassName("am-navbar-right")[0].onclick = this.props.onRightClick
+        if(this.props.onRightClick){
+            document.getElementsByClassName("am-navbar-right")[0].onclick = this.props.onRightClick
+        }
     }
     
     render() {
         let rightContent
         switch(this.props.rightIcon){
-            case "pay":
-                rightContent = <div key="0" style={{ marginRight: 0 }} onClick={this.props.onRightClick} >支付</div>
+            case "text":
+                rightContent = <div key="0" style={{ marginRight: 0 }}  >{this.props.rightText}</div>
             break;
             case "scan":
                 rightContent = <div style={{width:"150px",textAlign:"right"}} ><MdFullscreen style={{fontSize:'0.8rem'}} /></div>
