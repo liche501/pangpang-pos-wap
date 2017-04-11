@@ -65,8 +65,8 @@ styles = {
     img: {
         boxSizing: 'border-box',
         height: '1.4rem',
-        width: "1.4em",
-        marginRight: '0.5rem',
+        width: "1.4rem",
+        marginRight: '0.4rem',
         marginBottom:'0.01rem'
         // border: '0.5px solid gray'        
     },
