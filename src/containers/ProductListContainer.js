@@ -226,7 +226,7 @@ export default class ProductListContainer extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td>
+                                <td style={{paddingRight: '0.4rem'}}>
                                     <div style={styles.img}>
                                         {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray'}} src={rowData.images.small.url} alt="" />:''}
                                     </div>
@@ -328,10 +328,10 @@ export default class ProductListContainer extends Component {
 
 styles = {
     img: {
-        boxSizing: 'border-box', 
+        // boxSizing: 'border-box', 
         height: '1.28rem',
         width: "1.28rem",
-        marginRight: '0.3rem',
+        // marginRight: '0.3rem',
         // paddingRight: '0.3rem',
         // border: '0.5px solid gray'        
     },
