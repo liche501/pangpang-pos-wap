@@ -332,6 +332,7 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
+        marginBottom:'0.01rem'
         // paddingRight: '0.3rem',
         // border: '0.5px solid gray'        
     },
