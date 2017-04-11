@@ -26,12 +26,12 @@ export default class BasketCell extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td style={{ width: 200,paddingRight:10 }}>
+                                <td>
                                     <div style={styles.img}>
-                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: 128,width:128 }} src={rowData.sku.images.small.url} alt="" />:''}
+                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem' }} src={rowData.sku.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
-                                <td style={{ width: 900}}>
+                                <td style={{ width: '10rem'}}>
                                     <div style={styles.rowData}>{rowData.sku.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         <span style={styles.discount}>X {rowData.quantity}</span>
@@ -87,8 +87,8 @@ styles = {
         bottom: "12px" 
     },
     td: {
-        // width: "2.2rem",
-        width: 200,
+        width: "2.2rem",
+        // width: 200,
         textAlign:'center' 
     },
     listPrice: {

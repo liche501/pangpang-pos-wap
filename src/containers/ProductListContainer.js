@@ -226,12 +226,12 @@ export default class ProductListContainer extends Component {
                     <table className="row-text">
                         <tbody>
                             <tr>
-                                <td style={{width:200}}>
+                                <td>
                                     <div style={styles.img}>
-                                        {rowData.images && rowData.images.small?<img style={{ height: 128,width:128,border: '0.5px solid gray' }} src={rowData.images.small.url} alt="" />:''}
+                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray'}} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
-                                <td style={{width:900}}>
+                                <td style={{width:'10rem'}}>
                                     <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
                                     <div style={{ textAlign: 'left' }}>
                                         {rowData.code}
@@ -351,8 +351,8 @@ styles = {
         bottom: "12px" 
     },
     td: {
-        // width: "2.2rem",
-        width: 200,
+        width: "2.2rem",
+        // width: 200,
         textAlign:'center' 
     },
     listPrice: {
