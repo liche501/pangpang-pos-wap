@@ -215,7 +215,7 @@ export default class ProductDetailContainer extends Component {
                                     <td style={{textAlign:'center',width:'30%'}}>
                                         {
                                             this.state.selectedSku !== null && this.state.selectedSku.images !== null && this.state.selectedSku.images.medium !== null ?
-                                            <img src={this.state.selectedSku.images.medium.url} style={{height:'2.5rem'}}/>
+                                            <img src={this.state.selectedSku.images.medium.url} style={{width:'2rem',height:'2rem'}}/>
                                             :
                                             ''
                                         }
