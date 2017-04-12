@@ -136,11 +136,11 @@ export default class PayContainer extends Component {
                                 return
                             }
                             if(type === "mileage"){
-                                cartAPI.setPaymentForMileage(cartId,{"amount":parseInt(value,10)}).then(res => {
+                                cartAPI.setPaymentForMileage(cartId,{"amount":parseFloat(value)}).then(res => {
                                     this.refreshCartData();
                                 })
                             }else{
-                                cartAPI.setPayment(cartId,{"method":type,"amount":parseInt(value,10)}).then(res => {
+                                cartAPI.setPayment(cartId,{"method":type,"amount":parseFloat(value)}).then(res => {
                                     this.refreshCartData();
                                 })
                             }

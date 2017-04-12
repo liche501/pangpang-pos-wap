@@ -30,6 +30,8 @@ export default class SettlementContainer extends Component {
         customerNo: "",
         customerGrade: 0,
         couponNo: "",
+        currentPoints: 0,
+        availableMileage: 0,
         isSetCustomer: false,
         isSetCoupon: false,
         
@@ -61,12 +63,15 @@ export default class SettlementContainer extends Component {
                     }
                     this.setState({isSetCoupon:res.result.couponNo ? true : false});
                     this.setState({couponNo:res.result.couponNo});
+                    this.setState({availableMileage:res.result.availableMileage});
                     if (res.result.customerInfo !== null) {
                         this.setState({
                             customerId: res.result.customerInfo.id,
                             customerMobile: res.result.customerInfo.mobile,
                             customerNo: res.result.customerInfo.no,
                             customerGrade: res.result.customerInfo.grade,
+                            currentPoints: res.result.customerInfo.mileage.currentPoints,
+                            availableMileage: res.result.customerInfo.availableMileage,
                             isSetCustomer: res.result.customerInfo.no ? true : false,
                         });
                     }
@@ -196,7 +201,11 @@ export default class SettlementContainer extends Component {
                             <div>会员号 : {this.state.customerNo}</div>
                             <div>
                                 积&nbsp;&nbsp;&nbsp;分 : 
-                                <span style={{ color: 'orange' }}>(470P)</span>
+                                <span style={{ color: 'orange' }}>{this.state.currentPoints}</span>
+                            </div>
+                            <div>
+                                本次可用积分 : 
+                                <span style={{ color: 'orange' }}>{this.state.availableMileage}</span>
                             </div>
                         </div>
                     </div>
@@ -283,7 +292,7 @@ export default class SettlementContainer extends Component {
                 </List>
                 <WhiteSpace />
 
-                <Button className="btn" type="primary" style={styles.btn} onClick={() => window.location.href = "/#/paylist"}>去支付</Button>
+                <Button className="btn" type="primary" style={styles.btn} onClick={() => window.location.href = `/#/paylist?availableMileage=${this.state.availableMileage}`}>去支付</Button>
             </div>
         )
     }
