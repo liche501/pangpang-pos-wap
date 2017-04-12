@@ -228,7 +228,7 @@ export default class ProductListContainer extends Component {
                             <tr>
                                 <td>
                                     <div style={styles.img}>
-                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',zIndex:1}} src={rowData.images.small.url} alt="" />:''}
+                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{width:'10rem'}}>
@@ -307,7 +307,7 @@ export default class ProductListContainer extends Component {
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40 + 36,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 - 40,
                             overflow: 'auto',
                         }}
                         pageSize={pageSize}
@@ -332,7 +332,7 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        marginBottom:'0.01rem'
+        marginBottom:'0.01rem',
         // border: '0.5px solid gray'        
     },
     img1: {

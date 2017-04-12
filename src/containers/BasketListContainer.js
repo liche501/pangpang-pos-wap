@@ -144,7 +144,7 @@ export default class BasketList extends Component {
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40 +36,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',

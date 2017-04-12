@@ -80,7 +80,7 @@ styles = {
         width:'80%',
         // width:'3rem',
         // height:'0.65rem',
-        height:'0.6rem',
+        height:'0.5rem',
         overflow:'hidden',
         textAlign: "left"
     },
