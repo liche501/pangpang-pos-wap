@@ -65,7 +65,7 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        paddingTop:'0.2rem',
+        // paddingTop:'0.2rem',
         // marginBottom:'0.01rem',
         // border: '0.5px solid gray',
     },
