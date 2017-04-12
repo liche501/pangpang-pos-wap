@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navi from '../component/Navi.js';
-import { Button, ListView, WingBlank, WhiteSpace, List, Radio, Modal, Toast } from 'antd-mobile';
+import { Button, ListView, WingBlank, WhiteSpace, List, Switch, Modal, Toast, ActivityIndicator } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import pay1 from '../../public/zfb.gif';
 import pay2 from '../../public/wxzf.gif';
@@ -11,7 +11,6 @@ import { MdFullscreen } from 'react-icons/lib/md';
 import wx from 'weixin-js-sdk';
 
 const Item = List.Item;
-const RadioItem = Radio.RadioItem;
 const prompt = Modal.prompt;
 const antAlert = Modal.alert;
 const styles = {};
@@ -34,6 +33,8 @@ export default class SettlementContainer extends Component {
         availableMileage: 0,
         isSetCustomer: false,
         isSetCoupon: false,
+        mileageUsed:false,
+        animating:false,
 
     }
 
@@ -61,9 +62,23 @@ export default class SettlementContainer extends Component {
                     } else {
                         this.setState({ salePrice: 0, discount: 0 });
                     }
-                    this.setState({ isSetCoupon: res.result.couponNo ? true : false });
-                    this.setState({ couponNo: res.result.couponNo });
-                    this.setState({ availableMileage: res.result.availableMileage });
+                    this.setState({ isSetCoupon: res.result.couponNo ? true : false,
+                                    couponNo: res.result.couponNo,
+                    });
+                    if(res.result.payments){
+                        let tempMileage = 0;
+                        res.result.payments.map((payment)=>{
+                            if(payment.method === "mileage"){
+                                tempMileage += parseFloat(payment.amount)
+                            }
+                        })
+                        if(tempMileage === 0){
+                            this.setState({mileageUsed:false});
+                        }else{
+                            this.setState({mileageUsed:true});
+                        }
+                        console.log("tempMileage==>",tempMileage)
+                    }
                     if (res.result.customerInfo !== null) {
                         this.setState({
                             customerId: res.result.customerInfo.id,
@@ -188,6 +203,26 @@ export default class SettlementContainer extends Component {
             },
         ])
     }
+    _mileageChange = () => {
+        this.changeLoading();
+        if(!this.state.mileageUsed){
+            cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": parseFloat(this.state.availableMileage) }).then(res => {
+                console.log(res)
+                this.refreshCartData();
+                this.changeLoading();
+            })
+        }else{
+            cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": parseFloat(-this.state.availableMileage) }).then(res => {
+                console.log(res)
+                this.refreshCartData();
+                this.changeLoading();
+            })
+        }
+        
+    }
+    changeLoading = () => {
+        this.setState({animating:!this.state.animating});
+    }
     render() {
         let customerContent, couponContent;
 
@@ -208,6 +243,7 @@ export default class SettlementContainer extends Component {
                             <div>
                                 本次可用积分 :
                                 <span style={{ color: 'orange' }}>{this.state.availableMileage}</span>
+                                <Switch checked={this.state.mileageUsed} disabled={this.state.availableMileage===0?true:false} onChange={this._mileageChange}/>
                             </div>
                         </div>
                     </div>
@@ -276,6 +312,11 @@ export default class SettlementContainer extends Component {
                     rightText="取消订单"
                     onRightClick={this._cancelCart}
                     />
+                <ActivityIndicator
+                    toast
+                    text="正在加载"
+                    animating={this.state.animating}
+                />
                 <WhiteSpace />
                 {couponContent}
                 <WhiteSpace />

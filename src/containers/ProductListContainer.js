@@ -276,10 +276,10 @@ export default class ProductListContainer extends Component {
                     onClear={this._searchKeyClear}
                 />
                 <ActivityIndicator
-                toast
-                text="正在加载"
-                animating={this.state.animating}
-              />
+                    toast
+                    text="正在加载"
+                    animating={this.state.animating}
+                />
                 <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
                                         width:'85%',
