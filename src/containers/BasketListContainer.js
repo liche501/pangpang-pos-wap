@@ -137,14 +137,14 @@ export default class BasketList extends Component {
                 <div id="productList" style={styles.div}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
-//                         renderFooter={() => <div style={styles.foot}>
-//                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
-//                             </div>}
+                        renderFooter={() => <div style={styles.foot}>
+                            {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
+                            </div>}
                         renderRow={this._renderRow}
                         renderSeparator={this.separator}
                         className="fortest"
                         style={{
-                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40,
+                            height: document.documentElement.clientHeight - 90 - 88 - 90 -40 +36,
                             overflow: 'auto',
                             border: '1px solid #ddd',
                             margin: '0.1rem 0',
@@ -170,7 +170,7 @@ styles = {
     },
     div: {
         margin: '0 auto',
-        width: '96%'  
+        // width: '96%'  
         // width: '6.9rem'  
     },
     foot: {

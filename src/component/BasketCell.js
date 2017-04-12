@@ -28,7 +28,7 @@ export default class BasketCell extends Component {
                             <tr>
                                 <td>
                                     <div style={styles.img}>
-                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray' }} src={rowData.sku.images.small.url} alt="" />:''}
+                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem'}} src={rowData.sku.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{ width: '10rem'}}>
@@ -67,7 +67,8 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        marginBottom:'0.01rem'
+        paddingTop:'0.2rem'
+        // marginBottom:'0.01rem'
         // border: '0.5px solid gray'        
     },
     img1: {
