@@ -28,7 +28,7 @@ export default class BasketCell extends Component {
                             <tr>
                                 <td>
                                     <div style={styles.img}>
-                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray' }} src={rowData.sku.images.small.url} alt="" />:''}
+                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.sku.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{ width: '10rem'}}>
@@ -56,19 +56,18 @@ styles = {
         display: 'flex',
         marginTop: '-0.35rem',
         marginBottom: '-0.35rem'
-        // padding: '0.3rem 0' 
     },
     div1: {
         margin: '0 auto',
         width: '96%' 
     },
     img: {
-        // boxSizing: 'border-box',
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        marginBottom:'0.01rem'
-        // border: '0.5px solid gray'        
+        // paddingTop:'0.2rem',
+        // marginBottom:'0.01rem',
+        // border: '0.5px solid gray',
     },
     img1: {
         width: "50px",
@@ -77,9 +76,7 @@ styles = {
     rowData: {
         marginBottom: '0.16rem',
         width:'80%',
-        // width:'3rem',
-        // height:'0.65rem',
-        height:'0.6rem',
+        height:'0.5rem',
         overflow:'hidden',
         textAlign: "left"
     },
