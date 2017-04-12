@@ -228,7 +228,7 @@ export default class ProductListContainer extends Component {
                             <tr>
                                 <td>
                                     <div style={styles.img}>
-                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
+                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
                                     </div>
                                 </td>
                                 <td style={{width:'10rem'}}>
@@ -332,8 +332,9 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        marginBottom:'0.01rem',
-        // border: '0.5px solid gray'        
+        // marginBottom:'0.01rem',
+        // border: '0.5px solid gray',
+        padding:2        
     },
     img1: {
         width: "50px",
