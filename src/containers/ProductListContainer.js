@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup, RefreshControl, Toast  } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup, RefreshControl, Toast, ActivityIndicator  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
@@ -29,6 +29,7 @@ export default class ProductListContainer extends Component {
             totalPrice: 0,
             totalCount: 0,
             refreshing:false,
+            animating:false,
         };
     }
 
@@ -158,6 +159,7 @@ export default class ProductListContainer extends Component {
         />
     )
     scanQRCode = () => {
+        this.changeLoading()
         let self = this;
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
@@ -167,6 +169,9 @@ export default class ProductListContainer extends Component {
                 self.getSku("EEAA8A011101000")
             }
         })
+    }
+    changeLoading = () => {
+        this.setState({animating:!this.state.animating});
     }
     getSku = (scanData) =>{
         console.log(scanData)
@@ -196,6 +201,7 @@ export default class ProductListContainer extends Component {
                                                 refreshCartData={this.refreshCartData}
                                                 targetSize={resSku.targetSize}
                                                 targetColor={resSku.targetColor}
+                                                changeLoading={this.changeLoading}
                             />, 
                 { animationType: 'slide-up', maskClosable: false });
             })
@@ -269,6 +275,11 @@ export default class ProductListContainer extends Component {
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}
                 />
+                <ActivityIndicator
+                toast
+                text="正在加载"
+                animating={this.state.animating}
+              />
                 <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
                                         width:'85%',

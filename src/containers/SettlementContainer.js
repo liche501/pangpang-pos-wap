@@ -138,10 +138,8 @@ export default class SettlementContainer extends Component {
         // })
 
         if (type === 'customer') {
-            self.setState({isSetCustomer:true});
             this.setCustomer("EE0000053147")
         } else if (type === 'coupon') {
-            self.setState({isSetCoupon:true})
             // alert("coupon")
             this.setCoupon("EE4EEDE03E762A2AA2")
         }   
@@ -149,6 +147,7 @@ export default class SettlementContainer extends Component {
     setCustomer = (value) =>{
         cartAPI.setCustomer(sessionStorage.getItem('cartId'), { "no": value })
         .then(res => {
+            this.setState({isSetCustomer:true});
             Toast.info('会员保存成功', 1);
             this.refreshCartData();
         })
@@ -160,6 +159,7 @@ export default class SettlementContainer extends Component {
         cartAPI.setCoupon(sessionStorage.getItem('cartId'), { "no": value })
         .then(res => {
             console.log(res)
+            this.setState({isSetCoupon:true})
             Toast.info('优惠券保存成功', 1);
             this.refreshCartData();
         })
@@ -259,9 +259,9 @@ export default class SettlementContainer extends Component {
                       rightText="取消订单" 
                       onRightClick={this._cancelCart}
                 />
-                {customerContent}
-                <WhiteSpace />
                 {couponContent}
+                <WhiteSpace />
+                {customerContent}
                 <WhiteSpace />
                 <List>
                     <div style={styles.info}>
@@ -273,10 +273,6 @@ export default class SettlementContainer extends Component {
                             优惠：
                             <span style={{ float: 'right' }}>-￥{this.state.discount}元</span>
                         </p>
-                        <p>
-                            积分：
-                            <span style={{ float: 'right' }}>-￥0元</span>
-                        </p>
                     </div>
                 </List>
                 <List>
@@ -286,24 +282,7 @@ export default class SettlementContainer extends Component {
                     </div>
                 </List>
                 <WhiteSpace />
-                <List>
-                    <div style={styles.pay}>
-                        <RadioItem className='pay-am-list-item-middle' key='Alipay' checked={this.state.payType === 'Ali'} onChange={() => this.onPayTypeChange('Ali')}>
-                            <div style={{ textAlign: 'center' }}>
-                                <img src={pay1} style={{ marginRight: '5px' }} alt="" /> &nbsp;
-                                    <span>支付宝</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                    <div style={styles.paywx}>
-                        <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={this.state.payType === 'Wx'} onChange={() => this.onPayTypeChange('Wx')}>
-                            <div style={{ textAlign: 'center' }}>
-                                <img src={pay2} style={styles.img1} alt="" /> &nbsp;
-                                <span>微&nbsp;信</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                </List>
+
                 <Button className="btn" type="primary" style={styles.btn} onClick={() => window.location.href = "/#/paylist"}>去支付</Button>
             </div>
         )

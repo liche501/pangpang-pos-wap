@@ -78,6 +78,7 @@ export default class ProductDetailContainer extends Component {
         if(this.props.targetSize && this.props.targetColor){
             await this._sizeItemPress(this.props.targetSize)
             await this._colorItemPress(this.props.targetColor)
+            this.props.changeLoading();
         }
     }
 

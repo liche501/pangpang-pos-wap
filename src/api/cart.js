@@ -122,11 +122,26 @@ export default {
         })
     },
     setPayment: (id, paymentInfo) => {
-        // couponInfo => {"no":"1111111"}
+        // paymentInfo => {"method":"ali","amount":"100"}
         return new Promise((resolve, reject) => {
 
             const headers = getRequestHeader();
             axios.post(api_serverRoot() + `/carts/` + id + `/payment`, paymentInfo, { "headers": headers })
+                .then(function (response) {
+                    // console.log(response.data);
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        })
+    },
+    setPaymentForMileage: (id, paymentInfo) => {
+        // paymentInfo => {"amount":"100"}
+        return new Promise((resolve, reject) => {
+
+            const headers = getRequestHeader();
+            axios.post(api_serverRoot() + `/carts/` + id + `/payment/mileage`, paymentInfo, { "headers": headers })
                 .then(function (response) {
                     // console.log(response.data);
                     resolve(response.data);
