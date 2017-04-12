@@ -328,13 +328,11 @@ export default class ProductListContainer extends Component {
 
 styles = {
     img: {
-        // boxSizing: 'border-box', 
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
         // marginBottom:'0.01rem',
         // border: '0.5px solid gray',
-        padding:2        
     },
     img1: {
         width: "50px",
