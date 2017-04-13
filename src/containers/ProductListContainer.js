@@ -241,7 +241,7 @@ export default class ProductListContainer extends Component {
                         </div>
                     </div>
                     <div style={{width:'18%',textAlign:'right'}}>
-                        <p style={styles.listPrice}>￥{rowData.listPrice}</p>
+                        {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
                         <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                     </div>
                 </Flex>

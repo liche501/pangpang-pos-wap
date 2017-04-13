@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popup, List, Button, Tag, Icon, Stepper, Flex, WhiteSpace } from 'antd-mobile';
+import { Popup, List, Button, Tag, Icon, Stepper, Flex, WhiteSpace, Toast } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import cartAPI from '../api/cart.js';
 
@@ -133,6 +133,13 @@ export default class ProductDetailContainer extends Component {
                 this.props.refreshCartData();
                 Popup.hide();
             })
+        }else{
+            if(!this.state.selectSizeKey){
+                Toast.info('请选择尺码',1)
+            }else if(!this.state.selectColorKey){
+                Toast.info('请选择颜色',1)
+            }
+            
         }
         
     }
