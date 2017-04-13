@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup, RefreshControl, Toast, ActivityIndicator, Flex  } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup, RefreshControl, Toast, ActivityIndicator, Flex , Modal  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
@@ -15,7 +15,7 @@ const pageSize = 10;
 
 const Item = List.Item;
 let styles = {};
-let skusData = [], productStyles = {};
+let skusData = [], productStyles = {},tempScanData = "";
 export default class ProductListContainer extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +30,7 @@ export default class ProductListContainer extends Component {
             totalCount: 0,
             refreshing:false,
             animating:false,
+            modal1: false,
         };
     }
 
@@ -168,7 +169,10 @@ export default class ProductListContainer extends Component {
             scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
                 var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                self.getSku("EEAA8A011101000")
+                // self.getSku("EEAA8A011101000")
+                tempScanData = result.trim()
+                self.getSku(result.trim())
+                // self.getSku("EAG116641160")
             }
         })
     }
@@ -187,9 +191,11 @@ export default class ProductListContainer extends Component {
                     let contentId = item.contentId
                     return {contentId,targetSize,targetColor};
                 }else{
-                    throw new Error("查询结果有误")
+                    this.changeLoading()
+                    
                 }
             }else{
+                this.changeLoading()
                 throw new Error("查询失败")
             }
         }).then((resSku) => {
@@ -209,7 +215,8 @@ export default class ProductListContainer extends Component {
             })
         }).catch(err => {
             console.error(err.message)
-            Toast.fail(err.message, 2);
+            this.setState({modal1:true});
+            // Toast.fail(err.message, 2);
         });
     }
     _rowClick = (rowData) => {
@@ -269,6 +276,16 @@ export default class ProductListContainer extends Component {
                     onChange={this._searchKeyChange} 
                     onClear={this._searchKeyClear}
                 />
+                <Modal
+                    title="没有查询到结果"
+                    transparent
+                    maskClosable={false}
+                    visible={this.state.modal1}
+                    onClose={()=>{console.log("modal1 closed")}}
+                    footer={[{ text: '确定', onPress: () => this.setState({modal1:false}) }]}
+                >
+                    {tempScanData}<br />
+                </Modal>
                 <ActivityIndicator
                     toast
                     text="正在加载"
