@@ -199,7 +199,7 @@ export default class SettlementContainer extends Component {
                             <p style={styles.p}>VIP{this.state.customerGrade}</p>
                         </div>
                         <div className="row-text">
-                            <div>手机号: {this.state.customerMobile}</div>
+                            <div>手机号 : {this.state.customerMobile}</div>
                             <div>会员号 : {this.state.customerNo}</div>
                             <div>
                                 积&nbsp;&nbsp;&nbsp;分 :
@@ -221,7 +221,7 @@ export default class SettlementContainer extends Component {
                             <div>
                                 <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>会员登录</Button>
                             </div>
-                            <div style={{ position: 'absolute', top: 0, left: '4rem' }}>
+                            <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
                                 <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdFullscreen>
                             </div>
                         </div>
@@ -232,21 +232,19 @@ export default class SettlementContainer extends Component {
 
         if (this.state.isSetCoupon) {
             couponContent = (
-                <WingBlank>
-                    <List >
-                        <Item data-seed="logId" style={styles.background} >
-                            <div style={styles.div3}>
-                                <div style={styles.div2}>
-                                    优惠券
+                <List >
+                    <Item data-seed="logId" style={styles.background} >
+                        <div style={styles.div3}>
+                            <div style={styles.div2}>
+                                优惠券
                                 </div>
-                                <div style={styles.coupon}>
-                                    <span style={{ fontSize: "0.25rem" }}>{this.state.couponNo}</span>
-                                    <div style={styles.date}>2017.05.01~2017.06.01</div>
-                                </div>
+                            <div style={styles.coupon}>
+                                <div style={{ fontSize: "0.32rem" }}>{this.state.couponNo}</div>
+                                <span style={styles.date}>2017.05.01~2017.06.01</span>
                             </div>
-                        </Item>
-                    </List>
-                </WingBlank>
+                        </div>
+                    </Item>
+                </List>
             )
         } else {
             couponContent = (
@@ -256,7 +254,7 @@ export default class SettlementContainer extends Component {
                             <div>
                                 <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn1}>查询优惠券</Button>
                             </div>
-                            <div style={{ position: 'absolute', top: 0, left: '4rem' }}>
+                            <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
                                 <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdFullscreen>
                             </div>
                         </div>
@@ -339,16 +337,16 @@ styles = {
     //     fontSize: '0.4rem'
     // },
     div2: {
-        width: '1.8rem',
+        // width: '1.8rem',
         fontSize: '0.35rem',
         color: '#42A2EA',
         fontWeight: 'bold',
         // marginLeft: '0.2rem',
-        borderRight: '1px solid #e8e8e8'
+        paddingLeft: '0.35rem'
     },
     div3: {
         // lineHeight: '2',
-        lineHeight: '3.5',
+        lineHeight: '4',
         textAlign: 'left'
     },
     div4: {
@@ -357,13 +355,17 @@ styles = {
     },
     coupon: {
         position: 'absolute',
-        // top: '0.05rem',
+        height: '1.7rem',
         top: 0,
-        left: '2.8rem'
+        left: '2rem',
+        borderLeft: '1px solid #e8e8e8',
+        paddingLeft: '1rem'
     },
     date: {
         fontSize: '0.2rem',
-        marginTop: '-0.15rem'
+        // marginTop: '-0.15rem'
+        position: 'relative',
+        top: '-0.9rem'
     },
     info: {
         width: '75%',
@@ -400,7 +402,7 @@ styles = {
         fontSize: '1.5rem',
         marginLeft: '0.5rem',
         marginRight: '0.8rem',
-        paddingLeft:'0.6rem',
+        paddingLeft: '0.6rem',
         borderLeft: '1px solid #ececec',
     },
     img: {
@@ -434,7 +436,7 @@ styles = {
         fontWeight: 'bold'
     },
     btn1: {
-        fontSize:'0.35rem',
+        fontSize: '0.35rem',
         marginLeft: '1rem',
         display: 'inline-block',
         border: 0
