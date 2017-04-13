@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { SwipeAction, List, ListView } from 'antd-mobile';
+import { SwipeAction, List, ListView ,Flex} from 'antd-mobile';
 import Navi from '../component/Navi.js';
 import BasketCell from '../component/BasketCell';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
-
 
 const Item = List.Item;
 let styles = {};
@@ -20,6 +19,7 @@ export default class BasketList extends Component {
         const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         this.state = {
             dataSource: dataSource.cloneWithRows([]),
+            suggests:[],
             isLoading: false,
             hasMore: true,
             totalPrice: 0,
@@ -62,6 +62,7 @@ export default class BasketList extends Component {
                         isLoading: false,
                         totalPrice: res.result.salePrice,
                         qty: res.result.quantity,
+                        suggests: res.result.suggests?res.result.suggests:[],
                     });
                 }else if(res.success && res.result.items === null ){
                     this.setState({
@@ -117,6 +118,23 @@ export default class BasketList extends Component {
                        onLeftClick={()=>{history.back()}} 
                        onRightClick={()=>{window.location="/#/settlement"}}
                 />
+                <div style={{width:"100%",backgroundColor:"#45d3c6",position:"fixed",bottom:0,color:"white",fontSize:"0.3rem"}}>
+                
+                {(()=>{
+                    return this.state.suggests.map((item,key)=>{
+                        return (
+                            <Flex key={key} style={{margin:"0.1rem"}} justify="between">
+                                <span>
+                                    + {item.name}
+                                </span>
+                                <span>
+                                    ¥{item.salePrice}
+                                </span>
+                            </Flex>
+                        )
+                    })
+                })()}
+                </div>
                 <Item style={styles.item}>
                     <div style={{display:'inline-block',
                                         width:'100%',

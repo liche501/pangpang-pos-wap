@@ -36,7 +36,6 @@ export default class SettlementContainer extends Component {
         isSetCoupon: false,
         mileageUsed: false,
         animating: false,
-
     }
 
     componentWillMount() {
@@ -68,29 +67,17 @@ export default class SettlementContainer extends Component {
                     this.setState({
                         isSetCoupon: rs.couponNo ? true : false,
                         couponNo: rs.couponNo,
+                        availableMileage: rs.mileage.available,
+                        currentPoints: rs.mileage.current,
+                        mileageUsed: rs.mileage.use===0?false:true,
                     });
-                    if (rs.payments) {
-                        let tempMileage = 0;
-                        rs.payments.map((payment) => {
-                            if (payment.method === "mileage") {
-                                tempMileage += parseFloat(payment.amount)
-                            }
-                        })
-                        if (tempMileage === 0) {
-                            this.setState({ mileageUsed: false });
-                        } else {
-                            this.setState({ mileageUsed: true });
-                        }
-                        console.log("tempMileage==>", tempMileage)
-                    }
+
                     if (rs.customerInfo !== null) {
                         this.setState({
                             customerId: rs.customerInfo.id,
                             customerMobile: rs.customerInfo.mobile,
                             customerNo: rs.customerInfo.no,
                             customerGrade: rs.customerInfo.grade,
-                            currentPoints: rs.customerInfo.mileage.currentPoints,
-                            availableMileage: rs.customerInfo.availableMileage,
                             isSetCustomer: rs.customerInfo.no ? true : false,
                         });
                     }
@@ -216,7 +203,7 @@ export default class SettlementContainer extends Component {
                 this.changeLoading();
             })
         } else {
-            cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": parseFloat(-this.state.availableMileage) }).then(res => {
+            cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": 0 }).then(res => {
                 console.log(res)
                 this.refreshCartData();
                 this.changeLoading();
