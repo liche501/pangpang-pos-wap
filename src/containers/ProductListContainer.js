@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar, List, ListView, Popup, RefreshControl, Toast, ActivityIndicator  } from 'antd-mobile';
+import { SearchBar, List, ListView, Popup, RefreshControl, Toast, ActivityIndicator, Flex  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import productAPI from '../api/product.js';
 import cartAPI from '../api/cart.js';
@@ -230,29 +230,21 @@ export default class ProductListContainer extends Component {
     _renderRow = (rowData, sectionID, rowID) => {
         return (
             <div key={rowID} className="row" onClick={()=>{this._rowClick(rowData)}}>
-                <div style={{display: 'flex',padding: 0,}}>
-                    <table className="row-text">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style={styles.img}>
-                                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
-                                    </div>
-                                </td>
-                                <td style={{width:'10rem'}}>
-                                    <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
-                                    <div style={{ textAlign: 'left' }}>
-                                        {rowData.code}
-                                    </div>
-                                </td>
-                                <td style={styles.td}>
-                                    <p style={styles.listPrice}>￥{rowData.listPrice}</p>
-                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Flex>
+                    <div style={styles.img}>
+                        {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
+                    </div>
+                    <div style={{width:'55%'}}>
+                        <div style={styles.rowData}>{rowData.name.length>20?rowData.name.substring(0,20):rowData.name}</div>
+                        <div style={{ textAlign: 'left' }}>
+                            {rowData.code}
+                        </div>
+                    </div>
+                    <div style={{width:'18%',textAlign:'right'}}>
+                        <p style={styles.listPrice}>￥{rowData.listPrice}</p>
+                        <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                    </div>
+                </Flex>
             </div>
         );
     }

@@ -101,8 +101,8 @@ a:hover{
 
 /** ProductList **/
 .row {
-  padding: 0 0.3rem;
-  border-bottom: 1px solid #e8e8e8;
+  padding:0.15rem 0.3rem;
+  /*border-bottom: 1px solid #e8e8e8;*/
   background-color: white;
 }
 .row-title {
