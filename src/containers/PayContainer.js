@@ -76,22 +76,18 @@ export default class PayContainer extends Component {
     }
     _placeOrderClick = () => {
         let cartId = sessionStorage.getItem("cartId");
-
         if (cartId) {
-            cartAPI.setPayment(cartId, { "method": this.state.payType, "amount": parseFloat(this.state.salePrice) })
+            orderAPI.placeOrder({ "cartId": parseInt(cartId, 10) })
                 .then(res => {
-                    orderAPI.placeOrder({ "cartId": parseInt(cartId, 10) })
-                        .then(res => {
-                            Toast.info('生成订单');
-                            sessionStorage.removeItem('cartId');
+                    Toast.info('生成订单');
+                    sessionStorage.removeItem('cartId');
 
-                            setTimeout(() => {
-                                window.location = '/';
-                            }, 1000);
-                        })
-                        .catch(error => {
-                            Toast.fail('生成失败');
-                        })
+                    setTimeout(() => {
+                        window.location = '/';
+                    }, 1000);
+                })
+                .catch(error => {
+                    Toast.fail('生成失败');
                 })
         }
     }
@@ -130,17 +126,23 @@ export default class PayContainer extends Component {
                 { text: '取消' },
                 {
                     text: '保存',
-                    onPress: (value) => {
-                        if (!value) {
+                    onPress: (money) => {
+                        console.log(typeof(money))
+                        if (!money) {
                             Toast.info('金额为空', 1);
                             return
                         }
+                        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+                        if(!reg.test(money)){
+                            Toast.info('请输入正确的金额', 1);
+                            return
+                        }
                         if (type === "mileage") {
-                            cartAPI.setPaymentForMileage(cartId, { "amount": parseFloat(value) }).then(res => {
+                            cartAPI.setPaymentForMileage(cartId, { "amount": parseFloat(money) }).then(res => {
                                 this.refreshCartData();
                             })
                         } else {
-                            cartAPI.setPayment(cartId, { "method": type, "amount": parseFloat(value) }).then(res => {
+                            cartAPI.setPayment(cartId, { "method": type, "amount": parseFloat(money) }).then(res => {
                                 this.refreshCartData();
                             })
                         }
@@ -207,7 +209,13 @@ export default class PayContainer extends Component {
                         </p>
                     </div>
                 </List>
-                <Button className="btn" type="primary" style={styles.btn} onClick={() => this._placeOrderClick()}>确认支付￥{this.state.salePrice}元</Button>
+                <Button className="btn" 
+                        type="primary" 
+                        style={styles.btn} 
+                        disabled={this.state.remainAmount===0?false:true}  
+                        onClick={() => this._placeOrderClick()}
+                >确认支付￥{this.state.salePrice}元
+                </Button>
             </div>
         )
     }
