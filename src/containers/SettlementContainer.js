@@ -34,8 +34,8 @@ export default class SettlementContainer extends Component {
         availableMileage: 0,
         isSetCustomer: false,
         isSetCoupon: false,
-        mileageUsed:false,
-        animating:false,
+        mileageUsed: false,
+        animating: false,
 
     }
 
@@ -65,22 +65,23 @@ export default class SettlementContainer extends Component {
                     } else {
                         this.setState({ salePrice: 0, discount: 0 });
                     }
-                    this.setState({ isSetCoupon: rs.couponNo ? true : false,
-                                    couponNo: rs.couponNo,
+                    this.setState({
+                        isSetCoupon: rs.couponNo ? true : false,
+                        couponNo: rs.couponNo,
                     });
-                    if(rs.payments){
+                    if (rs.payments) {
                         let tempMileage = 0;
-                        rs.payments.map((payment)=>{
-                            if(payment.method === "mileage"){
+                        rs.payments.map((payment) => {
+                            if (payment.method === "mileage") {
                                 tempMileage += parseFloat(payment.amount)
                             }
                         })
-                        if(tempMileage === 0){
-                            this.setState({mileageUsed:false});
-                        }else{
-                            this.setState({mileageUsed:true});
+                        if (tempMileage === 0) {
+                            this.setState({ mileageUsed: false });
+                        } else {
+                            this.setState({ mileageUsed: true });
                         }
-                        console.log("tempMileage==>",tempMileage)
+                        console.log("tempMileage==>", tempMileage)
                     }
                     if (rs.customerInfo !== null) {
                         this.setState({
@@ -208,49 +209,50 @@ export default class SettlementContainer extends Component {
     }
     _mileageChange = () => {
         this.changeLoading();
-        if(!this.state.mileageUsed){
+        if (!this.state.mileageUsed) {
             cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": parseFloat(this.state.availableMileage) }).then(res => {
                 console.log(res)
                 this.refreshCartData();
                 this.changeLoading();
             })
-        }else{
+        } else {
             cartAPI.setPaymentForMileage(sessionStorage.getItem("cartId"), { "amount": parseFloat(-this.state.availableMileage) }).then(res => {
                 console.log(res)
                 this.refreshCartData();
                 this.changeLoading();
             })
         }
-        
+
     }
     changeLoading = () => {
-        this.setState({animating:!this.state.animating});
+        this.setState({ animating: !this.state.animating });
     }
     render() {
         let customerContent, couponContent;
 
         if (this.state.isSetCustomer) {
             customerContent = (
-                <div className="row"  >
-                    <div style={styles.div}>
-                        <div style={styles.div1} >
-                            <p style={styles.p}>VIP{this.state.customerGrade}</p>
-                        </div>
-                        <div className="row-text">
-                            <div>手机号 : {this.state.customerMobile}</div>
-                            <div>会员号 : {this.state.customerNo}</div>
-                            <div>
-                                积&nbsp;&nbsp;&nbsp;分 :
-                                <span style={{ color: 'orange' }}>{this.state.currentPoints}</span>
+                <List>
+                    <div className="row"  >
+                        <div style={styles.div}>
+                            <div style={styles.div1} >
+                                <p style={styles.p}>VIP{this.state.customerGrade}</p>
                             </div>
-                            <div>
-                                本次可用积分 :
-                                <span style={{ color: 'orange' }}>{this.state.availableMileage}</span>
-                                <Switch checked={this.state.mileageUsed} disabled={this.state.availableMileage===0?true:false} onChange={this._mileageChange}/>
+                            <div className="row-text">
+                                <div>姓&nbsp;&nbsp;&nbsp;名 : {this.state.userName}</div>
+                                <div>会员号 : {this.state.customerNo}</div>
+                                <div>
+                                    积&nbsp;&nbsp;&nbsp;分 :
+                                <span style={{ color: 'orange' }}> {this.state.currentPoints}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div style={{ padding: '0.2rem 0.35rem' }}>
+                        可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>{this.state.listPrice}</span>
+                        <Switch style={{ marginLeft: '2.5rem' }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
+                    </div>
+                </List>
             )
         } else {
             customerContent = (
@@ -317,7 +319,7 @@ export default class SettlementContainer extends Component {
                     toast
                     text="正在加载"
                     animating={this.state.animating}
-                />
+                    />
                 <WhiteSpace />
                 {couponContent}
                 <WhiteSpace />
@@ -333,12 +335,12 @@ export default class SettlementContainer extends Component {
                             优惠：
                             <span style={{ float: 'right' }}>-￥{this.state.discount}元</span>
                         </p>
-                        {this.state.mileageUsed?(
+                        {this.state.mileageUsed ? (
                             <p>
                                 积分：
                                 <span style={{ float: 'right' }}>-￥{this.state.availableMileage}元</span>
                             </p>
-                        ):null}
+                        ) : null}
                     </div>
                 </List>
                 <List>
