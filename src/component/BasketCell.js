@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Flex  } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 
 let styles = {};
@@ -22,30 +23,22 @@ export default class BasketCell extends Component {
         //console.log(rowData)
         return (
             <div className="row">
-                <div style={styles.div}>
-                    <table className="row-text">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style={styles.img}>
-                                         {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.sku.images.small.url} alt="" />:''}
-                                    </div>
-                                </td>
-                                <td style={{ width: '10rem'}}>
-                                    <div style={styles.rowData}>{rowData.sku.name}</div>
-                                    <div style={{ textAlign: 'left' }}>
-                                        {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
-                                         <span style={styles.discount}>X {rowData.quantity}</span>
-                                    </div>
-                                </td>
-                                <td style={styles.td}>
-                                    <p style={styles.listPrice}>￥{rowData.listPrice}</p>
-                                    <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Flex style={styles.div}>
+                    <div style={styles.img}>
+                        {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.sku.images.small.url} alt="" />:''}
+                    </div>
+                    <div style={{width:'55%'}}>
+                        <div style={styles.rowData}>{rowData.sku.name}</div>
+                        <div style={{ textAlign: 'left' }}>
+                            {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
+                            <span style={styles.discount}>X {rowData.quantity}</span>
+                        </div>
+                    </div>
+                    <div style={{width:'18%',textAlign:'right'}}>
+                        <p style={styles.listPrice}></p>
+                        <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                    </div>
+                </Flex>
             </div>
 
         )
@@ -54,7 +47,7 @@ export default class BasketCell extends Component {
 
 styles = {
     div: {
-        display: 'flex',
+        // display: 'flex',
         marginTop: '-0.35rem',
         marginBottom: '-0.35rem'
     },
@@ -75,16 +68,16 @@ styles = {
         height: "50px"
     },
     rowData: {
-        marginBottom: '0.16rem',
+        marginBottom: '0.2rem',
         width:'80%',
-        height:'0.5rem',
+        height:'0.35rem',
         overflow:'hidden',
         textAlign: "left"
     },
     discount: {
         position: "relative",
         marginLeft: "20px",
-        bottom: "12px" 
+        // bottom: "12px" 
     },
     td: {
         width: "2.2rem",
@@ -92,7 +85,9 @@ styles = {
         textAlign:'center' 
     },
     listPrice: {
-        textDecoration: "line-through"
+        textDecoration: "line-through",
+        // display:'none'
+        minHeight:'36px'
     },
     item: {
         backgroundColor:'#fff',

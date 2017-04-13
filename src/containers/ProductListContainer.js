@@ -361,7 +361,8 @@ styles = {
         textAlign:'center' 
     },
     listPrice: {
-        textDecoration: "line-through"
+        textDecoration: "line-through",
+        minHeight:'36px'
     },
     item: {
         backgroundColor:'#fff',
