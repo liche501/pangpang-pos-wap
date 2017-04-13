@@ -394,7 +394,7 @@ styles = {
         top: 0,
         left: '2rem',
         borderLeft: '1px solid #e8e8e8',
-        paddingLeft: '1rem'
+        paddingLeft: '0.5rem'
     },
     date: {
         fontSize: '0.2rem',
