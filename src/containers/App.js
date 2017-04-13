@@ -19,7 +19,26 @@ function validateAccount(nextState, replaceState) {
   }
 }
 
+function isWeiXin(){ 
+  var ua = window.navigator.userAgent.toLowerCase(); 
+  if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+    return true; 
+  }else{ 
+    return false; 
+  } 
+} 
 export default class App extends Component {
+  componentDidMount() {
+    if(!isWeiXin()){ 
+        var div = document.createElement("div");
+        div.style.width = document.documentElement.clientWidth;
+        div.style.textAlign = "center";
+        div.style.fontSize = ".5rem";
+        div.style.marginTop = "1rem";
+        div.innerText = "请在微信中打开";
+        document.body.innerHTML= div.outerHTML;
+      } 
+  }
   render() {
     return (
       <Router history={hashHistory} >
