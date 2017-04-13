@@ -171,8 +171,8 @@ export default class ProductListContainer extends Component {
                 var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
                 // self.getSku("EEAA8A011101000")
                 tempScanData = result.trim()
-                self.getSku(result.trim())
-                // self.getSku("EAG116641160")
+                // self.getSku(result.trim())
+                self.getSku("EAG116641160")
             }
         })
     }
