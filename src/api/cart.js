@@ -141,7 +141,7 @@ export default {
         return new Promise((resolve, reject) => {
 
             const headers = getRequestHeader();
-            axios.post(api_serverRoot() + `/carts/` + id + `/payment/mileage`, paymentInfo, { "headers": headers })
+            axios.post(api_serverRoot() + `/carts/` + id + `/mileage`, paymentInfo, { "headers": headers })
                 .then(function (response) {
                     // console.log(response.data);
                     resolve(response.data);
