@@ -240,11 +240,11 @@ export default class ProductDetailContainer extends Component {
                                             </ul>
                                             :
                                             <ul style={styles.ul}>
-                                                <li>羽绒服</li>
-                                                <li>货号 : PCVIPSALES01BMFRE</li>
-                                                <li>价格 : 30000</li>
-                                                <li>已选尺码 : M</li>
-                                                <li>颜色 : 白色</li>
+                                                <li> </li>
+                                                <li>货号 : </li>
+                                                <li>价格 : </li>
+                                                <li>已选尺码 : </li>
+                                                <li>颜色 : </li>
                                             </ul>
                                     }
                                     </td>
