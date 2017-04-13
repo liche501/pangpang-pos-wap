@@ -6,6 +6,9 @@ import orderAPI from '../api/order.js';
 
 import pay1 from '../../public/zfb.gif';
 import pay2 from '../../public/wxzf.gif';
+import { FaCreditCardAlt, FaMoney } from 'react-icons/lib/fa';
+
+
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -182,7 +185,7 @@ export default class PayContainer extends Component {
                     <div style={styles.pay}>
                         <RadioItem className='pay-am-list-item-middle' key='card' checked={false} onClick={() => this._inputButtonClick("card")}>
                             <div style={{ textAlign: 'center' }}>
-                                <img src={pay1} style={{ marginRight: '5px' }} alt="" /> &nbsp;
+                                <FaCreditCardAlt style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;
                                     <span>&nbsp;刷&nbsp;卡&nbsp;&nbsp;</span>
                             </div>
                         </RadioItem>
@@ -190,7 +193,7 @@ export default class PayContainer extends Component {
                     <div style={styles.paywx}>
                         <RadioItem className='pay-am-list-item-middle' key='cash' checked={false} onClick={() => this._inputButtonClick("cash")}>
                             <div style={{ textAlign: 'center' }} >
-                                <img src={pay2} style={styles.img1} alt="" /> &nbsp;
+                                <FaMoney style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;&nbsp;
                                 <span>现&nbsp;金</span>
                             </div>
                         </RadioItem>

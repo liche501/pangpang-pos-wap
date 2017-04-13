@@ -7,7 +7,7 @@ import pay2 from '../../public/wxzf.gif';
 import ticket from '../../public/ticket.gif';
 import cartAPI from '../api/cart.js';
 import orderAPI from '../api/order.js';
-import { MdFullscreen } from 'react-icons/lib/md';
+import { MdCropFree } from 'react-icons/lib/md';
 import wx from 'weixin-js-sdk';
 
 const Item = List.Item;
@@ -261,7 +261,7 @@ export default class SettlementContainer extends Component {
                                 <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>会员登录</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
-                                <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdFullscreen>
+                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -294,7 +294,7 @@ export default class SettlementContainer extends Component {
                                 <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn1}>查询优惠券</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
-                                <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdFullscreen>
+                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -445,7 +445,7 @@ styles = {
     },
     span: {
         color: '#42A2EA',
-        fontSize: '1.5rem',
+        fontSize: '1.2rem',
         marginLeft: '0.5rem',
         marginRight: '0.8rem',
         paddingLeft: '0.6rem',
