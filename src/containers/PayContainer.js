@@ -162,44 +162,52 @@ export default class PayContainer extends Component {
                     onLeftClick={() => { history.back() } }
                     />
                 <p style={{marginLeft:'0.5rem',fontSize:'0.35rem'}}>选择支付方式</p>
-                <List>
-                    <div style={styles.pay}>
-                        <RadioItem className='pay-am-list-item-middle' key='Alipay' checked={false} onClick={() => this._inputButtonClick("ali")} >
-                            <div style={{ textAlign: 'center' }}>
-                                <img src={pay1} style={{ marginRight: '5px' }} alt="" /> &nbsp;
-                                    <span>支付宝</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                    <div style={styles.paywx}>
-                        <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={false} onClick={() => this._inputButtonClick("weixin")}>
-                            <div style={{ textAlign: 'center' }}>
-                                <img src={pay2} style={styles.img1} alt="" /> &nbsp;
-                                <span>微&nbsp;信</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                </List>
-                <WhiteSpace />
-                <List>
-                    <div style={styles.pay}>
-                        <RadioItem className='pay-am-list-item-middle' key='card' checked={false} onClick={() => this._inputButtonClick("card")}>
-                            <div style={{ textAlign: 'center' }}>
-                                <FaCreditCardAlt style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;
+                <div>
+                    <List style={{ width: '49%' }}>
+                        <div>
+                            <RadioItem className='pay-am-list-item-middle' key='cash' checked={false} onClick={() => this._inputButtonClick("cash")} >
+                                <div style={styles.pay}>
+                                    <FaMoney style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;&nbsp;
+                                    <span>现&nbsp;金</span>
+                                </div>
+                            </RadioItem>
+                        </div>
+                    </List>
+                    <WhiteSpace />
+                    <List style={{ width: '49%', position: 'absolute', top: '2rem', left: '51%' }}>
+                        <div>
+                            <RadioItem className='pay-am-list-item-middle' key='card' checked={false} onClick={() => this._inputButtonClick("card")}>
+                                <div style={styles.pay}>
+                                    <FaCreditCardAlt style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;
                                     <span>&nbsp;刷&nbsp;卡&nbsp;&nbsp;</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                    <div style={styles.paywx}>
-                        <RadioItem className='pay-am-list-item-middle' key='cash' checked={false} onClick={() => this._inputButtonClick("cash")}>
-                            <div style={{ textAlign: 'center' }} >
-                                <FaMoney style={{fontSize:"0.4rem"}}/>&nbsp;&nbsp;&nbsp;
-                                <span>现&nbsp;金</span>
-                            </div>
-                        </RadioItem>
-                    </div>
-                </List>
-                <WhiteSpace />
+                                </div>
+                            </RadioItem>
+                        </div>
+                    </List>
+                </div>
+                <div>
+                    <List style={{ width: '49%' }}>
+                        <div>
+                            <RadioItem className='pay-am-list-item-middle' key='Alipay' checked={false} onClick={() => this._inputButtonClick("ali")}>
+                                <div style={styles.pay}>
+                                    <img src={pay1} style={{ marginRight: '5px', marginBottom: '5px' }} alt="" /> &nbsp;
+                                    <span>支付宝</span>
+                                </div>
+                            </RadioItem>
+                        </div>
+                    </List>
+                    <WhiteSpace />
+                    <List>
+                        <div style={{ width: '49%', position: 'absolute', top: '-1.6rem', left: '51%' }}>
+                            <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={false} onClick={() => this._inputButtonClick("weixin")}>
+                                <div style={styles.pay} >
+                                    <img src={pay2} style={styles.img1} alt="" /> &nbsp;
+                                    <span>微&nbsp;信</span>
+                                </div>
+                            </RadioItem>
+                        </div>
+                    </List>
+                </div>
                 <List>
                     <div style={styles.total}>
                         <p>
@@ -226,9 +234,9 @@ export default class PayContainer extends Component {
 
 styles = {
     pay: {
-        width: '50%',
-        // width: '3.5rem',
-        borderRight: '0.15rem solid #F6F6F6'
+        textAlign: 'center',
+        margin:'0.3rem',
+        fontSize:'0.35rem' 
     },
     paywx: {
         width: '43%',
