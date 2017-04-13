@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Navi from '../component/Navi.js';
-import { Button, ListView, WingBlank, WhiteSpace, List, Switch, Modal, Toast, ActivityIndicator } from 'antd-mobile';
+import { Button, ListView, WingBlank, WhiteSpace, List, Switch, Modal, Toast, ActivityIndicator, Flex } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import pay1 from '../../public/zfb.gif';
 import pay2 from '../../public/wxzf.gif';
 import ticket from '../../public/ticket.gif';
 import cartAPI from '../api/cart.js';
 import orderAPI from '../api/order.js';
-import { MdFullscreen } from 'react-icons/lib/md';
+import { MdCropFree } from 'react-icons/lib/md';
 import wx from 'weixin-js-sdk';
 
 const Item = List.Item;
@@ -248,10 +248,10 @@ export default class SettlementContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div style={{ padding: '0.2rem 0.35rem' }}>
-                        可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>{this.state.listPrice}</span>
-                        <Switch style={{ marginLeft: '2.5rem' }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
-                    </div>
+                    <Flex style={{ padding: '0.2rem 0.35rem' }} justify="between">
+                        <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}元</span></span>
+                        <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
+                    </Flex>
                 </List>
             )
         } else {
@@ -263,7 +263,7 @@ export default class SettlementContainer extends Component {
                                 <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>会员登录</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
-                                <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdFullscreen>
+                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -296,7 +296,7 @@ export default class SettlementContainer extends Component {
                                 <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn1}>查询优惠券</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
-                                <MdFullscreen style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdFullscreen>
+                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -447,7 +447,7 @@ styles = {
     },
     span: {
         color: '#42A2EA',
-        fontSize: '1.5rem',
+        fontSize: '1.2rem',
         marginLeft: '0.5rem',
         marginRight: '0.8rem',
         paddingLeft: '0.6rem',

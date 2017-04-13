@@ -52,8 +52,10 @@ export default class ProductListContainer extends Component {
         // }
     }
     initWXConfig = () => {
+        // this.changeLoading();
+        // let self = this;
         // wx.ready(() => {
-        //     Toast.success('可以扫一扫啦');
+        //     self.changeLoading();
         // })
         wx.error(err => {
             Toast.fail('微信JSSKD错误')

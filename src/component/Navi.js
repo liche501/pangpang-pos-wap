@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import { FaBars } from 'react-icons/lib/fa';
-import { MdFullscreen } from 'react-icons/lib/md';
+import { MdCropFree } from 'react-icons/lib/md';
 
 export default class Navi extends Component {
     static propTypes = {
@@ -33,7 +33,7 @@ export default class Navi extends Component {
                 rightContent = <div key="0" style={{ marginRight: 0 }}  >{this.props.rightText}</div>
             break;
             case "scan":
-                rightContent = <div style={{width:"150px",textAlign:"right"}} ><MdFullscreen style={{fontSize:'0.8rem'}} /></div>
+                rightContent = <div style={{width:"150px",textAlign:"right"}} ><MdCropFree style={{fontSize:'0.6rem'}} /></div>
             break;
             default:
                 rightContent = <Icon key="0" type={this.props.rightIcon} style={{ marginRight: '0rem' }} onClick={this.props.onRightClick} size="md" />
