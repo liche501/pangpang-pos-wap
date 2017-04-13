@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navi from '../component/Navi.js';
-import { Button, ListView, WingBlank, WhiteSpace, List, Switch, Modal, Toast, ActivityIndicator } from 'antd-mobile';
+import { Button, ListView, WingBlank, WhiteSpace, List, Switch, Modal, Toast, ActivityIndicator, Flex } from 'antd-mobile';
 import imgMD from '../../public/MD.jpg';
 import pay1 from '../../public/zfb.gif';
 import pay2 from '../../public/wxzf.gif';
@@ -248,10 +248,10 @@ export default class SettlementContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div style={{ padding: '0.2rem 0.35rem' }}>
-                        可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>{this.state.listPrice}</span>
-                        <Switch style={{ marginLeft: '2.5rem' }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
-                    </div>
+                    <Flex style={{ padding: '0.2rem 0.35rem' }} justify="between">
+                        <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}元</span></span>
+                        <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
+                    </Flex>
                 </List>
             )
         } else {
