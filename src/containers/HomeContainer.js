@@ -8,10 +8,10 @@ import Navi from '../component/Navi.js';
 
 let tempMenuData = [
     {},
-    { menuName: "销售", menuCode: "productList" },
-    { menuName: "卖场", menuCode: "spotSet" },
+    { menuName: "购物车", menuCode: "productList" },
+    { menuName: "退 货", menuCode: "spotSet" },
 ];
-const leftMenuWidth = document.documentElement.clientWidth/3*2;
+const leftMenuWidth = document.documentElement.clientWidth / 3 * 2;
 export default class Home extends Component {
     state = {
         open: false,
@@ -29,7 +29,7 @@ export default class Home extends Component {
         this.onOpenChange();
     }
     _scanButtonClick = () => {
-        if(this.refs.productListComponent){
+        if (this.refs.productListComponent) {
             this.refs.productListComponent.scanQRCode();
         }
     }
@@ -37,7 +37,7 @@ export default class Home extends Component {
         let content;
         switch (this.state.selectMenuCode) {
             case "productList":
-                content = <ProductList  ref="productListComponent"/>
+                content = <ProductList ref="productListComponent" />
                 break;
             case "validate":
 
@@ -50,28 +50,32 @@ export default class Home extends Component {
         }
 
         const sidebar = (
-            <List>
+            <div>
                 {tempMenuData.map((menu, index) => {
                     if (index === 0) {
                         return (
-                            <List.Item key={index} style={{ backgroundColor: "#22242f", color: "white", height: 300 ,width:leftMenuWidth}}
-                                multipleLine
-                            >
-                            <div className="home-box">
-                                <img className="home-img" src={imgMD}/>
-                                <p style={{color:"#fff",margin:"10px 16px"}}>userInfo</p>
+                            <div style={{ backgroundColor: "#22242f", color: "white", width:'90%',margin:'0 auto',borderBottom:'1px solid #fff' }}>
+                                <List.Item key={index} 
+                                    multipleLine
+                                    >
+                                    <div className="home-box">
+                                        <img className="home-img" src={imgMD} />
+                                        <p style={{ color: "#fff", margin: "30px 8px 0" }}>userInfo</p>
+                                    </div>
+                                </List.Item>
                             </div>
-                            </List.Item>
                         );
                     }
                     return (
-                        <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) }}
-                        >
-                            <div style={{backgroundColor:'#22242E',color:"#fff"}}>{menu.menuName}</div>
-                        </List.Item>
+                        <div style={{ width: '90%', margin: '0 auto', borderBottom: '1px solid #fff' }}>
+                            <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) } }
+                                >
+                                <div style={{ backgroundColor: '#22242E', color: "#fff", textAlign: 'center' }}>{menu.menuName}</div>
+                            </List.Item>
+                        </div>
                     );
                 })}
-            </List>
+            </div>
         );
 
         const drawerProps = {
@@ -81,17 +85,17 @@ export default class Home extends Component {
             dragHandleStyle: { backgroundColor: "red" }
         };
         let menuContent
-        if(this.state.selectMenuCode === "productList"){
-            menuContent = <Navi leftIcon="menu" 
-                      title={this.state.menuName} 
-                      onLeftClick={this.onOpenChange}
-                      rightIcon="scan"
-                      onRightClick={this._scanButtonClick} 
+        if (this.state.selectMenuCode === "productList") {
+            menuContent = <Navi leftIcon="menu"
+                title={this.state.menuName}
+                onLeftClick={this.onOpenChange}
+                rightIcon="scan"
+                onRightClick={this._scanButtonClick}
                 />
-        }else{
-            menuContent = <Navi leftIcon="menu" 
-                      title={this.state.menuName} 
-                      onLeftClick={this.onOpenChange}
+        } else {
+            menuContent = <Navi leftIcon="menu"
+                title={this.state.menuName}
+                onLeftClick={this.onOpenChange}
                 />
         }
         return (
@@ -103,7 +107,7 @@ export default class Home extends Component {
                     sidebar={sidebar}
                     dragHandleStyle={{ display: 'none' }}
                     contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
-                    sidebarStyle={{width:leftMenuWidth}}
+                    sidebarStyle={{ width: leftMenuWidth }}
                     {...drawerProps}
                     >
                     {content}

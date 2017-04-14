@@ -69,7 +69,7 @@ export default class SettlementContainer extends Component {
                         couponNo: rs.couponNo,
                         availableMileage: rs.mileage.available,
                         currentPoints: rs.mileage.current,
-                        mileageUsed: rs.mileage.use===0?false:true,
+                        mileageUsed: rs.mileage.use === 0 ? false : true,
                     });
 
                     if (rs.customerInfo !== null) {
@@ -235,9 +235,9 @@ export default class SettlementContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <Flex style={{ padding: '0.2rem 0.35rem' }} justify="between">
+                    <Flex style={{ padding: '0.2rem 0.35rem', borderTop: '1px solid #ececec' }} justify="between">
                         <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}元</span></span>
-                        <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
+                        <Switch style={{}} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
                     </Flex>
                 </List>
             )
@@ -249,7 +249,7 @@ export default class SettlementContainer extends Component {
                             <div>
                                 <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>会员登录</Button>
                             </div>
-                            <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
+                            <div style={{ position: 'absolute', top: 7, left: '3.8rem' }}>
                                 <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdCropFree>
                             </div>
                         </div>
@@ -265,9 +265,9 @@ export default class SettlementContainer extends Component {
                         <div style={styles.div3}>
                             <div style={styles.div2}>
                                 优惠券
-                                </div>
+                            </div>
                             <div style={styles.coupon}>
-                                <div style={{ fontSize: "0.32rem" }}>{this.state.couponNo}</div>
+                                <div style={{ fontSize: "0.32rem",marginTop:'0.3rem' }}>{this.state.couponNo}</div>
                                 <span style={styles.date}>2017.05.01~2017.06.01</span>
                             </div>
                         </div>
@@ -282,7 +282,7 @@ export default class SettlementContainer extends Component {
                             <div>
                                 <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn1}>查询优惠券</Button>
                             </div>
-                            <div style={{ position: 'absolute', top: 7, left: '4rem' }}>
+                            <div style={{ position: 'absolute', top: 7, left: '3.8rem' }}>
                                 <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdCropFree>
                             </div>
                         </div>
@@ -350,7 +350,7 @@ styles = {
     },
     div: {
         display: 'flex',
-        padding: '0.3rem 0'
+        padding: '0.2rem 0 0'
     },
     div1: {
         height: '1.7rem',
@@ -373,11 +373,11 @@ styles = {
     // },
     div2: {
         // width: '1.8rem',
-        fontSize: '0.35rem',
+        fontSize: '0.45rem',
         color: '#42A2EA',
         fontWeight: 'bold',
         // marginLeft: '0.2rem',
-        paddingLeft: '0.35rem'
+        paddingLeft: '0.2rem'
     },
     div3: {
         // lineHeight: '2',
@@ -390,7 +390,7 @@ styles = {
     },
     coupon: {
         position: 'absolute',
-        height: '1.7rem',
+        height: '2.3rem',
         top: 0,
         left: '2rem',
         borderLeft: '1px solid #e8e8e8',
@@ -472,7 +472,7 @@ styles = {
     },
     btn1: {
         fontSize: '0.35rem',
-        marginLeft: '1rem',
+        marginLeft: '0.8rem',
         display: 'inline-block',
         border: 0
     },
