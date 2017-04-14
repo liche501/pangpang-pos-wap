@@ -23,6 +23,7 @@ export default class BasketList extends Component {
             isLoading: false,
             hasMore: true,
             totalPrice: 0,
+            listPrice:0,
             qty: 0,
         };
     }
@@ -61,6 +62,7 @@ export default class BasketList extends Component {
                         dataSource: this.state.dataSource.cloneWithRows(res.result.items),
                         isLoading: false,
                         totalPrice: res.result.salePrice,
+                        listTotalPrice:res.result.listPrice,
                         qty: res.result.quantity,
                         suggests: res.result.suggests?res.result.suggests:[],
                     });
@@ -127,8 +129,9 @@ export default class BasketList extends Component {
                                 <span>
                                     + {item.name}
                                 </span>
+                                
                                 <span>
-                                    ¥{item.salePrice}
+                                     ¥{item.salePrice}
                                 </span>
                             </Flex>
                         )
@@ -149,7 +152,10 @@ export default class BasketList extends Component {
                                         fontSize:'0.5rem'
                                 }}>
                         <div style={{float:'left'}}>Total</div>
-                        <div style={{float:'right'}}>￥{this.state.totalPrice}</div>
+                        <div style={{float:'right'}}>
+                            <span style={{fontSize:'0.35rem',color:'#ccc',textDecoration:'line-through'}}>￥{this.state.listTotalPrice}</span>
+                            <span>￥{this.state.totalPrice}</span>
+                        </div>
                     </div>
                 </Item>
                 <div id="productList" style={styles.div}>

@@ -236,7 +236,7 @@ export default class ProductListContainer extends Component {
     _renderRow = (rowData, sectionID, rowID) => {
         return (
             <div key={rowID} className="row" onClick={()=>{this._rowClick(rowData)}}>
-                <Flex>
+                <Flex style={{margin:'0.15rem 0'}}>
                     <div style={styles.img}>
                         {rowData.images && rowData.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.images.small.url} alt="" />:''}
                     </div>
@@ -248,7 +248,7 @@ export default class ProductListContainer extends Component {
                     </div>
                     <div style={{width:'18%',textAlign:'right'}}>
                         {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
-                        <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
+                        {rowData.listPrice == rowData.salePrice?<p>￥{rowData.salePrice}</p>:<p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>}
                     </div>
                 </Flex>
             </div>
