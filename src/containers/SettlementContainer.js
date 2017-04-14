@@ -350,7 +350,7 @@ styles = {
     },
     div: {
         display: 'flex',
-        padding: '0.2rem 0 0'
+        padding: '0.3rem 0 0.2rem'
     },
     div1: {
         height: '1.7rem',

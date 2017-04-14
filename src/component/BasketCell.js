@@ -23,18 +23,16 @@ export default class BasketCell extends Component {
         //console.log(rowData)
         return (
             <div className="row">
+                <div style={{paddingLeft:'0.3rem',marginBottom: '0.2rem'}}>{rowData.sku.name}</div>
                 <Flex style={styles.div}>
-                    <div style={styles.img}>
-                        {rowData.sku.images && rowData.sku.images.small?<img style={{ height: '1.28rem',width:'1.28rem',border: '0.5px solid gray',padding:1,marginTop:'0.05rem'}} src={rowData.sku.images.small.url} alt="" />:''}
-                    </div>
-                    <div style={{width:'55%'}}>
-                        <div style={styles.rowData}>{rowData.sku.name}</div>
+                    <div style={{width:'75%',paddingLeft:'0.3rem'}}>
+                        <div style={styles.rowData}>{rowData.sku.code}</div>
                         <div style={{ textAlign: 'left' }}>
                             {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
                             <span style={styles.discount}>X {rowData.quantity}</span>
                         </div>
                     </div>
-                    <div style={{width:'18%',textAlign:'right'}}>
+                    <div style={{width:'20%',textAlign:'center'}}>
                         {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
                         <p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>
                     </div>
@@ -69,10 +67,11 @@ styles = {
     },
     rowData: {
         marginBottom: '0.2rem',
-        width:'80%',
+        // width:'80%',
         height:'0.35rem',
         overflow:'hidden',
-        textAlign: "left"
+        textAlign: "left",
+        // paddingLeft:'0.3rem'
     },
     discount: {
         position: "relative",
