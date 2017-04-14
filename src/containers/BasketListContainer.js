@@ -153,7 +153,7 @@ export default class BasketList extends Component {
                                 }}>
                         <div style={{float:'left'}}>Total</div>
                         <div style={{float:'right'}}>
-                            <span style={{fontSize:'0.35rem',color:'gray',textDecoration:'line-through'}}>￥{this.state.listTotalPrice}</span>
+                            <span style={{fontSize:'0.35rem',color:'#ccc',textDecoration:'line-through'}}>￥{this.state.listTotalPrice}</span>
                             <span>￥{this.state.totalPrice}</span>
                         </div>
                     </div>
