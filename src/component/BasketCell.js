@@ -23,7 +23,7 @@ export default class BasketCell extends Component {
         //console.log(rowData)
         return (
             <div className="row">
-                <div style={{paddingLeft:'0.3rem',marginBottom: '0.2rem'}}>{rowData.sku.name}</div>
+                <div style={{width:'91%',margin:'0 auto 0.2rem',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
                 <Flex style={styles.div}>
                     <div style={{width:'75%',paddingLeft:'0.3rem'}}>
                         <div style={styles.rowData}>{rowData.sku.code}</div>
