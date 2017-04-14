@@ -86,7 +86,7 @@ export default class ProductListContainer extends Component {
 
         if(cartId){
             cartAPI.getCartById(cartId).then(res=>{
-                    //console.log('====>',res.result)
+                    console.log('====>',res.result)
                     if(res.success && res.result.items !== null ){
                         this.setState({ totalPrice: res.result.salePrice, totalCount: res.result.quantity });
                     }else{
@@ -98,7 +98,7 @@ export default class ProductListContainer extends Component {
     
     searchProducts= ()=>{   
         productAPI.searchContents(this.state.searchKey,0,pageSize).then((res)=>{
-            console.log(res.result)
+            // console.log(res.result)
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(res.result.items),
@@ -180,7 +180,6 @@ export default class ProductListContainer extends Component {
         this.setState({animating:!this.state.animating});
     }
     getSku = (scanData) =>{
-        console.log(scanData)
         productAPI.searchSkus(scanData,0,pageSize).then(res => {
             // console.log(res.result)
             if(res.success ){

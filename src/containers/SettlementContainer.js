@@ -15,23 +15,46 @@ const prompt = Modal.prompt;
 const antAlert = Modal.alert;
 const styles = {};
 
+const formatPayType = (type) => {
+    switch (type) {
+            case "mileage":
+                return "积分"
+                break;
+            case "ali":
+                return "支付宝"
+                break;
+            case "weixin":
+                return "微信"
+                break;
+            case "card":
+                return "刷卡"
+                break;
+            case "cash":
+                return "现金"
+                break;
+            default:
+                return type
+                break;
+        }
+}
 export default class SettlementContainer extends Component {
     state = {
         menuName: "订单结算",
-        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-        userName: '某某某',
-        userId: '001293398440',
-        payType: 'Ali',
         listPrice: 0,
         salePrice: 0,
         remainAmount: 0,
         discount: 0,
+
         customerMobile: 0,
         customerNo: "",
         customerGrade: 0,
         couponNo: "",
+
         currentPoints: 0,
         availableMileage: 0,
+
+        payments:[],
+
         isSetCustomer: false,
         isSetCoupon: false,
         mileageUsed: false,
@@ -65,11 +88,12 @@ export default class SettlementContainer extends Component {
                         this.setState({ salePrice: 0, discount: 0 });
                     }
                     this.setState({
+                        payments: rs.payments || [],
                         isSetCoupon: rs.couponNo ? true : false,
                         couponNo: rs.couponNo,
                         availableMileage: rs.mileage.available,
                         currentPoints: rs.mileage.current,
-                        mileageUsed: rs.mileage.use===0?false:true,
+                        mileageUsed: rs.mileage.use === 0 ? false : true,
                     });
 
                     if (rs.customerInfo !== null) {
@@ -92,11 +116,6 @@ export default class SettlementContainer extends Component {
                 }
             })
         }
-    }
-    onPayTypeChange = (payType) => {
-        this.setState({
-            payType
-        });
     }
     _inputButtonClick = (type) => {
         if (type === 'customer') {
@@ -226,18 +245,18 @@ export default class SettlementContainer extends Component {
                                 <p style={styles.p}>VIP{this.state.customerGrade}</p>
                             </div>
                             <div className="row-text">
-                                <div>姓&nbsp;&nbsp;&nbsp;名 : {this.state.userName}</div>
+                                <div>手&nbsp;&nbsp;&nbsp;机 : {this.state.customerMobile}</div>
                                 <div>会员号 : {this.state.customerNo}</div>
                                 <div>
                                     积&nbsp;&nbsp;&nbsp;分 :
-                                <span style={{ color: 'orange' }}> {this.state.currentPoints}</span>
+                                    <span style={{ color: 'orange' }}> {this.state.currentPoints}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <Flex style={{ padding: '0.2rem 0.35rem' }} justify="between">
                         <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}元</span></span>
-                        <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 ? true : false} onChange={this._mileageChange} />
+                        <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 || this.state.remainAmount === 0 ? true : false} onChange={this._mileageChange} />
                     </Flex>
                 </List>
             )
@@ -312,33 +331,54 @@ export default class SettlementContainer extends Component {
                 <WhiteSpace />
                 {customerContent}
                 <WhiteSpace />
-                <List>
+                <List style={{marginBottom:"1.24rem"}}>
                     <div style={styles.info}>
                         <p>
-                            金额：
-                            <span style={{ float: 'right' }}>￥{this.state.salePrice}元</span>
+                            价格：
+                            <span style={{ float: 'right' }}>
+                                <span>￥{this.state.listPrice}元</span>
+                            </span>
                         </p>
                         <p>
                             优惠：
                             <span style={{ float: 'right' }}>-￥{this.state.discount}元</span>
                         </p>
+                        <p style={{color: 'orange' }}>
+                            热销价：
+                            <span style={{ float: 'right' }}>
+                                <span>￥{this.state.salePrice}元</span>
+                            </span>
+                        </p>
                         {this.state.mileageUsed ? (
                             <p>
-                                积分：
+                                积分抵现：
                                 <span style={{ float: 'right' }}>-￥{this.state.availableMileage}元</span>
                             </p>
                         ) : null}
+                        {(()=>{
+                            return this.state.payments.map((item,key)=>{
+                                return(
+                                    <p key={key}>
+                                        {formatPayType(item.method)}：
+                                        <span style={{ float: 'right' }}>￥{item.amount}元</span>
+                                    </p>
+                                )
+                            })
+                        })()}
+                        {/*<p style={{color: 'orange'}}>
+                            需支付：
+                                <span style={{ float: 'right' }}>￥{this.state.remainAmount}元</span>
+                        </p>*/}
                     </div>
                 </List>
-                <List>
-                    <div style={styles.total}>
-                        合计：
-                            <span style={{ float: 'right' }}>￥{this.state.remainAmount}元</span>
-                    </div>
-                </List>
-                <WhiteSpace />
 
-                <Button className="btn" type="primary" style={styles.btn} onClick={() => window.location.href = `/#/paylist?availableMileage=${this.state.availableMileage}`}>提交订单</Button>
+                <Flex justify="center" style={{position:"fixed",width:"100%",bottom:"0.2rem"}}>
+                    <Button className="btn" type="primary" 
+                            style={{width:"90%",fontWeight: 'bold',}} 
+                            onClick={() => window.location.href = `/#/paylist?availableMileage=${this.state.availableMileage}`}
+                    >需支付(￥{this.state.remainAmount}元)
+                    </Button>
+                </Flex>
             </div>
         )
     }
@@ -360,33 +400,16 @@ styles = {
         marginRight: '0.35rem',
         backgroundColor: '#f6f6f6'
     },
-    input: {
-        fontSize: '0.25rem',
-        textAlign: 'center',
-        borderRadius: '10px',
-        width: '1.85rem',
-        height: '0.6rem'
-    },
-    // div2: {
-    //     marginBottom: '0.16rem',
-    //     fontSize: '0.4rem'
-    // },
     div2: {
-        // width: '1.8rem',
         fontSize: '0.35rem',
         color: '#42A2EA',
         fontWeight: 'bold',
-        // marginLeft: '0.2rem',
         paddingLeft: '0.35rem'
     },
     div3: {
         // lineHeight: '2',
         lineHeight: '4',
         textAlign: 'left'
-    },
-    div4: {
-        lineHeight: '2',
-        textAlign: 'center'
     },
     coupon: {
         position: 'absolute',
@@ -409,25 +432,6 @@ styles = {
         margin: '0 auto',
         paddingBottom: '1px'
     },
-    total: {
-        width: '75%',
-        // width: '5.5rem',
-        fontSize: '0.35rem',
-        margin: '35px auto 0',
-        paddingBottom: '35px'
-    },
-    pay: {
-        width: '50%',
-        // width: '3.5rem',
-        borderRight: '5px solid #ddd'
-    },
-    paywx: {
-        width: '45%',
-        // width: '3.3rem',
-        position: 'absolute',
-        top: '0',
-        right: '30px'
-    },
     p: {
         width: '1rem',
         margin: '0.55rem auto'
@@ -439,36 +443,6 @@ styles = {
         marginRight: '0.8rem',
         paddingLeft: '0.6rem',
         borderLeft: '1px solid #ececec',
-    },
-    img: {
-        width: '1rem',
-        height: '0.7rem',
-        position: 'absolute',
-        top: '50%',
-        // top: '0.65rem',
-        transform: 'translateY(-50%)',
-        // left:'10%'
-    },
-    img1: {
-        width: '50px',
-        height: '40px'
-    },
-    price: {
-        fontSize: '0.5rem',
-        fontWeight: 'bold',
-        marginLeft: '25%'
-        // marginLeft: '1.5rem'
-    },
-    discount: {
-        color: 'orange',
-        fontWeight: 'bold'
-    },
-    btn: {
-        width: '90%',
-        margin: '7% auto 0',
-        // width: '6.5rem',
-        // margin: '0.5rem auto 0',
-        fontWeight: 'bold'
     },
     btn1: {
         fontSize: '0.35rem',

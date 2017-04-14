@@ -25,6 +25,29 @@ const antAlert = Modal.alert;
 const styles = {};
 const menuName = "支付中心"
 
+const formatPayType = (type) => {
+    switch (type) {
+            case "mileage":
+                return "积分"
+                break;
+            case "ali":
+                return "支付宝"
+                break;
+            case "weixin":
+                return "微信"
+                break;
+            case "card":
+                return "刷卡"
+                break;
+            case "cash":
+                return "现金"
+                break;
+            default:
+                return type
+                break;
+        }
+}
+
 const formatPayMethod = (type) => {
     switch (type) {
         case "mileage":
@@ -55,6 +78,9 @@ export default class PayContainer extends Component {
         salePrice: 0,
         remainAmount: 0,
         payments: [],
+        availableMileage: 0,
+        mileageUse:0,
+
     }
 
     componentWillMount() {
@@ -72,6 +98,8 @@ export default class PayContainer extends Component {
                         salePrice: rs.salePrice,
                         remainAmount: rs.remainAmount,
                         payments: rs.payments || [],
+                        availableMileage: rs.mileage.available,
+                        mileageUse: rs.mileage.use,
                     });
                 }
             })
@@ -130,16 +158,23 @@ export default class PayContainer extends Component {
                 {
                     text: '保存',
                     onPress: (money) => {
-                        console.log(typeof(money))
-                        if (!money) {
-                            Toast.info('金额为空', 1);
+                        console.log(money)
+                        if(money > this.state.remainAmount ){
+                            Toast.info('支付金额过大', 1);
                             return
                         }
-                        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
-                        if(!reg.test(money)){
-                            Toast.info('请输入正确的金额', 1);
-                            return
+                        if (!money && this.state.remainAmount > 0) {
+                            // Toast.info('金额为空', 1);
+                            // return
+                            money = this.state.remainAmount
+                        }else{
+                            var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+                            if(!reg.test(money) || money === "0"){
+                                Toast.info('请输入正确的金额', 1);
+                                return
+                            }
                         }
+                        
                         if (type === "mileage") {
                             cartAPI.setPaymentForMileage(cartId, { "amount": parseFloat(money) }).then(res => {
                                 this.refreshCartData();
@@ -151,7 +186,7 @@ export default class PayContainer extends Component {
                         }
                     }
                 }
-            ]
+            ],'default', this.state.remainAmount
         )
     }
     render() {
@@ -211,10 +246,28 @@ export default class PayContainer extends Component {
                 <List>
                     <div style={styles.total}>
                         <p>
-                            已支付：
-                            <span style={{ float: 'right' }}>￥{this.state.salePrice - this.state.remainAmount}元</span>
+                            价格：
+                            <span style={{ float: 'right' }}>
+                                <span>￥{this.state.salePrice}元</span>
+                            </span>
                         </p>
-                        <p>
+                        {this.state.mileageUse !== 0 ? (
+                            <p>
+                                积分抵现：
+                                <span style={{ float: 'right' }}>-￥{this.state.mileageUse}元</span>
+                            </p>
+                        ) : null}
+                        {(()=>{
+                            return this.state.payments.map((item,key)=>{
+                                return(
+                                    <p key={key}>
+                                        {formatPayType(item.method)}：
+                                        <span style={{ float: 'right' }}>￥{item.amount}元</span>
+                                    </p>
+                                )
+                            })
+                        })()}
+                        <p style={{color: 'orange' }}>
                             未支付：
                             <span style={{ float: 'right' }}>￥{this.state.remainAmount}元</span>
                         </p>
