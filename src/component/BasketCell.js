@@ -23,7 +23,7 @@ export default class BasketCell extends Component {
         //console.log(rowData)
         return (
             <div className="row">
-                <div style={{width:'92%',height:'0.4rem',overflow:'hidden',marginBottom:'-0.2rem'}}>{rowData.sku.name}</div>
+                <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
                 <Flex style={styles.flex}>
                     <div style={{width:'75%'}}>
                         <div style={styles.rowData}>{rowData.sku.code}</div>
@@ -40,7 +40,7 @@ export default class BasketCell extends Component {
                 {(()=>{
                     if(rowData.sku.discountName){
                         return(
-                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden',marginTop:'-0.2rem'}}>{rowData.sku.discountName}</div>
+                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.discountName}</div>
                         )
                     }
                 })()}
@@ -51,10 +51,10 @@ export default class BasketCell extends Component {
 }
 
 styles = {
-    // flex: {
-    //     marginTop: '-0.35rem',
-    //     marginBottom: '-0.35rem'
-    // },
+    flex: {
+        marginTop: '-0.2rem',
+        marginBottom: '-0.2rem'
+    },
     // img: {
     //     height: '1.4rem',
     //     width: "1.4rem",
