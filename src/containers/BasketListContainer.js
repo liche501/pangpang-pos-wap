@@ -72,7 +72,8 @@ export default class BasketList extends Component {
                                     dataSource: this.state.dataSource.cloneWithRows([]),
                                     isLoading:false,
                                     hasMore:false,
-                                    totalPrice: 0
+                                    totalPrice: 0,
+                                    listTotalPrice:0
                     })
                 }
                 else{
