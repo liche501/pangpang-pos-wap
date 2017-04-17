@@ -286,7 +286,7 @@ export default class SettlementContainer extends Component {
                                 优惠券
                             </div>
                             <div style={styles.couponDetail}>
-                                <div style={{ fontSize: "0.32rem",marginTop:'0.3rem' }}>{this.state.couponNo}</div>
+                                <div style={{ fontSize: "0.32rem",marginTop:'0.2rem' }}>{this.state.couponNo}</div>
                                 <span style={styles.date}>2017.05.01~2017.06.01</span>
                             </div>
                         </div>
@@ -412,7 +412,7 @@ styles = {
     },
     couponDetail: {
         position: 'absolute',
-        height: '2.3rem',
+        height: '2.1rem',
         top: 0,
         left: '2rem',
         borderLeft: '1px solid #e8e8e8',
