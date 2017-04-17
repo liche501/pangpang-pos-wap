@@ -29,18 +29,18 @@ export default class BasketCell extends Component {
                         <div style={styles.rowData}>{rowData.sku.code}</div>
                         <div style={{ textAlign: 'left' }}>
                             {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
-                            <span style={styles.discount}>X {rowData.quantity}</span>
+                            <span style={styles.discount}>x {rowData.quantity}</span>
                         </div>
                     </div>
                     <div style={{width:'25%',textAlign:'right'}}>
-                        {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
-                        {rowData.listPrice == rowData.salePrice?<p>￥{rowData.salePrice}</p>:<p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>}
+                        {rowData.listPrice !== rowData.salePrice?<div style={styles.listPrice}>￥{rowData.listPrice}</div>:<div style={styles.listPrice}></div>}
+                        {rowData.listPrice == rowData.salePrice?<div>￥{rowData.salePrice}</div>:<div style={{ color: "#f00" }}>￥{rowData.salePrice}</div>}
                     </div>
                 </Flex>
                 {(()=>{
                     if(rowData.sku.discountName){
                         return(
-                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.discountName}</div>
+                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden',color:'#f00'}}>{rowData.sku.discountName}</div>
                         )
                     }
                 })()}
@@ -52,8 +52,8 @@ export default class BasketCell extends Component {
 
 styles = {
     flex: {
-        marginTop: '-0.2rem',
-        marginBottom: '-0.2rem'
+        // marginTop: '-0.2rem',
+        // marginBottom: '-0.2rem'
     },
     // img: {
     //     height: '1.4rem',
@@ -68,7 +68,7 @@ styles = {
     },
     discount: {
         position: "relative",
-        marginLeft: "20px",
+        marginLeft: "3rem",
     },
     td: {
         width: "2.2rem",
@@ -76,7 +76,8 @@ styles = {
     },
     listPrice: {
         textDecoration: "line-through",
-        minHeight:'36px'
+        minHeight:'36px',
+        marginBottom:'0.2rem'
     },
     item: {
         backgroundColor:'#fff',

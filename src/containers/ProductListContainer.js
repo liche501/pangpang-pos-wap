@@ -32,6 +32,7 @@ export default class ProductListContainer extends Component {
             refreshing:false,
             animating:false,
             modal1: false,
+            discountName:''
         };
     }
 
@@ -104,7 +105,7 @@ export default class ProductListContainer extends Component {
             dataSource: this.state.dataSource.cloneWithRows([]),
         });
         productAPI.searchContents(this.state.searchKey,0,pageSize).then((res)=>{
-            // console.log("searchProducts--->",res.result)
+            console.log("searchProducts--->",res.result)
             // console.log("pageSize==>",pageSize)
             // console.log("pageNum==>",pageNum)
             
@@ -267,6 +268,13 @@ export default class ProductListContainer extends Component {
                         {rowData.listPrice == rowData.salePrice?<p>￥{rowData.salePrice}</p>:<p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>}
                     </div>
                 </Flex>
+                {(()=>{
+                    if(this.state.discountName){
+                        return(
+                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden',color:'#f00'}}>{this.state.discountName}</div>
+                        )
+                    }
+                })()}
             </div>
         );
     }
@@ -309,11 +317,9 @@ export default class ProductListContainer extends Component {
                 <Item style={styles.shoppingCart} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
                                         width:'85%',
-                                        // width:'6rem',
                                         marginLeft:'0.5rem',
                                         position: 'absolute',
                                         top: '47%',
-                                        // top: '0.45rem',
                                         transform: 'translateY(-50%)',
                                         color:'#108ee9',
                                         fontWeight:'bold'
