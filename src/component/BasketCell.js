@@ -22,7 +22,7 @@ export default class BasketCell extends Component {
         let {rowData} = this.props;
         //console.log(rowData)
         return (
-            <div className="row">
+            <div className="row" style={{margin:'-0.1rem 0'}}>
                 <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
                 <Flex style={styles.flex}>
                     <div style={{width:'75%'}}>
