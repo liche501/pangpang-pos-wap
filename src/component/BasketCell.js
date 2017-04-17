@@ -28,7 +28,7 @@ export default class BasketCell extends Component {
                     <div style={{width:'75%'}}>
                         <div style={styles.rowData}>{rowData.sku.code}</div>
                         <div style={{ textAlign: 'left' }}>
-                            {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
+                            {rowData.listPrice !== rowData.salePrice ? <span style={styles.event}>折</span>:<span style={styles.events}></span>}
                             <span style={styles.discount}>x {rowData.quantity}</span>
                         </div>
                     </div>
@@ -96,5 +96,10 @@ styles = {
         height:"0.5rem",
         lineHeight:"0.5rem",
         textAlign:"center",
+    },
+    events:{
+        display:"inline-block",
+        width:"0.5rem",
+        height:"0.5rem",
     }
 }
