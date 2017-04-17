@@ -32,7 +32,7 @@ export default class BasketCell extends Component {
                             <span style={styles.discount}>X {rowData.quantity}</span>
                         </div>
                     </div>
-                    <div style={{width:'20%',textAlign:'center'}}>
+                    <div style={{width:'20%',textAlign:'right',paddingRight:'0.2rem'}}>
                         {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
                         {rowData.listPrice == rowData.salePrice?<p>￥{rowData.salePrice}</p>:<p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>}
                     </div>
