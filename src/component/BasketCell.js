@@ -22,21 +22,28 @@ export default class BasketCell extends Component {
         let {rowData} = this.props;
         //console.log(rowData)
         return (
-            <div className="row">
-                <div style={{width:'92%',margin:'0 auto 0.2rem',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
+            <div className="row" style={{margin:'-0.1rem 0'}}>
+                <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
                 <Flex style={styles.flex}>
-                    <div style={{width:'75%',paddingLeft:'0.3rem'}}>
+                    <div style={{width:'75%'}}>
                         <div style={styles.rowData}>{rowData.sku.code}</div>
                         <div style={{ textAlign: 'left' }}>
                             {rowData.listPrice !== rowData.salePrice && <span style={styles.event}>折</span>}
                             <span style={styles.discount}>X {rowData.quantity}</span>
                         </div>
                     </div>
-                    <div style={{width:'20%',textAlign:'right',paddingRight:'0.2rem'}}>
+                    <div style={{width:'25%',textAlign:'right'}}>
                         {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
                         {rowData.listPrice == rowData.salePrice?<p>￥{rowData.salePrice}</p>:<p style={{ color: "#f00" }}>￥{rowData.salePrice}</p>}
                     </div>
                 </Flex>
+                {(()=>{
+                    if(rowData.sku.discountName){
+                        return(
+                            <div style={{width:'92%',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.discountName}</div>
+                        )
+                    }
+                })()}
             </div>
 
         )
@@ -45,8 +52,8 @@ export default class BasketCell extends Component {
 
 styles = {
     flex: {
-        marginTop: '-0.35rem',
-        marginBottom: '-0.35rem'
+        marginTop: '-0.2rem',
+        marginBottom: '-0.2rem'
     },
     // img: {
     //     height: '1.4rem',
