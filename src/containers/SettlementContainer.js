@@ -240,9 +240,9 @@ export default class SettlementContainer extends Component {
             customerContent = (
                 <List>
                     <div className="row"  >
-                        <div style={styles.div}>
-                            <div style={styles.div1} >
-                                <p style={styles.p}>VIP{this.state.customerGrade}</p>
+                        <div style={styles.customerInfo}>
+                            <div style={styles.vip} >
+                                <p style={styles.vipGrade}>VIP{this.state.customerGrade}</p>
                             </div>
                             <div className="row-text">
                                 <div>手&nbsp;&nbsp;&nbsp;机 : {this.state.customerMobile}</div>
@@ -264,12 +264,12 @@ export default class SettlementContainer extends Component {
             customerContent = (
                 <List>
                     <Item data-seed="logId" style={styles.background}>
-                        <div style={styles.div3}>
+                        <div style={styles.couponInfo}>
                             <div>
-                                <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.btn1}>会员登录</Button>
+                                <Button onClick={() => this._inputButtonClick('customer')} size='small' style={styles.couponChecked}>会员登录</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '3.8rem' }}>
-                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("customer") } }></MdCropFree>
+                                <MdCropFree style={styles.qrCode} onClick={() => { this._scanButtonClick("customer") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -281,12 +281,12 @@ export default class SettlementContainer extends Component {
             couponContent = (
                 <List >
                     <Item data-seed="logId" style={styles.background} >
-                        <div style={styles.div3}>
-                            <div style={styles.div2}>
+                        <div style={styles.couponInfo}>
+                            <div style={styles.coupon}>
                                 优惠券
                             </div>
-                            <div style={styles.coupon}>
-                                <div style={{ fontSize: "0.32rem",marginTop:'0.3rem' }}>{this.state.couponNo}</div>
+                            <div style={styles.couponDetail}>
+                                <div style={{ fontSize: "0.32rem",marginTop:'0.2rem' }}>{this.state.couponNo}</div>
                                 <span style={styles.date}>2017.05.01~2017.06.01</span>
                             </div>
                         </div>
@@ -297,12 +297,12 @@ export default class SettlementContainer extends Component {
             couponContent = (
                 <List>
                     <Item data-seed="logId" style={styles.background}>
-                        <div style={styles.div3}>
+                        <div style={styles.couponInfo}>
                             <div>
-                                <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.btn1}>查询优惠券</Button>
+                                <Button onClick={() => this._inputButtonClick('coupon')} size='small' style={styles.couponChecked}>查询优惠券</Button>
                             </div>
                             <div style={{ position: 'absolute', top: 7, left: '3.8rem' }}>
-                                <MdCropFree style={styles.span} onClick={() => { this._scanButtonClick("coupon") } }></MdCropFree>
+                                <MdCropFree style={styles.qrCode} onClick={() => { this._scanButtonClick("coupon") } }></MdCropFree>
                             </div>
                         </div>
                     </Item>
@@ -332,7 +332,7 @@ export default class SettlementContainer extends Component {
                 {customerContent}
                 <WhiteSpace />
                 <List style={{marginBottom:"1.24rem"}}>
-                    <div style={styles.info}>
+                    <div style={styles.price}>
                         <p>
                             价格：
                             <span style={{ float: 'right' }}>
@@ -388,11 +388,11 @@ styles = {
     background: {
         backgroundColor: '#fff'
     },
-    div: {
+    customerInfo: {
         display: 'flex',
         padding: '0.3rem 0 0.2rem'
     },
-    div1: {
+    vip: {
         height: '1.7rem',
         width: '2rem',
         fontSize: '0.5rem',
@@ -400,20 +400,19 @@ styles = {
         marginRight: '0.35rem',
         backgroundColor: '#f6f6f6'
     },
-    div2: {
+    coupon: {
         fontSize: '0.45rem',
         color: '#42A2EA',
         fontWeight: 'bold',
         paddingLeft: '0.2rem'
     },
-    div3: {
-        // lineHeight: '2',
+    couponInfo: {
         lineHeight: '4',
         textAlign: 'left'
     },
-    coupon: {
+    couponDetail: {
         position: 'absolute',
-        height: '2.3rem',
+        height: '2.1rem',
         top: 0,
         left: '2rem',
         borderLeft: '1px solid #e8e8e8',
@@ -421,22 +420,20 @@ styles = {
     },
     date: {
         fontSize: '0.2rem',
-        // marginTop: '-0.15rem'
         position: 'relative',
         top: '-0.9rem'
     },
-    info: {
+    price: {
         width: '75%',
-        // width: '5.5rem',
         fontSize: '0.35rem',
         margin: '0 auto',
         paddingBottom: '1px'
     },
-    p: {
+    vipGrade: {
         width: '1rem',
         margin: '0.55rem auto'
     },
-    span: {
+    qrCode: {
         color: '#42A2EA',
         fontSize: '1.2rem',
         marginLeft: '0.5rem',
@@ -444,7 +441,7 @@ styles = {
         paddingLeft: '0.6rem',
         borderLeft: '1px solid #ececec',
     },
-    btn1: {
+    couponChecked: {
         fontSize: '0.35rem',
         marginLeft: '0.8rem',
         display: 'inline-block',

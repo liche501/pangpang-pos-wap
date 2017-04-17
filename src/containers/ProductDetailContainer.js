@@ -210,14 +210,14 @@ export default class ProductDetailContainer extends Component {
                 <List renderHeader={() => (
                     <div style={{ position: 'relative' }} >
                         物品选择
-                        <span style={styles.span} onClick={this.onClose}>
+                        <span style={styles.icon} onClick={this.onClose}>
                             <Icon type="cross"  />
                         </span>
                     </div>)}
                     className="popup-list"
                     >
                     <div style={{ margin: '0 auto' }}>
-                        <table style={styles.table}>
+                        <table style={styles.productChoose}>
                             <tbody>
                                 <tr>
                                     <td style={{textAlign:'center',width:'30%'}}>
@@ -231,7 +231,7 @@ export default class ProductDetailContainer extends Component {
                                     <td style={{textAlign:'left'}}>
                                     {
                                         this.state.selectedSku !== null ?
-                                            <ul style={styles.ul}>
+                                            <ul style={styles.productInfo}>
                                                 <li style={{height:'0.5rem',overflow:'hidden'}}>{this.state.selectedSku.name.length>40?this.state.selectedSku.name.substring(0,40)+'...':this.state.selectedSku.name}</li>
                                                 <li>货号 : {this.state.selectedSku.code}</li>
                                                 <li>价格 : {this.state.selectedSku.salePrice}</li>
@@ -239,7 +239,7 @@ export default class ProductDetailContainer extends Component {
                                                 <li>颜色 : {this.state.selectedSku.options[1].v}</li>
                                             </ul>
                                             :
-                                            <ul style={styles.ul}>
+                                            <ul style={styles.productInfo}>
                                                 <li> </li>
                                                 <li>货号 : </li>
                                                 <li>价格 : </li>
@@ -255,23 +255,23 @@ export default class ProductDetailContainer extends Component {
                     <List style={this.state.pdStyle}>
                         <List >
                             <div style={{ margin: '0.2rem auto' }}>
-                                <p style={styles.txt}>尺码</p>
-                                <Flex wrap="wrap" id='flex' style={styles.table}>
+                                <p style={styles.choose}>尺码</p>
+                                <Flex wrap="wrap" id='flex' style={styles.productChoose}>
                                     {sizeContent}
                                 </Flex>
                             </div>
                         </List>
                         <List>
                             <div style={{ margin: '0.2rem auto' }}>
-                                <p className='productColor' style={styles.txt}>颜色</p>
-                                <Flex wrap="wrap" id='flex' style={styles.table}>
+                                <p className='productColor' style={styles.choose}>颜色</p>
+                                <Flex wrap="wrap" id='flex' style={styles.productChoose}>
                                     {colorContent}
                                 </Flex>
                             </div>
                         </List>
                         <List.Item style={{ backgroundColor: '#fff' }} extra={
                             <Stepper
-                                style={styles.stepper}
+                                style={styles.count}
                                 showNumber min={1} value={this.state.qtyCount} onChange={this.onChange}
                                 />}
                             wrap
@@ -289,38 +289,31 @@ export default class ProductDetailContainer extends Component {
 }
 
 styles = {
-    div: {
-        marginBottom:'-0.1rem',
-        marginRight:'0.2rem',
-    },
-    span: {
+    // div: {
+    //     marginBottom:'-0.1rem',
+    //     marginRight:'0.2rem',
+    // },
+    icon: {
         position: 'absolute',
         right: 3,
         top: -5,
     },
-    table: {
+    productChoose: {
         width: '92%',
-        // width: '6.6rem',
         margin: '0 auto',
         fontSize:'0.25rem' , 
     },
-    ul: {
+    productInfo: {
         listStyle: 'none',
         lineHeight: '0.5rem',
         paddingLeft:0, 
     },
-    txt: {
+    choose: {
         width: '92%',
-        // width: '6.6rem',
         margin: '0.2rem auto 0.1rem'
     },
-    step: {
-        padding: '0 0.3rem',
-        listStyle: 'none' 
-    },
-    stepper: {
+    count: {
         width: '100%',
-        // width: '2.37rem',
         minWidth: '2rem' 
     }
 }

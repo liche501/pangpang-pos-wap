@@ -158,10 +158,10 @@ export default class BasketList extends Component {
                         </div>
                     </div>
                 </Item>
-                <div id="productList" style={styles.div}>
+                <div id="productList" style={styles.foot}>
                      <ListView ref="lv"
                         dataSource={this.state.dataSource}
-                        renderFooter={() => <div style={styles.foot}>
+                        renderFooter={() => <div style={styles.footInfo}>
                             {this.state.hasMore?(this.state.isLoading ? '加载中...' : ''):"没有数据"}
                             </div>}
                         renderRow={this._renderRow}
@@ -192,12 +192,10 @@ styles = {
         height:100,
         padding: '0 0.5rem'
     },
-    div: {
-        margin: '0 auto',
-        // width: '96%'  
-        // width: '6.9rem'  
-    },
     foot: {
+        margin: '0 auto',
+    },
+    footInfo: {
         paddingTop: 10,
         textAlign: 'center' 
     }

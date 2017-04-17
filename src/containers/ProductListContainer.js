@@ -304,7 +304,7 @@ export default class ProductListContainer extends Component {
                     text="正在加载"
                     animating={this.state.animating}
                 />
-                <Item style={styles.item} arrow="horizontal" onClick={this._topContentClick}>
+                <Item style={styles.shoppingCart} arrow="horizontal" onClick={this._topContentClick}>
                     <div style={{display:'inline-block',
                                         width:'85%',
                                         // width:'6rem',
@@ -366,35 +366,18 @@ styles = {
         height: '1.4rem',
         width: "1.4rem",
         marginRight: '0.4rem',
-        // marginBottom:'0.01rem',
-        // border: '0.5px solid gray',
-    },
-    img1: {
-        width: "50px",
-        height: "50px"
     },
     rowData: {
         marginBottom: '0.16rem',
-        // height:'0.65rem',
         height:'0.6rem',
         overflow:'hidden',
         textAlign: "left"
-    },
-    discount: {
-        position: "relative",
-        marginLeft: "20px",
-        bottom: "12px" 
-    },
-    td: {
-        width: "2.2rem",
-        // width: 200,
-        textAlign:'center' 
     },
     listPrice: {
         textDecoration: "line-through",
         minHeight:'36px'
     },
-    item: {
+    shoppingCart: {
         backgroundColor:'#fff',
         borderBottom:'1px solid #eee',
         height:100

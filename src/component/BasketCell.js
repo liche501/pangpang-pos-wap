@@ -24,7 +24,7 @@ export default class BasketCell extends Component {
         return (
             <div className="row">
                 <div style={{width:'91%',margin:'0 auto 0.2rem',height:'0.4rem',overflow:'hidden'}}>{rowData.sku.name}</div>
-                <Flex style={styles.div}>
+                <Flex style={styles.flex}>
                     <div style={{width:'75%',paddingLeft:'0.3rem'}}>
                         <div style={styles.rowData}>{rowData.sku.code}</div>
                         <div style={{ textAlign: 'left' }}>
@@ -44,48 +44,31 @@ export default class BasketCell extends Component {
 }
 
 styles = {
-    div: {
-        // display: 'flex',
+    flex: {
         marginTop: '-0.35rem',
         marginBottom: '-0.35rem'
     },
-    div1: {
-        margin: '0 auto',
-        width: '96%' 
-    },
-    img: {
-        height: '1.4rem',
-        width: "1.4rem",
-        marginRight: '0.4rem',
-        // paddingTop:'0.2rem',
-        // marginBottom:'0.01rem',
-        // border: '0.5px solid gray',
-    },
-    img1: {
-        width: "50px",
-        height: "50px"
-    },
+    // img: {
+    //     height: '1.4rem',
+    //     width: "1.4rem",
+    //     marginRight: '0.4rem',
+    // },
     rowData: {
         marginBottom: '0.2rem',
-        // width:'80%',
         height:'0.35rem',
         overflow:'hidden',
         textAlign: "left",
-        // paddingLeft:'0.3rem'
     },
     discount: {
         position: "relative",
         marginLeft: "20px",
-        // bottom: "12px" 
     },
     td: {
         width: "2.2rem",
-        // width: 200,
         textAlign:'center' 
     },
     listPrice: {
         textDecoration: "line-through",
-        // display:'none'
         minHeight:'36px'
     },
     item: {
