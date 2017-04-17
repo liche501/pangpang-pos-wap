@@ -16,6 +16,7 @@ const pageSize = 10;
 const Item = List.Item;
 let styles = {};
 let skusData = [], productStyles = {},tempScanData = "";
+ 
 export default class ProductListContainer extends Component {
     constructor(props) {
         super(props);
@@ -175,7 +176,6 @@ export default class ProductListContainer extends Component {
         />
     )
     scanQRCode = () => {
-        this.changeLoading()
         let self = this;
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
@@ -185,7 +185,7 @@ export default class ProductListContainer extends Component {
                 // self.getSku("EEAA8A011101000")
                 tempScanData = result.trim()
                 self.getSku(result.trim())
-                // self.getSku("EAG116641160")
+                // self.getSku("EEKW72402R15160")
             }
         })
     }
@@ -193,6 +193,7 @@ export default class ProductListContainer extends Component {
         this.setState({animating:!this.state.animating});
     }
     getSku = (scanData) =>{
+        this.changeLoading()
         productAPI.searchSkus(scanData,0,pageSize).then(res => {
             // console.log(res.result)
             if(res.success ){
@@ -202,17 +203,17 @@ export default class ProductListContainer extends Component {
                     let targetColor = item.options[1].v
                     let contentId = item.contentId
                     return {contentId,targetSize,targetColor};
-                }else{
-                    this.changeLoading()
-                    
                 }
             }else{
-                this.changeLoading()
                 throw new Error("查询失败")
             }
         }).then((resSku) => {
             productAPI.getContentById(resSku.contentId).then(res => {
-                return res.result
+                if(res.success){
+                    return res.result
+                }else{
+                    this.changeLoading()
+                }
             }).then(resContent => {
                 skusData = resContent.skus;
                 productStyles = resContent.options;
@@ -227,6 +228,7 @@ export default class ProductListContainer extends Component {
             })
         }).catch(err => {
             console.error(err.message)
+            this.changeLoading()
             this.setState({modal1:true});
             // Toast.fail(err.message, 2);
         });
