@@ -236,7 +236,7 @@ export default class PayContainer extends Component {
                         <div style={{ width: '49%', position: 'absolute', top: '-1.6rem', left: '51%' }}>
                             <RadioItem className='pay-am-list-item-middle' key='Wxpay' checked={false} onClick={() => this._inputButtonClick("weixin")}>
                                 <div style={styles.pay} >
-                                    <img src={pay2} style={styles.img1} alt="" /> &nbsp;
+                                    <img src={pay2} style={styles.img} alt="" /> &nbsp;
                                     <span>微&nbsp;信</span>
                                 </div>
                             </RadioItem>
@@ -244,7 +244,7 @@ export default class PayContainer extends Component {
                     </List>
                 </div>
                 <List>
-                    <div style={styles.total}>
+                    <div style={styles.totalPrice}>
                         <p>
                             价格：
                             <span style={{ float: 'right' }}>
@@ -291,14 +291,7 @@ styles = {
         margin:'0.3rem',
         fontSize:'0.35rem' 
     },
-    paywx: {
-        width: '43%',
-        // width: '3.3rem',
-        position: 'absolute',
-        top: '0',
-        right: '30px'
-    },
-    img1: {
+    img: {
         width: '50px',
         height: '40px'
     },
@@ -309,9 +302,8 @@ styles = {
         margin: '0 auto',
         paddingBottom: '1px'
     },
-    total: {
+    totalPrice: {
         width: '75%',
-        // width: '5.5rem',
         fontSize: '0.35rem',
         margin: '35px auto 0',
         paddingBottom: '1px'
@@ -319,8 +311,6 @@ styles = {
     btn: {
         width: '90%',
         margin: '7% auto 0',
-        // width: '6.5rem',
-        // margin: '0.5rem auto 0',
         fontWeight: 'bold'
     },
 }
