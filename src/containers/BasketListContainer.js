@@ -131,7 +131,8 @@ export default class BasketList extends Component {
                                 </span>
                                 
                                 <span>
-                                     ¥{item.salePrice}
+                                     {item.listPrice !== item.salePrice?<span style={{"textDecoration":"line-through",color:"#999999"}}>¥{item.listPrice}</span>:null}
+                                     &nbsp;<span>¥{item.salePrice}</span>
                                 </span>
                             </Flex>
                         )
