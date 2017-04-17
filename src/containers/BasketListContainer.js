@@ -23,8 +23,9 @@ export default class BasketList extends Component {
             isLoading: false,
             hasMore: true,
             totalPrice: 0,
-            listPrice:0,
+            listTotalPrice:0,
             qty: 0,
+            discountName:''
         };
     }
     componentDidMount() {
@@ -153,7 +154,7 @@ export default class BasketList extends Component {
                                 }}>
                         <div style={{float:'left'}}>Total</div>
                         <div style={{float:'right'}}>
-                            {this.state.listTotalPrice !== this.state.totalPrice?<span style={styles.listTotalPrice}>￥{this.state.listTotalPrice}</span>:<span style={styles.listTotalPrice}></span>}
+                            {this.state.listTotalPrice !== this.state.totalPrice?<span style={styles.listTotalPrice}>￥{this.state.listTotalPrice}</span>:<span></span>}
                             <span>￥{this.state.totalPrice}</span>
                         </div>
                     </div>
