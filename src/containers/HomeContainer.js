@@ -54,8 +54,8 @@ export default class Home extends Component {
                 {tempMenuData.map((menu, index) => {
                     if (index === 0) {
                         return (
-                            <div style={{ backgroundColor: "#22242f", color: "white", width:'90%',margin:'0 auto',borderBottom:'1px solid #fff' }}>
-                                <List.Item key={index} 
+                            <div key={index}  style={{ backgroundColor: "#22242f", color: "white", width:'90%',margin:'0 auto',borderBottom:'1px solid #fff' }}>
+                                <List.Item 
                                     multipleLine
                                     >
                                     <div className="home-box">
@@ -67,8 +67,8 @@ export default class Home extends Component {
                         );
                     }
                     return (
-                        <div style={{ width: '90%', margin: '0 auto', borderBottom: '1px solid #fff' }}>
-                            <List.Item key={menu.menuCode} onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) } }
+                        <div key={index} style={{ width: '90%', margin: '0 auto', borderBottom: '1px solid #fff' }}>
+                            <List.Item onClick={(menuCode, menuName) => { this.selectMenuClick(menu.menuCode, menu.menuName) } }
                                 >
                                 <div style={{ backgroundColor: '#22242E', color: "#fff", textAlign: 'center' }}>{menu.menuName}</div>
                             </List.Item>

@@ -22,8 +22,8 @@ export default class ProductListContainer extends Component {
         const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         this.state = {
             dataSource: dataSource.cloneWithRows([]),
-            isLoading: true,
-            hasMore:true,
+            isLoading: false,
+            hasMore:false,
             // searchKey:"EEAB7",
             searchKey:"",
             totalPrice: 0,
@@ -86,7 +86,7 @@ export default class ProductListContainer extends Component {
 
         if(cartId){
             cartAPI.getCartById(cartId).then(res=>{
-                    console.log('====>',res.result)
+                    // console.log('====>',res.result)
                     if(res.success && res.result.items !== null ){
                         this.setState({ totalPrice: res.result.salePrice, totalCount: res.result.quantity });
                     }else{
@@ -97,15 +97,25 @@ export default class ProductListContainer extends Component {
     }
     
     searchProducts= ()=>{   
+        this.setState({
+            isLoading:true,
+            hasMore:true,
+            dataSource: this.state.dataSource.cloneWithRows([]),
+        });
         productAPI.searchContents(this.state.searchKey,0,pageSize).then((res)=>{
-            // console.log(res.result)
+            // console.log("searchProducts--->",res.result)
+            // console.log("pageSize==>",pageSize)
+            // console.log("pageNum==>",pageNum)
+            
             if(res.success && res.result.items !== null){
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(res.result.items),
-                    isLoading: false,
+                    isLoading:false,
                 });
-                if (res.result.items.length<pageSize){
-                    this.setState({hasMore:false,isLoading:false})
+                if (res.result.items.length < pageSize){
+                    this.setState({hasMore:false})
+                }else{
+                    this.setState({hasMore:true})
                 }
             }else{
                     this.setState({
@@ -118,16 +128,19 @@ export default class ProductListContainer extends Component {
     }
 
     searchMoreProducts =  () => {
+        // console.log("searchMoreProducts>>")
         pageNum++;
         productAPI.searchContents(this.state.searchKey,pageSize * pageNum,pageSize).then((res)=>{
             if(res.success && res.result.items !== null){
-                // console.log(res.result)
+                console.log("searchMoreProducts>>",res.result)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows([...this.state.dataSource._dataBlob.s1, ...res.result.items]),
                     isLoading: false,
                 });
-                if (res.result.items.length<pageSize){
-                    this.setState({hasMore:false,isLoading:false})
+                if (res.result.items.length < pageSize){
+                    this.setState({hasMore:false})
+                }else{
+                    this.setState({hasMore:true})
                 }
             }else{
                     this.setState({hasMore:false,isLoading:false})
@@ -142,15 +155,15 @@ export default class ProductListContainer extends Component {
     };
 
     onEndReached = (event) => {
-        // hasMore: from backend data, indicates whether it is the last page, here is false
-        if (this.state.isLoading && !this.state.hasMore) {
+        if (this.state.isLoading || !this.state.hasMore) {
             return;
         }
-        // console.log('reach end', event);
         this.setState({ isLoading: true });
+
         setTimeout(() => {
             this.searchMoreProducts();
         }, 500);
+        
     }
     separator = (sectionID, rowID) => (
         <div key={`${sectionID}-${rowID}`} style={{
@@ -245,6 +258,7 @@ export default class ProductListContainer extends Component {
                         <div style={{ textAlign: 'left' }}>
                             {rowData.code}
                         </div>
+                        
                     </div>
                     <div style={{width:'18%',textAlign:'right'}}>
                         {rowData.listPrice !== rowData.salePrice?<p style={styles.listPrice}>￥{rowData.listPrice}</p>:<p style={styles.listPrice}></p>}
@@ -331,11 +345,11 @@ export default class ProductListContainer extends Component {
                             height: document.documentElement.clientHeight - 90 - 88 - 90 - 40,
                             overflow: 'auto',
                         }}
-                        pageSize={pageSize}
                         scrollRenderAheadDistance={500}
                         scrollEventThrottle={20}
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
+                        pageSize={pageSize}
                         refreshControl={<RefreshControl
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
