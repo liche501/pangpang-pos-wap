@@ -248,13 +248,13 @@ export default class PayContainer extends Component {
                         <p>
                             价格：
                             <span style={{ float: 'right' }}>
-                                <span>￥{this.state.salePrice}元</span>
+                                <span>￥{this.state.salePrice}</span>
                             </span>
                         </p>
                         {this.state.mileageUse !== 0 ? (
                             <p>
                                 积分抵现：
-                                <span style={{ float: 'right' }}>-￥{this.state.mileageUse}元</span>
+                                <span style={{ float: 'right' }}>￥-{this.state.mileageUse}</span>
                             </p>
                         ) : null}
                         {(()=>{
@@ -262,14 +262,14 @@ export default class PayContainer extends Component {
                                 return(
                                     <p key={key}>
                                         {formatPayType(item.method)}：
-                                        <span style={{ float: 'right' }}>￥{item.amount}元</span>
+                                        <span style={{ float: 'right' }}>￥{item.amount}</span>
                                     </p>
                                 )
                             })
                         })()}
                         <p style={{color: 'orange' }}>
                             未支付：
-                            <span style={{ float: 'right' }}>￥{this.state.remainAmount}元</span>
+                            <span style={{ float: 'right' }}>￥{this.state.remainAmount}</span>
                         </p>
                     </div>
                 </List>
@@ -278,7 +278,7 @@ export default class PayContainer extends Component {
                         style={styles.btn} 
                         disabled={this.state.remainAmount===0?false:true}  
                         onClick={() => this._placeOrderClick()}
-                >确认支付￥{this.state.salePrice}元
+                >确认支付￥{this.state.salePrice}
                 </Button>
             </div>
         )

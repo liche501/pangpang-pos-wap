@@ -255,7 +255,7 @@ export default class SettlementContainer extends Component {
                         </div>
                     </div>
                     <Flex style={{ padding: '0.2rem 0.35rem', borderTop: '1px solid #ececec' }} justify="between">
-                        <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}元</span></span>
+                        <span>可用积分<span style={{ color: 'orange' }}>{this.state.availableMileage}</span>, 冲抵<span style={{ color: 'orange' }}>¥{this.state.availableMileage}</span></span>
                         <Switch style={{ }} checked={this.state.mileageUsed} disabled={this.state.availableMileage === 0 || this.state.remainAmount === 0 ? true : false} onChange={this._mileageChange} />
                     </Flex>
                 </List>
@@ -336,23 +336,23 @@ export default class SettlementContainer extends Component {
                         <p>
                             价格：
                             <span style={{ float: 'right' }}>
-                                <span>￥{this.state.listPrice}元</span>
+                                <span>￥{this.state.listPrice}</span>
                             </span>
                         </p>
                         <p>
                             优惠：
-                            <span style={{ float: 'right' }}>-￥{this.state.discount}元</span>
+                            <span style={{ float: 'right' }}>￥-{this.state.discount}</span>
                         </p>
                         <p style={{color: 'orange' }}>
                             热销价：
                             <span style={{ float: 'right' }}>
-                                <span>￥{this.state.salePrice}元</span>
+                                <span>￥{this.state.salePrice}</span>
                             </span>
                         </p>
                         {this.state.mileageUsed ? (
                             <p>
                                 积分抵现：
-                                <span style={{ float: 'right' }}>-￥{this.state.availableMileage}元</span>
+                                <span style={{ float: 'right' }}>￥-{this.state.availableMileage}</span>
                             </p>
                         ) : null}
                         {(()=>{
@@ -360,14 +360,14 @@ export default class SettlementContainer extends Component {
                                 return(
                                     <p key={key}>
                                         {formatPayType(item.method)}：
-                                        <span style={{ float: 'right' }}>￥{item.amount}元</span>
+                                        <span style={{ float: 'right' }}>￥{item.amount}</span>
                                     </p>
                                 )
                             })
                         })()}
                         {/*<p style={{color: 'orange'}}>
                             需支付：
-                                <span style={{ float: 'right' }}>￥{this.state.remainAmount}元</span>
+                                <span style={{ float: 'right' }}>￥{this.state.remainAmount}</span>
                         </p>*/}
                     </div>
                 </List>
@@ -376,7 +376,7 @@ export default class SettlementContainer extends Component {
                     <Button className="btn" type="primary" 
                             style={{width:"90%",fontWeight: 'bold',}} 
                             onClick={() => window.location.href = `/#/paylist?availableMileage=${this.state.availableMileage}`}
-                    >需支付(￥{this.state.remainAmount}元)
+                    >需支付(￥{this.state.remainAmount})
                     </Button>
                 </Flex>
             </div>

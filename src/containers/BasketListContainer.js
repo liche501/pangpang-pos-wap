@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SwipeAction, List, ListView ,Flex} from 'antd-mobile';
+import { SwipeAction, List, ListView ,Flex ,Toast} from 'antd-mobile';
 import Navi from '../component/Navi.js';
 import BasketCell from '../component/BasketCell';
 import productAPI from '../api/product.js';
@@ -112,6 +112,13 @@ export default class BasketList extends Component {
                 </SwipeAction>
         );
     }
+    _goSettlement = () => {
+        if(this.state.qty > 0){
+            window.location="/#/settlement"
+        }else{
+            Toast.info("请选择商品",1)
+        }
+    }
     render() {
         return (
             <div style={{background:'#fff'}}>
@@ -120,7 +127,7 @@ export default class BasketList extends Component {
                        rightText="结算" 
                        title={`购物车(${this.state.qty})`} 
                        onLeftClick={()=>{history.back()}} 
-                       onRightClick={()=>{window.location="/#/settlement"}}
+                       onRightClick={this._goSettlement}
                 />
                 <div style={{width:"100%",backgroundColor:"#45d3c6",position:"fixed",bottom:0,color:"white",fontSize:"0.3rem"}}>
                 
